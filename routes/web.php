@@ -34,6 +34,9 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 //
 Route::get('/admin/dashboard', [DashboardController::class,'index'])->name('admin.dashboard.index');
 Route::get('/admin/pengajuancuti', [PengajuancutiController::class,'index'])->name('admin.pengajuancuti.index');
+// Route::get('/admin/pengajuancuti', [CutiController::class,'index'])->name('admin.pengajuancuti.index');
+Route::get('/admin/pengajuancuti/create', [PengajuancutiController::class,'create'])->name('admin.pengajuancuti.create');
+Route::post('/admin/pengajuancuti/store', [PengajuancutiController::class,'store'])->name('admin.pengajuancuti.store');
 Route::get('/admin/perjalanandinas', [PerjalanandinasController::class,'index'])->name('admin.perjalanandinas.index');
 Route::get('/admin/karyawan', [KaryawanController::class,'index'])->name('admin.karyawan.index');
 Route::get('/admin/mitra', [MitraController::class,'index'])->name('admin.mitra.index');

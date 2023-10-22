@@ -3,31 +3,19 @@
     <i class="fa fa-chevron-left menu-icon"></i>
     <ul class="sidenav">
         <li style="cursor: pointer;" onclick="window.location='{{ route('admin.dashboard.index') }}';">
-            <i class="fa fa-home"></i> Beranda
+            <i class="fa fa-home"></i> <a>Beranda</a>
         </li>
         <li style="cursor: pointer;" onclick="window.location='{{ route('admin.pengajuancuti.index') }}';">
-            <i class="fa fa-file-text"></i> Cuti
+            <i class="fa fa-file-text"></i> <a>Cuti</a>
         </li>
-        <!-- <ul class="dropdown">
-                    <li><a href="PengajuanCuti.html"><span class="dot1"></span> Pengajuan Cuti</a></li>
-                    <li><a href="ApprovalCuti.html"><span class="dot1"></span> Persetujuan Cuti</a></li>
-                </ul> -->
         <li style="cursor: pointer;" onclick="window.location='{{ route('admin.perjalanandinas.index') }}';">
-            <i class="fa fa-plane"></i> Perjalanan Dinas
+            <i class="fa fa-plane"></i> <a >Perjalanan Dinas</a>
         </li>
-        <!-- <ul class="dropdown1">
-                    <li><a href="Dinas.html"><span class="dot2"></span> Dinas</a></li>
-                    <li><a href="#"><span class="dot2"></span> Laporan</a></li>
-                </ul> -->
         <li style="cursor: pointer;" onclick="window.location='{{ route('admin.karyawan.index') }}';">
-            <i class="fa fa-users"></i> Karyawan
+            <i class="fa fa-users"></i> <a >Karyawan</a>
         </li>
-        <!-- <ul class="dropdown2">
-                    <li><a href="Karyawan.html"><span class="dot3"></span> Daftar Karyawan</a></li>
-                    <li><a href="Kontrak.html"><span class="dot3"></span> Kontrak Kerja</a></li>
-                </ul> -->
         <li style="cursor: pointer;" onclick="window.location='{{ route('admin.mitra.index') }}';">
-            <i class="fa fa-building"></i> Mitra Perusahaan
+            <i class="fa fa-building"></i> <a>Mitra Perusahaan</a>
         </li>
         <li>
             <i class="fa fa-folder-open"></i>
@@ -57,7 +45,6 @@
                     <i class="fa fa-sign-out"></i>
                 </a>
             </div>
-            <!-- <span class="span3"><i class="fa fa-sign-out"></i></span> -->
         </div>
     </div>
 </div>

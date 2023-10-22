@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\CutiRequest;
-use App\Models\Cuti;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+namespace App\Http\Controllers\Admin;
 
-class PengajuancutiController extends Controller
+use App\Http\Controllers\Controller;
+use App\Cuti;
+use Illuminate\Http\Request;
+
+class CutiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,7 +29,7 @@ class PengajuancutiController extends Controller
      */
     public function create()
     {
-        return view('admin.pengajuancuti.create');
+        //
     }
 
     /**
@@ -39,12 +38,9 @@ class PengajuancutiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CutiRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->all();
-
-        Cuti::create($data);
-        return redirect()->route('admin.pengajuancuti.index');
+        //
     }
 
     /**
@@ -92,16 +88,3 @@ class PengajuancutiController extends Controller
         //
     }
 }
-// {
-//     public function index()
-//     {
-//         // Logika untuk menampilkan halaman dashboard
-//         return view('admin.pengajuancuti.index');
-//     }
-
-//     public function create()
-//     {
-//         // Logika untuk menampilkan halaman dashboard
-//         return view('admin.pengajuancuti.create');
-//     }
-// }

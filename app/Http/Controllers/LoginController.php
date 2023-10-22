@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -13,6 +14,7 @@ class LoginController extends Controller
     }
     function login_proses(Request $request)
     {
+        Session::flash('email', $request -> email);
         $request->validate(
             [
 

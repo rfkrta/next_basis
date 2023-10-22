@@ -28,16 +28,16 @@ Route::get('/', function () {
 //     return redirect('/admin.dashboard.index');
 // });
 //login
-Route::get('/login',[LoginController::class,'index'])->name('auth.login');
-Route::post('/',[LoginController::class,'login_proses'])->name('login-proses');
+Route::get('/login', [LoginController::class, 'index'])->name('auth.login');
+Route::post('/', [LoginController::class, 'login_proses'])->name('login-proses');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 //
-Route::get('/admin/dashboard', [DashboardController::class,'index'])->name('admin.dashboard.index');
-Route::get('/admin/pengajuancuti', [PengajuancutiController::class,'index'])->name('admin.pengajuancuti.index');
-Route::get('/admin/perjalanandinas', [PerjalanandinasController::class,'index'])->name('admin.perjalanandinas.index');
-Route::get('/admin/karyawan', [KaryawanController::class,'index'])->name('admin.karyawan.index');
-Route::get('/admin/mitra', [MitraController::class,'index'])->name('admin.mitra.index');
-Route::get('/admin/dataperusahaan/inventaris', [InventarisController::class,'index'])->name('admin.dataperusahaan.inventaris.index');
-Route::get('/admin/dataperusahaan/router', [RouterController::class,'index'])->name('admin.dataperusahaan.router.index');
 
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->middleware('laravel10')->name('admin.dashboard.index');
+    Route::get('/admin/pengajuancuti', [PengajuancutiController::class, 'index'])->middleware('laravel10')->name('admin.pengajuancuti.index');
+    Route::get('/admin/perjalanandinas', [PerjalanandinasController::class, 'index'])->middleware('laravel10')->name('admin.perjalanandinas.index');
+    Route::get('/admin/karyawan', [KaryawanController::class, 'index'])->middleware('laravel10')->name('admin.karyawan.index');
+    Route::get('/admin/mitra', [MitraController::class, 'index'])->middleware('laravel10')->name('admin.mitra.index');
+    Route::get('/admin/dataperusahaan/inventaris', [InventarisController::class, 'index'])->middleware('laravel10')->name('admin.dataperusahaan.inventaris.index');
+    Route::get('/admin/dataperusahaan/router', [RouterController::class, 'index'])->middleware('laravel10')->name('admin.dataperusahaan.router.index');
 

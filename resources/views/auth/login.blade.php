@@ -37,7 +37,7 @@
                     </div>
                     <div class="div">
                         <h5>Email</h5>
-                        <input type="email" value="{{old ('email')}}" name="email" class="input">
+                        <input type="email" value="{{ Session::get('email') }}" name="email" class="input">
                     </div>
                 </div>
                 <div class="input-div pass">

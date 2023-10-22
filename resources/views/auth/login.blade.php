@@ -46,7 +46,7 @@
                     </div>
                     <div class="div">
                         <h5>Password</h5>
-                        <input type="password" name="password" class="form-control">
+                        <input type="password" name="password" class="input form-control">
                     </div>
                 </div>
                 <div class="mb-3 d-grid">
@@ -55,7 +55,7 @@
             </form>
         </div>
     </div>
-    <script type="text/javascript" src="js/login.js"></script>
+    <script type="text/javascript" src="admin/js/main.js"></script>
 </body>
 
 </html>

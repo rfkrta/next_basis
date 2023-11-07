@@ -12,7 +12,7 @@
             </div>
             <div class="plus">
                 <i class="fa fa-plus"></i>
-                <a href="TambahMitra.html">Tambah Mitra</a>
+                <a href="{{ route('admin.mitra.create') }}">Tambah Mitra</a>
             </div>
         </div>
         <div class="filter">
@@ -42,26 +42,35 @@
                             <th>Nama Perusahaan</th>
                             <th>Kota</th>
                             <th>PIC</th>
-                            <th>Status</th>
+                            <!-- <th>Status</th> -->
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>PT Sido Muncul</td>
-                            <td>Surabaya</td>
-                            <td>Rahmat</td>
-                            <td>Aktif</td>
-                            <td>
-                                <a href="DetailMitra.html" class="btn btn-danger">
-                                    <i class="btn1 fa fa-eye"></i>
-                                </a>
-                                <a href="UbahMitra.html" class="btn btn-danger">
-                                    <i class="btn3 fa fa-pencil"></i>
-                                </a>
-                            </td>
-                        </tr>
+                        @forelse ($items as $item)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->nama_mitra }}</td>
+                                <td>{{ $item->kota }}</td>
+                                <td>{{ $item->nama_PIC_perusahaan }}</td>
+                                <!-- <td>{{ $item->id }}</td> -->
+                                <td>
+                                    <!-- <a href="DetailMitra.html" class="btn btn-danger">
+                                        <i class="btn1 fa fa-eye"></i>
+                                    </a> -->
+                                    <a href="{{ route('admin.mitra.edit', $item->id) }}" class="btn btn-danger">
+                                        <i class="btn3 fa fa-pencil"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="text-center">
+                                    <img src="{{ asset('img/1.png') }}" alt="none">
+                                    <p>Tidak ada mitra perusahaan</p>
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

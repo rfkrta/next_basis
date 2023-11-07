@@ -12,7 +12,7 @@
             </div>
             <div class="plus">
                 <i class="fa fa-plus"></i>
-                <a href="TambahKaryawan.html">Tambah Karyawan</a>
+                <a href="{{ route('admin.karyawan.create') }}">Tambah Karyawan</a>
             </div>
         </div>
 
@@ -41,27 +41,35 @@
                         <tr>
                             <th>No</th>
                             <th>Nama</th>
-                            <th>Peran</th>
                             <th>Posisi</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <!-- <th>Action</th> -->
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Budi Santoso</td>
-                            <td>Admin</td>
-                            <td>Manager Information Technology</td>
-                            <td>Aktif</td>
-                            <td>
-                                <a href="DetailKaryawan.html" class="btn btn-danger">
-                                    <i class="btn1 fa fa-eye"></i>
-                                </a>
-                                <a href="TambahKontrak.html" class="btn btn-danger">
-                                    <i class="btn3 fa fa-pencil"></i>
-                                </a>
-                        </tr>
+                        @forelse ($kry_baru as $item)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->nama }}</td>
+                                <td>{{ $item->position->nama_posisi }}</td>
+                                <!-- <td>{{ $item->st }}</td> -->
+                                <td>
+                                    <!-- <a href="{{ route('admin.karyawan.show', $item->id) }}" class="btn btn-danger">
+                                        <i class="btn1 fa fa-eye"></i>
+                                    </a> -->
+                                    <a href="{{ route('admin.karyawan.edit', $item->id) }}" class="btn btn-danger">
+                                        <i class="btn3 fa fa-pencil"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="text-center">
+                                    <img src="{{ asset('img/1.png') }}" alt="none">
+                                    <p>Tidak ada karyawan yang tidak aktif</p>
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

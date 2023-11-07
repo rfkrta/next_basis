@@ -53,11 +53,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($items as $item)
+                            @forelse ($cuti_baru as $item)
                                 <tr>
-                                    <td>{{ $item->id_cuti }}</td>
-                                    <td>{{ $item->nama }}</td>
-                                    <td>{{ $item->kategori }}</td>
+                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $item->karyawan->nama }}</td>
+                                    <td>{{ $item->kategori->nama_kategori }}</td>
                                     <td>{{ $item->tanggal_mulai }}</td>
                                     <td>{{ $item->tanggal_selesai }}</td>
                                     <!-- <td>{{ $item->id_cuti }}</td> -->
@@ -68,7 +68,7 @@
                                         <a href="#" class="btn btn-danger">
                                             <i class="btn2 fa fa-times"></i>
                                         </a>
-                                        <a href="#" class="btn btn-danger">
+                                        <a href="{{ route('admin.pengajuancuti.show', $item->id) }}" class="btn btn-danger">
                                             <i class="btn3 fa fa-eye"></i>
                                         </a>
                                     </td>

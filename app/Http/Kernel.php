@@ -64,5 +64,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'laravel10' => \App\Http\Middleware\Laravel10Middleware::class,
+        'admin' => \App\Http\Middleware\IsAdmin::class,
     ];
 }

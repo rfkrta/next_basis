@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CutiRequest extends FormRequest
+class PositionsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,8 @@ class CutiRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_nama' => 'required|max:255',
-            'id_kategori' => 'required|max:255',
-            'keterangan' => 'required',
-            'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'required|date'
+            'nama_posisi' => 'required|max:255',
+            'gaji_posisi' => 'required|max:255'
         ];
     }
 }

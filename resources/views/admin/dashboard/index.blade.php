@@ -3,7 +3,7 @@
         @include('sidebar')
         <div class="main">
             <div class="main-top">
-                <h1>Home</h1>
+                <h1>Beranda</h1>
             </div>
             <div class="search">
                 <i class="fa fa-search"></i>

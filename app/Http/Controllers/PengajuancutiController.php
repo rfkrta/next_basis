@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CutiRequest;
 use App\Models\Cuti;
+use App\Models\Karyawan;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -16,11 +18,23 @@ class PengajuancutiController extends Controller
      */
     public function index()
     {
-        $items = Cuti::all();
+        $cuti_baru = Cuti::join('karyawans', 'karyawans.id', '=', 'cutis.id_nama')
+                    ->select('cutis.*', 'karyawans.nama')
+                    ->get();
 
-        return view('admin.pengajuancuti.index', [
-            'items' => $items
-        ]);
+        $cuti_baru = Cuti::join('kategoris', 'kategoris.id', '=', 'cutis.id_kategori')
+                    ->select('cutis.*', 'kategoris.nama_kategori')
+                    ->get();
+
+        $karyawan = Karyawan::all();
+        $kategori = Kategori::all();
+        //Logika untuk menampilkan halaman dashboard
+        return view('admin.pengajuancuti.index', compact('kategori', 'karyawan', 'cuti_baru'));
+        // $items = Cuti::all();
+
+        // return view('admin.pengajuancuti.index', [
+        //     'items' => $items
+        // ]);
     }
 
     /**
@@ -30,7 +44,9 @@ class PengajuancutiController extends Controller
      */
     public function create()
     {
-        return view('admin.pengajuancuti.create');
+        $karyawan = Karyawan::all();
+        $kategori = Kategori::all();
+        return view('admin.pengajuancuti.create', compact('kategori', 'karyawan'));
     }
 
     /**
@@ -55,7 +71,14 @@ class PengajuancutiController extends Controller
      */
     public function show($id)
     {
-        //
+        // $item = Cuti::findOrFail($id);
+        $item = Cuti::with([
+            'karyawan', 'kategori'
+        ])->findOrFail($id);
+
+        return view('admin.pengajuancuti.detail', [
+            'item' => $item
+        ]);
     }
 
     /**

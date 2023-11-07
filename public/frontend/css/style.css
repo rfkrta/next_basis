@@ -648,6 +648,18 @@ body {
     /* float: left; */
     border-radius: 10px;
 }
+
+.cong-box4 {
+    height: auto;
+    min-height: 625px;
+    width: 100%;
+    min-width: 960px;
+    box-shadow: var(--shadow);
+    background: var(--white2);
+    margin-top: 24px;
+    /* float: left; */
+    border-radius: 10px;
+}
 /* .cong-box img {
     width: 184px;
     float: right;

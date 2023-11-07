@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Cuti extends Model
+class Karyawan extends Model
 {
-    use SoftDeletes;
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
-        'id_nama', 'id_kategori', 'keterangan',
+        'nama', 'id_positions', 'nip', 'gaji',
         'tanggal_mulai', 'tanggal_selesai'
     ];
 
@@ -20,11 +20,7 @@ class Cuti extends Model
         //
     ];
 
-    public function karyawan() {
-        return $this->belongsTo(Karyawan::class, 'id_nama', 'id');
-    }
-
-    public function kategori() {
-        return $this->belongsTo(Kategori::class, 'id_kategori', 'id');
+    public function position() {
+        return $this->belongsTo(Position::class, 'id_positions', 'id');
     }
 }

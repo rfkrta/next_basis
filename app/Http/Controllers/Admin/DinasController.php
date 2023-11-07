@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\MitraRequest;
-use App\Models\Mitra;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+namespace App\Http\Controllers\Admin;
 
-class MitraController extends Controller
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class DinasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +14,7 @@ class MitraController extends Controller
      */
     public function index()
     {
-        $items = Mitra::all();
-        // Logika untuk menampilkan halaman dashboard
-        return view('admin.mitra.index', [
-            'items' => $items
-        ]);
+        //
     }
 
     /**
@@ -30,7 +24,7 @@ class MitraController extends Controller
      */
     public function create()
     {
-        return view('admin.mitra.create');
+        //
     }
 
     /**
@@ -39,12 +33,9 @@ class MitraController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MitraRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->all();
-
-        Mitra::create($data);
-        return redirect()->route('admin.mitra.index');
+        //
     }
 
     /**
@@ -66,11 +57,7 @@ class MitraController extends Controller
      */
     public function edit($id)
     {
-        $item = Mitra::findOrFail($id);
-
-        return view('admin.mitra.edit', [
-            'item' => $item
-        ]);
+        //
     }
 
     /**
@@ -80,13 +67,9 @@ class MitraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MitraRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $data = $request->all();
-        $item = Mitra::findOrFail($id);
-        $item->update($data);
-
-        return redirect()->route('admin.mitra.index');
+        //
     }
 
     /**
@@ -100,4 +83,3 @@ class MitraController extends Controller
         //
     }
 }
-

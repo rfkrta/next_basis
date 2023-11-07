@@ -12,7 +12,7 @@
             </div>
             <div class="plus">
                 <i class="fa fa-plus"></i>
-                <a href="TambahDinas.html">Perjalanan Dinas</a>
+                <a href="{{ route('admin.perjalanandinas.create') }}">Perjalanan Dinas</a>
             </div>
         </div>
 
@@ -49,36 +49,45 @@
                             <th>Kota Keberangkatan</th>
                             <th>Tanggal Mulai</th>
                             <th>Tanggal Berakhir</th>
-                            <th>Status</th>
+                            <!-- <th>Status</th> -->
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>PT Sido Muncul</td>
-                            <td>Surabaya</td>
-                            <td>2023-08-24</td>
-                            <td>2023-08-28</td>
-                            <td>Sedang Berjalan</td>
-                            <td>
-                                <a href="DetailDinas.html" class="btn btn-danger">
-                                    <i class="btn1 fa fa-eye"></i>
-                                </a>
-                                <a href="EditPVR.html" class="btn btn-danger">
-                                    <i class="btn3 fa fa-pencil"></i>
-                                </a>
-                                <a href="#" class="btn btn-danger">
-                                    <i class="btn2 fa fa-print"></i>
-                                </a>
-                                <a href="#" class="btn btn-danger">
-                                    <i class="btn1 fa fa-check"></i>
-                                </a>
-                                <a href="#" class="btn btn-danger">
-                                    <i class="btn2 fa fa-times"></i>
-                                </a>
-                            </td>
-                        </tr>
+                        @forelse ($dinas_baru as $item)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->mitra->nama_mitra }}</td>
+                                <td>{{ $item->kota }}</td>
+                                <td>{{ $item->tanggal_mulai }}</td>
+                                <td>{{ $item->tanggal_selesai }}</td>
+                                <!-- <td>{{ $item->status }}</td> -->
+                                <td>
+                                    <a href="DetailDinas.html" class="btn btn-danger">
+                                        <i class="btn1 fa fa-eye"></i>
+                                    </a>
+                                    <a href="EditPVR.html" class="btn btn-danger">
+                                        <i class="btn3 fa fa-pencil"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-danger">
+                                        <i class="btn2 fa fa-print"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-danger">
+                                        <i class="btn1 fa fa-check"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-danger">
+                                        <i class="btn2 fa fa-times"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center">
+                                    <img src="{{ asset('img/1.png') }}" alt="none">
+                                    <p>Tidak ada perjalanan dinas</p>
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

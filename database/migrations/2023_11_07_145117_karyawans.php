@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cutis', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('id_nama');
-            $table->string('id_kategori');
-            $table->longText('keterangan');
+        //
+        Schema::create('karyawans', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama');
+            $table->string('id_positions');
+            $table->string('nip');
+            $table->string('gaji');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->timestamp('created_at')->nullable();
@@ -33,6 +35,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cutis');
+        //
+        Schema::dropIfExists('karyawans');
     }
 };

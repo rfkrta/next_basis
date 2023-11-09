@@ -43,7 +43,7 @@
                             <th>Nama</th>
                             <th>Posisi</th>
                             <th>Status</th>
-                            <!-- <th>Action</th> -->
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,6 +52,7 @@
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->position->nama_posisi }}</td>
+                                <td></td>
                                 <!-- <td>{{ $item->st }}</td> -->
                                 <td>
                                     <!-- <a href="{{ route('admin.karyawan.show', $item->id) }}" class="btn btn-danger">
@@ -64,7 +65,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center">
+                                <td colspan="5" class="text-center">
                                     <img src="{{ asset('img/1.png') }}" alt="none">
                                     <p>Tidak ada karyawan yang tidak aktif</p>
                                 </td>

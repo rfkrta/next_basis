@@ -21,11 +21,6 @@ return new class extends Migration
             $table->date('tanggal_berakhir');
             $table->timestamps();
             $table->index('id_user');
-
-            // Define foreign key constraints
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('id_klien_perusahaan')->references('id_klien_perusahaan')->on('klien_perusahaan');
-            $table->foreign('id_status_perjalanan_dinas')->references('id_status_perjalanan_dinas')->on('status_perjalanan_dinas');
         });
     }
 

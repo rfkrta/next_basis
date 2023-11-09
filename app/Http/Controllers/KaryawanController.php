@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\KaryawanRequest;
 use App\Models\Karyawan;
 use App\Models\Position;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
@@ -19,14 +21,16 @@ class KaryawanController extends Controller
     public function index()
     {
         $kry_baru = Karyawan::join('positions', 'positions.id', '=', 'karyawans.id_positions')
-                    ->select('karyawans.*', 'positions.nama_posisi', 'positions.gaji_posisi')
-                    ->get();
+            ->select('karyawans.*', 'positions.nama_posisi', 'positions.gaji_posisi')
+            ->get();
 
-        $position = Position::all();
+        $position = Position::all('positions.id');
+        // Fetch user names
+
+
         //Logika untuk menampilkan halaman dashboard
         return view('admin.karyawan.index', compact('position', 'kry_baru'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -35,14 +39,16 @@ class KaryawanController extends Controller
     public function create()
     {
         $position = Position::all();
-        return view('admin.karyawan.create', compact('position'));
+        $users = User::all();
+        return view('admin.karyawan.create', compact('position','users'));
     }
 
-    public function ajax(Request $request) {
+    public function ajax(Request $request)
+    {
         $id_positions['id_positions'] = $request->id_positions;
         $ajax_position = Position::where('id', $id_positions)->get();
 
-        return view('admin.karyawan.ajax', compact('ajax_position'));   
+        return view('admin.karyawan.ajax', compact('ajax_position'));
     }
 
     /**

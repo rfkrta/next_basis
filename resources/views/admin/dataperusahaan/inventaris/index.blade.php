@@ -102,6 +102,7 @@
                     const dataKategori = row.getAttribute("data-kategori");
                     const shouldShow = selectedCategory === "semua" || selectedCategory === dataKategori ||
                         (selectedCategory === "inventaris" && dataKategori !== "gedung" && dataKategori !== "kendaraan");
+                        (selectedCategory === "gedung")
 
                     row.style.display = shouldShow ? "table-row" : "none";
                 });

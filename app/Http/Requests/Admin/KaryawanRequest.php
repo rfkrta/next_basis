@@ -24,6 +24,7 @@ class KaryawanRequest extends FormRequest
     public function rules()
     {
         return [
+            'id_user => required | max:255',
             'nama' => 'required|max:255',
             'id_positions' => 'required|max:255',
             // 'posisi' => 'required|max:255',

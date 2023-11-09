@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -13,17 +14,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cutis', function (Blueprint $table) {
+        //
+        Schema::create('kategoris', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('id_nama');
-            $table->string('id_kategori');
-            $table->longText('keterangan');
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
+            $table->string('nama_kategori');
+            $table->longText('keterangan')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });
+        DB::table('kategoris')->insert([
+            ['nama_kategori' => 'Cuti Tahunan' ],
+        ]);
     }
 
     /**
@@ -33,6 +35,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cutis');
+        //
+        Schema::dropIfExists('kategoris');
     }
 };

@@ -13,13 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cutis', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('id_nama');
-            $table->string('id_kategori');
-            $table->longText('keterangan');
+        //
+        Schema::create('dinas', function (Blueprint $table) {
+            $table->id();
+            $table->string('id_mitras');
+            $table->string('kota');
+            $table->string('komisi');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
+            $table->string('id_anggota1');
+            $table->string('id_anggota2');
+            $table->string('pic_perusahaan')->nullable();
+            $table->string('jabatan_pic')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamp('updated_at')->nullable();
@@ -33,6 +38,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cutis');
+        //
+        Schema::dropIfExists('dinas');
+
     }
 };

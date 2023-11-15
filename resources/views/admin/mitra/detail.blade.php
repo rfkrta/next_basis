@@ -4,7 +4,7 @@
     <div class="main">
         <div class="main-top1">
             <a href="{{ route('admin.mitra.index') }}"><i class="fa fa-angle-left"></i></a>
-            <h3>Ubah Mitra Perusahaan {{ $item->nama_mitra }}</h3>
+            <h3>Detail Mitra Perusahaan {{ $item->nama_mitra }}</h3>
         </div>
 
         @if ($errors->any())
@@ -18,8 +18,7 @@
         @endif
 
         <div class="cong-box4">
-            <form action="{{ route('admin.mitra.update', $item->id) }}" method="post" enctype="multipart/form-data">
-                @method('PUT')
+            <form action="{{ route('admin.mitra.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="content">
                     <div class="tglx">
@@ -29,61 +28,23 @@
                         </div>
                         <div class="tgl1">
                             <h5>Provinsi</h5>
-                            <div class="form-group1">
-                                <select name="provinsi" id="provinsi" required class="form-control1">
-                                    <option value="{{ $item->province->id }}">
-                                        <!-- Pilih Provinsi... -->
-                                        {{ $item->province->name }}
-                                    </option>
-                                @foreach ($provinces as $provinsi)
-                                    <option value="{{ $provinsi->id }}">{{ $provinsi->name }}</option>
-                                @endforeach
-                                </select>
-                            </div>
-                            <!-- <input type="text" name="provinsi" id="provinsi" class="date" placeholder="Tuliskan nama provinsi, di sini" value="{{ old('provinsi') }}"> -->
+                            <input type="text" name="provinsi" id="provinsi" class="date" placeholder="Tuliskan nama provinsi, di sini" value="{{ $item->province->name }}">
                         </div>
                     </div>
                     <div class="tglx1">
                         <div class="tgl1">
                             <h5>Kabupaten / Kota</h5>
-                            <div class="form-group1">
-                                <select name="kota" id="kota" required class="form-control1">
-                                    <option value="{{ $item->regency->id }}">
-                                        <!-- Pilih Kabupaten / Kota... -->
-                                        {{ $item->regency->name }}
-                                    </option>
-                                
-                                </select>
-                            </div>
-                            <!-- <input type="text" name="kota" id="kota" class="date" placeholder="Tuliskan nama kabupaten atau kota, di sini" value="{{ old('kota') }}"> -->
+                            <input type="text" name="kota" id="kota" class="date" placeholder="Tuliskan nama kabupaten atau kota, di sini" value="{{ $item->regency->name }}">
                         </div>
                         <div class="tgl1">
                             <h5>Kecamatan</h5>
-                            <div class="form-group1">
-                                <select name="kecamatan" id="kecamatan" required class="form-control1">
-                                    <option value="{{ $item->district->id }}">
-                                        <!-- Pilih Kecamatan... -->
-                                        {{ $item->district->name }}
-                                    </option>
-                                
-                                </select>
-                            </div>
-                            <!-- <input type="text" name="kecamatan" id="kecamatan" class="date" placeholder="Tuliskan nama kecamatan, di sini" value="{{ old('kecamatan') }}"> -->
+                            <input type="text" name="kecamatan" id="kecamatan" class="date" placeholder="Tuliskan nama kecamatan, di sini" value="{{ $item->district->name }}">
                         </div>
                     </div>
                     <div class="tglx1">
                         <div class="tgl1">
                             <h5>Kelurahan</h5>
-                            <div class="form-group1">
-                                <select name="kelurahan" id="kelurahan" required class="form-control1">
-                                    <option value="{{ $item->village->id }}"> 
-                                        <!-- Pilih Kelurahan / Desa... -->
-                                        {{ $item->village->name }}
-                                    </option>
-                                
-                                </select>
-                            </div>
-                            <!-- <input type="text" name="kelurahan" id="kelurahan" class="date" placeholder="Tuliskan nama kelurahan, di sini" value="{{ old('kelurahan') }}"> -->
+                            <input type="text" name="kelurahan" id="kelurahan" class="date" placeholder="Tuliskan nama kelurahan, di sini" value="{{ $item->village->name }}">
                         </div>
                         <div class="tgl1">
                             <h5>Kode Pos</h5>
@@ -117,21 +78,8 @@
                     <div class="tglx1">
                         <div class="tgl1">
                             <h5>Status</h5>
-                            <div class="form-group">
-                                <select value='status' name="status" id="status" class="form-control">
-                                    <option value="{{ $item->status }}">
-                                        {{ $item->status }}
-                                    </option>
-                                    <option value="Aktif">Aktif</option>
-                                    <option value="Tidak Aktif">Tidak Aktif</option>
-                                </select>
-                            </div>
+                            <input type="text" name="status" id="status" class="date1" placeholder="Tuliskan status, di sini" value="{{ $item->status }}">
                         </div>
-                    </div>
-                    <div class="button">
-                        <button type="submit" class="btny1x btn-primary btn-block">
-                            Ubah Mitra
-                        </button>
                     </div>
                 </div>
             </form>

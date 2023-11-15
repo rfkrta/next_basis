@@ -1,6 +1,6 @@
-@include('head')
-<div class="container">
-    @include('sidebar')
+@extends('head')
+
+@section('content')
     <div class="main">
         <div class="main-top">
             <h1>Karyawan</h1>
@@ -52,8 +52,7 @@
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->position->nama_posisi }}</td>
-                                <td></td>
-                                <!-- <td>{{ $item->st }}</td> -->
+                                <td>{{ $item->status }}</td>
                                 <td>
                                     <!-- <a href="{{ route('admin.karyawan.show', $item->id) }}" class="btn btn-danger">
                                         <i class="btn1 fa fa-eye"></i>
@@ -76,5 +75,4 @@
             </div>
         </div>
     </div>
-</div>
-@include('script')
+@endsection

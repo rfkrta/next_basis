@@ -1,6 +1,6 @@
-@include('head')
-<div class="container">
-    @include('sidebar')
+@extends('head')
+
+@section('content')
     <div class="main">
         <div class="main-top">
             <h1>Inventaris</h1>
@@ -85,28 +85,30 @@
             </div>
         </div>
     </div>
-</div>
-@include('script')
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const filterLinks = document.querySelectorAll(".filterx a");
-        const rows = document.querySelectorAll("tr");
+@endsection
 
-        filterLinks.forEach(link => {
-            link.addEventListener("click", function(e) {
-                e.preventDefault();
+@push('addon-script')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const filterLinks = document.querySelectorAll(".filterx a");
+            const rows = document.querySelectorAll("tr");
 
-                const selectedCategory = this.getAttribute("data-kategori");
+            filterLinks.forEach(link => {
+                link.addEventListener("click", function(e) {
+                    e.preventDefault();
 
-                rows.forEach(row => {
-                    const dataKategori = row.getAttribute("data-kategori");
-                    const shouldShow = selectedCategory === "semua" || selectedCategory === dataKategori ||
-                        (selectedCategory === "inventaris" && dataKategori !== "gedung" && dataKategori !== "kendaraan");
-                        (selectedCategory === "gedung")
+                    const selectedCategory = this.getAttribute("data-kategori");
 
-                    row.style.display = shouldShow ? "table-row" : "none";
+                    rows.forEach(row => {
+                        const dataKategori = row.getAttribute("data-kategori");
+                        const shouldShow = selectedCategory === "semua" || selectedCategory === dataKategori ||
+                            (selectedCategory === "inventaris" && dataKategori !== "gedung" && dataKategori !== "kendaraan");
+                            (selectedCategory === "gedung")
+
+                        row.style.display = shouldShow ? "table-row" : "none";
+                    });
                 });
             });
         });
-    });
-</script>
+    </script>
+@endpush

@@ -29,7 +29,7 @@ class KaryawanRequest extends FormRequest
             'id_positions' => 'required|max:255',
             // 'posisi' => 'required|max:255',
             'nip' => 'required|max:255',
-            'gaji' => 'required|max:255',
+            'gaji_posisi' => 'required|max:255',
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date'
         ];

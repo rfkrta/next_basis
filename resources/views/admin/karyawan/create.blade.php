@@ -1,6 +1,6 @@
-@include('head')
-<div class="container">
-    @include('sidebar')
+@extends('head')
+
+@section('content')
     <div class="main">
         <div class="main-top1">
             <a href="{{ route('admin.karyawan.index') }}"><i class="fa fa-angle-left"></i></a>
@@ -38,7 +38,7 @@
                     <div class="nama1">
                         <h5>Posisi</h5>
                         <div class="form-group">
-                            <select name="id_positions" id="id_positions" required class="form-control">
+                            <select name="id_positions" id="id_positions" required class="form-control karyawan">
                                 <option value="">
                                     Pilih Posisi Karyawan
                                 </option>
@@ -53,11 +53,13 @@
                             <h5>NIP</h5>
                             <input type="number" name="nip" id="nip" class="date" placeholder="Tuliskan NIP, di sini" value="{{ old('nip') }}">
                         </div>
-                        <!-- <div id="position"></div> -->
+                        <!-- <div id="gaji"></div> -->
+    
                         <div class="tgl1">
                             <h5>Gaji</h5>
-                            <input type="number" name="gaji" id="gaji" class="date" placeholder="Tuliskan gaji karyawan, di sini" value="{{ old('gaji') }}">
+                            <input type="text" name="gaji_posisi" id="gaji_posisi" class="date gaji_posisi" >
                         </div>
+                        
                     </div>
                     <!-- <div id="position"></div> -->
                     <div class="tgl">
@@ -79,31 +81,137 @@
             </form>
         </div>
     </div>
-</div>
-
-@include('script')
+@endsection
 
 @push('addon-script')
-<script type="text/javascript" src="{{ asset('admin/js/jquery-1.10.2.js') }}"></script>
-<!-- <script type="text/javascript">
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    </script> -->
-<!-- <script type="text/javascript">
-        $("#id_positions").change(function() {
-            var id_positions = $("#id_positions").val();
-            $.ajax({
-                type: "GET",
-                url: "/karyawan/ajax",
-                data: "id_positions="+id_positions,
-                cache: false,
-                success: function(data){
-                    $("#position").html(data);
+    <!-- <script type="text/javascript" src="{{ url('admin/js/jquery-1.10.2.js') }}"></script> -->
+    <!-- <script type="text/javascript" src="{{ url('admin/js/jquery-3.7.1.min.js') }}"></script> -->
+    <script type="text/javascript" src="{{ url('admin/js/jquery-3.6.0.min.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
+            // $(function (){
+            //     $('#id_positions').on('change',function(){
+            //         var id = $('#id_positions').val();
+
+            //         console.log(id);
+            //         $.ajax({
+            //             type : 'GET',
+            //             url : "{{ route('admin.karyawan.getgaji1') }}",
+            //             data : {'id':id},
+            //             dataType : 'json',
+            //             cache : false,
+
+            //             success : function(msg){
+            //                 $('#gaji_posisi').html(msg);
+            //             },
+            //             error : function(data){
+            //                 console.log('error:',data)
+            //             },
+            //         });
+            //     });
+            // });
+
+            // $(document).on('change','.karyawan',function () {
+			//     var position_id=$(this).val();
+
+            //     var a=$(this).parent();
+            //     console.log(position_id);
+            //     var op="";
+            //     $.ajax({
+            //         type: 'get',
+            //         url: "{{ route('admin.karyawan.getgaji') }}",
+            //         data: {'id':position_id},
+            //         dataType: 'json',//return data will be json
+            //         success:function(data){
+            //             console.log("gaji_posisi");
+            //             console.log(data.gaji_posisi);
+
+            //             // here price is coloumn name in products table data.coln name
+
+            //             a.find('.gaji_posisi').val(data.gaji_posisi);
+
+            //         },
+            //         error:function(){
+
+            //         }
+            //     });
+
+
+            // });
+
+            // $('#id_positions').on('change', (event) => {
+            //     getGaji(event.target.value).then(position => {
+            //         $('#gaji_posisi').val(position.gaji_posisi);
+            //     });
+            // });
+
+            // async function getGaji(id) {
+            //     let response = await fetch('{{ route("admin.karyawan.getgaji2") }}' + id)
+            //     let data = await response.json();
+
+            //     return data;
+            // }
+
+            // $(function (){
+            //     $(document).on('change','.karyawan',function (){
+            //         var id = $(this).val();
+
+            //         var a=$(this).parent();
+            //         console.log(id);
+            //         var op="";
+            //         $.ajax({
+            //             type : 'GET',
+            //             url : "{{ route('admin.karyawan.getgaji1') }}",
+            //             data : {'id':id},
+            //             dataType : 'json',
+            //             cache : false,
+
+            //             success : function(msg){
+            //                 $('#gaji_posisi').html(msg);
+            //                 console.log("gaji_posisi");
+            //                 console.log(msg.gaji_posisi);
+
+            //                 // here price is coloumn name in products table msg.coln name
+
+            //                 // a.find('.gaji_posisi').val(msg.gaji_posisi);
+            //             },
+            //             error : function(data){
+            //                 console.log('error:',data)
+            //             },
+            //         });
+            //     });
+            // });
+
+            $(document).ready(function() {
+                $('#id_positions').on('change', function() {
+                    var selectedValue = $(this).val();
+                    // var a=$(this).parent();
+                    console.log(selectedValue);
+                    $.ajax({
+                        url: "{{ route('admin.karyawan.getgaji1') }}",
+                        type: 'GET',
+                        data: {
+                            'id_positions': selectedValue
+                        },
+                        success: function(data) {
+                            // Update data tampilan disini
+                            $('#gaji_posisi').html(data);
+                            // console.log("gaji_posisi");
+                            // console.log(data.gaji_posisi);
+
+                            // here price is coloumn name in products table data.coln name
+
+                            // a.find('.gaji_posisi').val(data.gaji_posisi);
+                        }
+                    });
+                });
+            });
         });
-    </script> -->
+    </script>
 @endpush

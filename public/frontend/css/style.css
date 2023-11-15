@@ -651,7 +651,7 @@ body {
 
 .cong-box4 {
     height: auto;
-    min-height: 625px;
+    min-height: 650px;
     width: 100%;
     min-width: 960px;
     box-shadow: var(--shadow);
@@ -775,6 +775,18 @@ body {
     border: 2px solid var(--grey);
     border-radius: 5px;
     margin-right: 10px;
+}
+
+.tglx1 .date1 {
+    margin-top: 10px;
+    background: transparent;
+    height: 27px;
+    width: 895px;
+    padding-left: 5px;
+    padding-top: 0px;
+    border: 2px solid var(--grey);
+    border-radius: 5px;
+    /* margin-right: 10px; */
 }
 
 .tim1 {

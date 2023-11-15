@@ -43,6 +43,50 @@ class KaryawanController extends Controller
         return view('admin.karyawan.create', compact('position','users'));
     }
 
+    public function getgaji1(Request $request)
+    {
+        // $selectedValue['id'] = $request->selectedValue;
+
+        // $gaji = Position::where('id', $selectedValue)->get();
+        // $gaji = Position::select('gaji_posisi')->where('id',$request->selectedValue)->first();
+
+        // return view('admin.karyawan.create', compact('gaji'));
+
+        // $input = '<input placeholder="Gaji, di sini">';
+        // return response()->json($gaji);
+
+        // foreach($gaji as $gaji) {
+        //     echo "<input value='{{ $gaji->position->gaji_posisi }}' >";
+        //     // $input.= "<input value='{{ $gaji->position->gaji_posisi }}' >";
+        // }
+
+        // echo $input;
+
+        $selectedValue = $request->input('id_positions');
+        $data = DB::table('positions')
+            ->where('id', $selectedValue)
+            ->get();
+        return view('admin.karyawan.create', ['data' => $data]);
+    }
+
+    public function getgaji(Request $request)
+    {
+        //it will get price if its id match with product id
+		$p=Position::select('gaji_posisi')->where('id',$request->id)->first();
+		
+    	return response()->json($p);
+
+    }
+
+    public function getgaji2($id = null)
+    {
+        $model = new Position();
+        $data = $model->find($id);
+
+        return $this->respond($data);
+
+    }
+
     public function ajax(Request $request)
     {
         $id_positions['id_positions'] = $request->id_positions;

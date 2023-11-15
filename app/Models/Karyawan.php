@@ -12,7 +12,7 @@ class Karyawan extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'nama', 'id_positions', 'nip', 'gaji',
+        'nama', 'id_positions', 'nip', 'gaji_posisi',
         'tanggal_mulai', 'tanggal_selesai'
     ];
 
@@ -22,7 +22,7 @@ class Karyawan extends Model
 
     public function position()
     {
-        return $this->belongsTo(Position::class, 'id_positions', 'id');
+        return $this->belongsTo(Position::class, 'id_positions', 'id','nama_posisi','gaji_posisi');
     }
     public function user()
     {

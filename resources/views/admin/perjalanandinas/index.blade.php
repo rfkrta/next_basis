@@ -1,6 +1,6 @@
-@include('head')
-<div class="container">
-    @include('sidebar')
+@extends('head')
+
+@section('content')
     <div class="main">
         <div class="main-top">
             <h1>Dinas</h1>
@@ -93,5 +93,4 @@
             </div>
         </div>
     </div>
-</div>
-@include('script')
+@endsection

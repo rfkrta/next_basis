@@ -34,7 +34,8 @@ class MitraRequest extends FormRequest
             'nama_PIC_perusahaan' => 'required|max:255',
             'jabatan_PIC' => 'required|max:255',
             'nomer_telepon_PIC' => 'required|max:255',
-            'komisi_dinas' => 'required|max:255'
+            'komisi_dinas' => 'required|max:255',
+            'status' => 'max:255'
         ];
     }
 }

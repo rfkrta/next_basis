@@ -28,9 +28,8 @@
             <li style="cursor: pointer;" onclick="window.location='{{ route('admin.dataperusahaan.router.index') }}';">
             <a ><span class="dot4"></span> Router</a></li>
         </ul>
-        <li>
-            <i class="fa fa-key"></i>
-            <a href="#"> Privilege</a>
+        <li style="cursor: pointer;" onclick="window.location='{{ route('admin.user.index') }}';">
+            <i class="fa fa-key"></i> <a>User</a>
         </li>
     </ul>
     <div class="admin">

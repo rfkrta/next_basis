@@ -8,6 +8,7 @@ use App\Http\Controllers\MitraController;
 use App\Http\Controllers\PengajuancutiController;
 use App\Http\Controllers\PerjalanandinasController;
 use App\Http\Controllers\RouterController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -62,6 +63,10 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::put('/admin/mitra/{id}', [MitraController::class, 'update'])->middleware('laravel10')->name('admin.mitra.update');
     Route::get('/admin/dataperusahaan/inventaris', [InventarisController::class, 'index'])->middleware('laravel10')->name('admin.dataperusahaan.inventaris.index');
     Route::get('/admin/dataperusahaan/router', [RouterController::class, 'index'])->middleware('laravel10')->name('admin.dataperusahaan.router.index');
+    Route::get('/admin/user/', [UserController::class, 'index'])->middleware('laravel10')->name('admin.user.index');
+    Route::get('/getGajiPosisiById/{id}', [KaryawanController::class, 'getGajiPosisiById'])->name('getGajiPosisiById');
+
+
 
     // Route::prefix('admin')
     // ->namespace('Admin')

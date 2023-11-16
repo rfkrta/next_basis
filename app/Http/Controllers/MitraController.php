@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\MitraRequest;
 use App\Models\Mitra;
@@ -21,15 +22,18 @@ class MitraController extends Controller
     public function index()
     {
         $items = Mitra::join('regencies', 'regencies.id', '=', 'mitras.kota')
-                ->select('mitras.*', 'regencies.province_id', 'regencies.name')
-                ->get();
+            ->select('mitras.*', 'regencies.province_id', 'regencies.name')
+            ->get();
+            $items = Mitra::with('regency.province')->get();
+
+
 
         // $items = Mitra::with([
         //     'province', 'regency', 'district', 'village'
         // ])->get();
         // $item = Mitra::all();
         // $regencies = Regency::all();
-        
+
         // Logika untuk menampilkan halaman dashboard
         return view('admin.mitra.index', compact('items'));
     }
@@ -64,8 +68,8 @@ class MitraController extends Controller
 
         $option = "<option>Pilih Kabupaten / Kota...</option>";
 
-        foreach($kota as $kota) {
-            $option.= "<option value='$kota->id'>$kota->name</option>";
+        foreach ($kota as $kota) {
+            $option .= "<option value='$kota->id'>$kota->name</option>";
         }
 
         echo $option;
@@ -79,12 +83,14 @@ class MitraController extends Controller
 
         $option = "<option>Pilih Kecamatan...</option>";
 
-        foreach($kecamatan as $kecamatan) {
-            $option.= "<option value='$kecamatan->id'>$kecamatan->name</option>";
+        foreach ($kecamatan as $kecamatan) {
+            $option .= "<option value='$kecamatan->id'>$kecamatan->name</option>";
         }
 
         echo $option;
     }
+
+
 
     public function getkelurahan(Request $request)
     {
@@ -94,8 +100,8 @@ class MitraController extends Controller
 
         $option = "<option>Pilih Kelurahan / Desa...</option>";
 
-        foreach($kelurahan as $kelurahan) {
-            $option.= "<option value='$kelurahan->id'>$kelurahan->name</option>";
+        foreach ($kelurahan as $kelurahan) {
+            $option .= "<option value='$kelurahan->id'>$kelurahan->name</option>";
         }
 
         echo $option;
@@ -123,9 +129,12 @@ class MitraController extends Controller
      */
     public function show($id)
     {
-        $item = Mitra::with([
-            'province', 'regency', 'district', 'village'
-        ])->findOrFail($id);
+        $items = Mitra::with('province', 'regency', 'district', 'village')->get();
+
+
+        // $item = Mitra::with([
+        //     'province', 'regency', 'district', 'village'
+        // ])->findOrFail($id);
 
         return view('admin.mitra.detail', compact('item'));
     }
@@ -176,4 +185,3 @@ class MitraController extends Controller
         //
     }
 }
-

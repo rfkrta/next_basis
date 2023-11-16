@@ -21,19 +21,25 @@ class Mitra extends Model
         //
     ];
 
-    public function province() {
-        return $this->belongsTo(Province::class, 'provinsi', 'id');
+    public function regency()
+    {
+        return $this->belongsTo(Regency::class, 'kota'); // Adjust 'kota' with your foreign key column name
     }
 
-    public function regency() {
-        return $this->belongsTo(Regency::class, 'kota', 'id');
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class, 'provinsi');
     }
 
-    public function district() {
-        return $this->belongsTo(District::class, 'kecamatan', 'id');
+
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'kecamatan');
     }
 
-    public function village() {
-        return $this->belongsTo(Village::class, 'kelurahan', 'id');
+    public function village()
+    {
+        return $this->belongsTo(Village::class, 'kelurahan');
     }
 }

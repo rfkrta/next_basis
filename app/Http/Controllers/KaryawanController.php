@@ -18,18 +18,24 @@ class KaryawanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $filter = $request->input('filter');
         $kry_baru = Karyawan::join('positions', 'positions.id', '=', 'karyawans.id_positions')
-            ->select('karyawans.*', 'positions.nama_posisi', 'positions.gaji_posisi')
-            ->get();
-
+            ->select('karyawans.*', 'positions.nama_posisi', 'positions.gaji_posisi');
+    
+        if ($filter === 'Aktif') {
+            $kry_baru = $kry_baru->where('karyawans.status', 'Aktif');
+        } elseif ($filter === 'Tidak Aktif') {
+            $kry_baru = $kry_baru->where('karyawans.status', 'Tidak Aktif');
+        }
+    
+        $kry_baru = $kry_baru->get();
+    
         $position = Position::all('positions.id');
-        // Fetch user names
-
-
-        //Logika untuk menampilkan halaman dashboard
-        return view('admin.karyawan.index', compact('position', 'kry_baru'));
+    
+        // Return the view with the filtered employees and positions
+        return view('admin.karyawan.index', compact('position', 'kry_baru','filter'));
     }
     /**
      * Show the form for creating a new resource.
@@ -40,8 +46,9 @@ class KaryawanController extends Controller
     {
         $position = Position::all();
         $users = User::all();
-        return view('admin.karyawan.create', compact('position','users'));
+        return view('admin.karyawan.create', compact('position', 'users'));
     }
+
 
     public function getGajiPosisiById($id)
     {
@@ -59,8 +66,8 @@ class KaryawanController extends Controller
         // Return the gaji posisi as a JSON response
         return response()->json(['gaji_posisi' => $gajiPosisi]);
     }
-    
-    
+
+
 
 
 

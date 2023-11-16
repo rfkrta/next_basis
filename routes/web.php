@@ -65,6 +65,10 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/admin/dataperusahaan/router', [RouterController::class, 'index'])->middleware('laravel10')->name('admin.dataperusahaan.router.index');
     Route::get('/admin/user/', [UserController::class, 'index'])->middleware('laravel10')->name('admin.user.index');
     Route::get('/getGajiPosisiById/{id}', [KaryawanController::class, 'getGajiPosisiById'])->name('getGajiPosisiById');
+    Route::get('/admin/users', [UserController::class, 'index'])->middleware('laravel10')->name('admin.users.index');
+    Route::get('/admin/user/create', [UserController::class, 'create','index'])->middleware('laravel10')->name('admin.user.create');
+    Route::get('/admin/karyawan/filter', [KaryawanController::class, 'filterKaryawan'])->name('admin.karyawan.filter');
+
 
 
 

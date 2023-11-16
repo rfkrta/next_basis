@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('id_positions');
             $table->string('nip');
-            $table->string('gaji');
+            $table->string('gaji_posisi');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->timestamp('created_at')->nullable();

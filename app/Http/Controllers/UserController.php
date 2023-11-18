@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Position;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,6 @@ class UserController extends Controller
         $users = User::all();
         // Filter User
         $filter = $request->input('filter');
-
         if ($filter === 'active') {
             $users = User::where('status', 'active')->get();
         } elseif ($filter === 'inactive') {
@@ -23,22 +23,62 @@ class UserController extends Controller
         } else {
             $users = User::all();
         }
-
         // Pass the user data to the view
         return view('admin.user.index', compact('users', 'filter'));
     }
-    public function create(Request $request)
+    public function create()
     {
+        $position = Position::all();
+        $users = User::all();
+        return view('admin.user.create', compact('position', 'users'));
+    }
+
+    public function store(Request $request)
+    {
+        // Validate the incoming request data
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users|max:255',
-            // Add other fields and validation rules as needed
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
+            'nip' => 'required|min:5',
+            'alamat' => 'required|string',
+            'no_hp' => 'required|string|min:11',
+            'tanggal_lahir' => 'required|date',
+            'agama' => 'nullable|string', // Validate the agama field
         ]);
+        $existingNIP = User::where('nip', $validatedData['nip'])->first();
+        if ($existingNIP) {
+            return redirect()->back()->withInput()->withErrors(['nip' => 'The NIP has already been taken.']);
+            // Redirect back to the form with an error message for 'nip'
+        }
 
-        // Create a new user using Eloquent ORM
-        $user = User::create($validatedData);
+        // Check if the 'email' already exists in the database
+        $existingEmail = User::where('email', $validatedData['email'])->first();
+        if ($existingEmail) {
+            return redirect()->back()->withInput()->withErrors(['email' => 'The email has already been taken.']);
+            // Redirect back to the form with an error message for 'email'
+        }
 
-        // Redirect the user after successful creation
-        return redirect()->route('admin.user.create')->with('success', 'User created successfully!');
+        // Check if the 'no_hp' already exists in the database
+        $existingNoHp = User::where('no_hp', $validatedData['no_hp'])->first();
+        if ($existingNoHp) {
+            return redirect()->back()->withInput()->withErrors(['no_hp' => 'The phone number has already been taken.']);
+            // Redirect back to the form with an error message for 'no_hp'
+        }
+
+        // Create a new user using the validated data
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'nip' => $validatedData['nip'],
+            'alamat' => $validatedData['alamat'],
+            'no_hp' => $validatedData['no_hp'],
+            'tanggal_lahir' => $validatedData['tanggal_lahir'],
+            'password' => bcrypt($validatedData['password']),
+            'agama' => $validatedData['agama'], // Assign the agama field
+            // Assign other fields accordingly
+        ]);
+        // Optionally, you can redirect somewhere after creating the user
+        return redirect()->route('admin.user.index')->with('success', 'User created successfully');
     }
 }

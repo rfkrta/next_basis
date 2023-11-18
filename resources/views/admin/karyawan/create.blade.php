@@ -51,7 +51,7 @@
                 <div class="tgl">
                     <div class="tgl1">
                         <h5>NIP</h5>
-                        <input type="number" name="nip" id="nip" class="date" placeholder="Tuliskan NIP, di sini" value="{{ old('nip') }}">
+                        <input type="text" name="nip" id="nip" class="date" placeholder="Tuliskan NIP di sini" value="{{ $nip ?? old('nip') }}">
                     </div>
                     <!-- <div id="gaji"></div> -->
 
@@ -205,6 +205,25 @@
                 });
             });
         });
+
+        $(document).ready(function() {
+            $('#nama').on('change', function() {
+                var selectedName = $(this).val();
+
+                $.ajax({
+                    url: "{{ route('getNIPByName', ':name') }}".replace(':name', selectedName),
+                    type: 'GET',
+                    success: function(data) {
+                        // Update the nip field value here
+                        $('#nip').val(data.nip);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+
 
     });
 </script>

@@ -67,6 +67,23 @@ class KaryawanController extends Controller
         return response()->json(['gaji_posisi' => $gajiPosisi]);
     }
 
+    public function getNIPByName($name)
+    {
+        // Cari pengguna (user) berdasarkan nama
+        $user = User::where('name', $name)->first();
+
+        if (!$user) {
+            // Handle jika pengguna tidak ditemukan berdasarkan nama
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        // Mengambil NIP dari pengguna (user)
+        $nip = $user->nip;
+
+        // Mengembalikan NIP sebagai respons JSON
+        return response()->json(['nip' => $nip]);
+    }
+
 
 
 

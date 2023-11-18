@@ -25,9 +25,6 @@ class MitraController extends Controller
             ->select('mitras.*', 'regencies.province_id', 'regencies.name')
             ->get();
             $items = Mitra::with('regency.province')->get();
-
-
-
         // $items = Mitra::with([
         //     'province', 'regency', 'district', 'village'
         // ])->get();
@@ -59,7 +56,6 @@ class MitraController extends Controller
 
         return view('admin.mitra.create', compact('provinces'));
     }
-
     public function getkota(Request $request)
     {
         $id_provinsi = $request->id_provinsi;
@@ -74,7 +70,6 @@ class MitraController extends Controller
 
         echo $option;
     }
-
     public function getkecamatan(Request $request)
     {
         $id_kota = $request->id_kota;
@@ -89,9 +84,6 @@ class MitraController extends Controller
 
         echo $option;
     }
-
-
-
     public function getkelurahan(Request $request)
     {
         $id_kecamatan = $request->id_kecamatan;
@@ -106,7 +98,6 @@ class MitraController extends Controller
 
         echo $option;
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -120,7 +111,6 @@ class MitraController extends Controller
         Mitra::create($data);
         return redirect()->route('admin.mitra.index');
     }
-
     /**
      * Display the specified resource.
      *
@@ -130,15 +120,12 @@ class MitraController extends Controller
     public function show($id)
     {
         $items = Mitra::with('province', 'regency', 'district', 'village')->get();
-
-
         // $item = Mitra::with([
         //     'province', 'regency', 'district', 'village'
         // ])->findOrFail($id);
 
         return view('admin.mitra.detail', compact('item'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -157,7 +144,6 @@ class MitraController extends Controller
 
         return view('admin.mitra.edit', compact('provinces', 'item'));
     }
-
     /**
      * Update the specified resource in storage.
      *

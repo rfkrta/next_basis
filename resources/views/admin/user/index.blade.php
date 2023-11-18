@@ -70,7 +70,6 @@
                         </td>
                     </tr>
                     @endforeach
-
                     @if($users->isEmpty() && $filter === 'active')
                     <tr>
                         <td colspan="6" class="text-center">

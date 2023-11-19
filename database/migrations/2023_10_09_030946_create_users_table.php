@@ -32,7 +32,6 @@ class CreateUsersTable extends Migration
                 $table->string('foto_profil')->nullable();
                 // $table->string('fotoKTP')->nullable();
                 // $table->string('nomorRekening')->nullable();
-                $table->string('status')->nullable();
                 $table->text('blacklistReason')->nullable();
                 $table->date('blockDate')->nullable();
                 $table->rememberToken();

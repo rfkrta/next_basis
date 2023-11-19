@@ -16,10 +16,10 @@ class UserController extends Controller
         $users = User::all();
         // Filter User
         $filter = $request->input('filter');
-        if ($filter === 'active') {
-            $users = User::where('status', 'active')->get();
-        } elseif ($filter === 'inactive') {
-            $users = User::where('status', 'inactive')->get();
+        if ($filter === 'Aktif') {
+            $users = User::where('status', 'Aktif')->get();
+        } elseif ($filter === 'Tidak Aktif') {
+            $users = User::where('status', 'Tidak Aktif')->get();
         } else {
             $users = User::all();
         }

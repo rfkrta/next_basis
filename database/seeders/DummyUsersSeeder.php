@@ -32,7 +32,7 @@ class DummyUsersSeeder extends Seeder
             // 'idMaritalStatus' => 1,
             // 'idTaxStatus' => 1,
             // 'idEmployeeGroup' => 1,
-            'status' => 'Active',
+            // 'status' => 'Active',
         ]);
 
         DB::table('users')->insert([
@@ -51,7 +51,7 @@ class DummyUsersSeeder extends Seeder
             // 'idMaritalStatus' => 1,
             // 'idTaxStatus' => 1,
             // 'idEmployeeGroup' => 1,
-            'status' => 'Active',
+            // 'status' => 'Active',
         ]);
     }
 }

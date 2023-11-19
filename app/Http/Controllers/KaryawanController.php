@@ -20,30 +20,30 @@ class KaryawanController extends Controller
      */
     public function index(Request $request)
     {
-        $filter = $request->input('filter');
+        $filter = $request->input('filter'); // Get the filter parameter from the URL
+
+        // Start building the query to fetch employees with their positions
         $kry_baru = Karyawan::join('positions', 'positions.id', '=', 'karyawans.id_positions')
             ->select('karyawans.*', 'positions.nama_posisi', 'positions.gaji_posisi');
 
+        // Apply status filter if provided in the URL
         if ($filter === 'Aktif') {
             $kry_baru = $kry_baru->where('karyawans.status', 'Aktif');
         } elseif ($filter === 'Tidak Aktif') {
             $kry_baru = $kry_baru->where('karyawans.status', 'Tidak Aktif');
         }
 
+        // Get the filtered employees along with their associated positions
         $kry_baru = $kry_baru->get();
-        // Fetch karyawans with their associated positions
-        $kry_baru = Karyawan::with('position')->get();
-        // Now, you can access the 'posisi karyawan' value for each Karyawan instance
-        foreach ($kry_baru as $karyawan) {
-            // Access 'posisi karyawan' value for each Karyawan instance
-            $posisiKaryawan = $karyawan->position->nama_posisi; // Assuming 'nama_posisi' is the field name in the Position model
-            // Perform further operations with $posisiKaryawan value
-        }
+
+        // Fetch all positions
         $position = Position::all('positions.id');
 
         // Return the view with the filtered employees and positions
         return view('admin.karyawan.index', compact('position', 'kry_baru', 'filter'));
     }
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -55,7 +55,6 @@ class KaryawanController extends Controller
         $users = User::all();
         return view('admin.karyawan.create', compact('position', 'users'));
     }
-
 
     public function getGajiPosisiById($id)
     {
@@ -74,7 +73,7 @@ class KaryawanController extends Controller
         return response()->json(['gaji_posisi' => $gajiPosisi]);
     }
 
-    
+
     public function getNIPByName($name)
     {
         // Cari pengguna (user) berdasarkan nama
@@ -167,7 +166,7 @@ class KaryawanController extends Controller
 
         return redirect()->route('admin.karyawan.index');
     }
-    
+
 
     /**
      * Remove the specified resource from storage.

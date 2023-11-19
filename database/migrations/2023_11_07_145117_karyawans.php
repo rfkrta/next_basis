@@ -16,12 +16,12 @@ return new class extends Migration
         //
         Schema::create('karyawans', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('id_positions');
-            $table->string('nip');
-            $table->string('gaji_posisi');
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
+            $table->string('nama')->nullable();
+            $table->string('id_positions')->nullable();
+            $table->string('nip')->nullable();
+            $table->string('gaji_posisi')->nullable();
+            $table->date('tanggal_mulai')->nullable();
+            $table->date('tanggal_selesai')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamp('updated_at')->nullable();

@@ -22,13 +22,13 @@
             </li>
         </ul>
         <ul class="filterx">
-            <li class="{{ request()->input('filter') === 'active' ? 'activev' : '' }}">
-                <a href="{{ route('admin.user.index', ['filter' => 'active']) }}">Aktif</a>
+            <li class="{{ request()->input('filter') === 'Aktif' ? 'activev' : '' }}">
+                <a href="{{ route('admin.user.index', ['filter' => 'Aktif']) }}">Aktif</a>
             </li>
         </ul>
         <ul class="filterx">
-            <li class="{{ request()->input('filter') === 'inactive' ? 'activev' : '' }}">
-                <a href="{{ route('admin.user.index', ['filter' => 'inactive']) }}">Tidak Aktif</a>
+            <li class="{{ request()->input('filter') === 'Tidak Aktif' ? 'activev' : '' }}">
+                <a href="{{ route('admin.user.index', ['filter' => 'Tidak Aktif']) }}">Tidak Aktif</a>
             </li>
         </ul>
     </div>
@@ -70,18 +70,18 @@
                         </td>
                     </tr>
                     @endforeach
-                    @if($users->isEmpty() && $filter === 'active')
+                    @if($users->isEmpty() && $filter === 'Aktif')
                     <tr>
                         <td colspan="6" class="text-center">
                             <img src="{{ asset('img/1.png') }}" alt="none">
                             <p>Tidak ada user yang active</p>
                         </td>
                     </tr>
-                    @elseif($users->isEmpty() && $filter === 'inactive')
+                    @elseif($users->isEmpty() && $filter === 'Tidak Aktif')
                     <tr>
                         <td colspan="6" class="text-center">
                             <img src="{{ asset('img/1.png') }}" alt="none">
-                            <p>Tidak ada user yang inactive</p>
+                            <p>Tidak ada user</p>
                         </td>
                     </tr>
                     @else

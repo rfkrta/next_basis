@@ -15,6 +15,7 @@
             <a href="{{ route('admin.karyawan.create') }}">Tambah Karyawan</a>
         </div>
     </div>
+    <!-- Filter Section -->
     <div class="filter">
         <ul class="filterx">
             <li class="{{ request()->input('filter') === null ? 'activev' : '' }}">
@@ -32,6 +33,7 @@
             </li>
         </ul>
     </div>
+
     <div class="line2"></div>
     <div class="cong-box">
         <div>
@@ -46,8 +48,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($kry_baru as $item)
+                    @if ($kry_baru->isEmpty() && $filter === null)
                     <tr>
+                        <td colspan="5" class="text-center">
+                            <img src="{{ asset('img/1.png') }}" alt="none">
+                            <p>Tidak ada data karyawan</p>
+                        </td>
+                    </tr>
+                    @elseif ($kry_baru->isEmpty() && ($filter === 'Aktif' || $filter === 'Tidak Aktif'))
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            <img src="{{ asset('img/1.png') }}" alt="none">
+                            @if ($filter === 'Aktif')
+                            <p>Tidak ada data karyawan</p>
+                            @elseif ($filter === 'Tidak Aktif')
+                            <p>Tidak ada data karyawan</p>
+                            @endif
+                        </td>
+                    </tr>
+                    @else
+                    @foreach ($kry_baru as $item)
+                    <tr>
+                        <!-- Table rows for each employee -->
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->nama }}</td>
                         <td>{{ $item->position->nama_posisi }}</td>
@@ -58,24 +80,11 @@
                             </a>
                         </td>
                     </tr>
-                    @empty
-                    @if($filter === 'Aktif')
-                    <tr>
-                        <td colspan="5" class="text-center">
-                            <img src="{{ asset('img/1.png') }}" alt="none">
-                            <p>Tidak ada karyawan yang aktif</p>
-                        </td>
-                    </tr>
-                    @elseif($filter === 'Tidak Aktif')
-                    <tr>
-                        <td colspan="5" class="text-center">
-                            <img src="{{ asset('img/1.png') }}" alt="none">
-                            <p>Tidak ada karyawan yang tidak aktif</p>
-                        </td>
-                    </tr>
+                    @endforeach
                     @endif
-                    @endforelse
                 </tbody>
+
+
             </table>
         </div>
     </div>

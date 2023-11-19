@@ -25,6 +25,7 @@ class MitraController extends Controller
             ->select('mitras.*', 'regencies.province_id', 'regencies.name')
             ->get();
             $items = Mitra::with('regency.province')->get();
+            
         // $items = Mitra::with([
         //     'province', 'regency', 'district', 'village'
         // ])->get();

@@ -70,26 +70,10 @@ Route::get('/admin/user/create', [UserController::class, 'create'])->middleware(
 Route::get('/admin/karyawan/filter', [KaryawanController::class, 'filterKaryawan'])->name('admin.karyawan.filter');
 Route::post('/admin/user/store', [UserController::class, 'store'])->name('admin.user.store');
 Route::get('/get-nip-by-name/{name}', [KaryawanController::class, 'getNIPByName'])->name('getNIPByName');
+Route::get('/admin/karyawan/getgajiposisi', [KaryawanController::class, 'getGajiPosisiById'])->name('admin.karyawan.getgajiposisi');
+Route::get('/admin/karyawan/getgajiposisi/{id}', [KaryawanController::class, 'getGajiPosisiById'])->name('admin.karyawan.getgajiposisi');
 
 
-
-
-
-// Route::prefix('admin')
-// ->namespace('Admin')
-// ->middleware(['auth','admin'])
-// ->group(function(){
-//     Route::get('/', 'DashboardController@index')
-//         ->name('dashboard');
-
-//     Route::resource('cuti', 'PengajuancutiController');
-//     Route::resource('karyawan', 'KaryawanController');
-//     Route::resource('dinas', 'PerjalanandinasController');
-//     Route::resource('mitra', 'MitraController');
-//     Route::resource('router', 'RouterController');
-//     Route::resource('inventaris', 'InventarisController');
-//     Route::get('ajax', [TransactionInController::class, 'ajax']);
-// });
 
 
 Auth::routes();

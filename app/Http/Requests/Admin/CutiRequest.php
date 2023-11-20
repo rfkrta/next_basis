@@ -28,7 +28,8 @@ class CutiRequest extends FormRequest
             'id_kategori' => 'required|max:255',
             'keterangan' => 'required',
             'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'required|date'
+            'tanggal_selesai' => 'required|date',
+            'status' => 'max:255'
         ];
     }
 }

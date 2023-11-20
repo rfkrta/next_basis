@@ -31,7 +31,8 @@ class KaryawanRequest extends FormRequest
             'nip' => 'required|max:255',
             'gaji_posisi' => 'required|max:255',
             'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'required|date'
+            'tanggal_selesai' => 'required|date',
+            'status' => 'max:255'
         ];
     }
 }

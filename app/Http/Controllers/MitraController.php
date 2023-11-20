@@ -120,10 +120,9 @@ class MitraController extends Controller
      */
     public function show($id)
     {
-        $items = Mitra::with('province', 'regency', 'district', 'village')->get();
-        // $item = Mitra::with([
-        //     'province', 'regency', 'district', 'village'
-        // ])->findOrFail($id);
+        $item = Mitra::with([
+            'province', 'regency', 'district', 'village'
+        ])->findOrFail($id);
 
         return view('admin.mitra.detail', compact('item'));
     }

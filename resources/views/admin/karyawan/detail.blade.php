@@ -4,7 +4,7 @@
     <div class="main">
         <div class="main-top1">
             <a href="{{ route('admin.karyawan.index') }}"><i class="fa fa-angle-left"></i></a>
-            <h3>Detail Karyawan</h3>
+            <h3>Detail Karyawan {{ $item->nama }}</h3>
         </div>
 
         @if ($errors->any())
@@ -17,54 +17,52 @@
             </div>
         @endif
 
-        <div class="cong-box2">
+        <div class="cong-box1">
             <form action="{{ route('admin.karyawan.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="content">
                     <div class="nama">
                         <h5>Nama</h5>
-                        <input type="text" name="nama" id="nama" class="input2" placeholder="Tuliskan nama karyawan, di sini" value="{{ old('nama') }}">
+                        <input type="text" name="nama" id="nama" class="input2" placeholder="Tuliskan nama karyawan, di sini" value="{{ $item->nama }}" readonly>
                     </div>
                     <div class="nama1">
                         <h5>Posisi</h5>
-                        <div class="form-group">
-                            <select name="id_positions" id='id_positions' required class="form-control">
-                                <option value="">
-                                    Pilih Posisi Karyawan
-                                </option>
-                            @foreach ($position as $position)
-                                <option value="{{ $position->id }}">{{ $position->nama_posisi }}</option>
-                            @endforeach
-                            </select>
-                        </div>
+                        <input type="text" name="position" id="position" class="input2" placeholder="Tuliskan position karyawan, di sini" value="{{ $item->position->nama_posisi }}" readonly>
                     </div>
                     <div class="tgl">
                         <div class="tgl1">
                             <h5>NIP</h5>
-                            <input type="number" name="nip" id="nip" class="date" placeholder="Tuliskan NIP, di sini" value="{{ old('nip') }}">
+                            <input type="number" name="nip" id="nip" class="date" placeholder="Tuliskan NIP, di sini" value="{{ $item->nip }}" readonly>
                         </div>
                         <!-- <div id="position"></div> -->
                         <div class="tgl1">
                             <h5>Gaji</h5>
                             <input type="number" name="gaji" id="gaji" class="date"
-                                placeholder="Tuliskan gaji karyawan, di sini">
+                                placeholder="Tuliskan gaji karyawan, di sini" value="{{ $item->gaji_posisi }}" readonly>
                         </div>
                     </div>
                     <!-- <div id="position"></div> -->
                     <div class="tgl">
                         <div class="tgl1">
                             <h5>Tanggal Mulai Kontrak Kerja</h5>
-                            <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="date" value="{{ old('tanggal_mulai') }}">
+                            <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="date" value="{{ $item->tanggal_mulai }}" readonly>
                         </div>
                         <div class="tgl1">
                             <h5>Tanggal Selesai Kontrak Kerja</h5>
-                            <input type="date" name="tanggal_selesai" id="" class="date" value="{{ old('tanggal_selesai') }}">
+                            <input type="date" name="tanggal_selesai" id="" class="date" value="{{ $item->tanggal_selesai }}" readonly>
                         </div>
                     </div>
-                    <div class="button">
-                        <button type="submit" class="btnc btn-primary btn-block">
-                            Tambah Karyawan
-                        </button>
+                    <div class="tgl">
+                        <div class="tgl1">
+                            <h5>Jumlah Cuti</h5>
+                            <input type="number" name="nip" id="nip" class="date" placeholder="Tuliskan NIP, di sini" value="{{ $item->jmlCuti }}" readonly>
+                        </div>
+                        <!-- <div id="position"></div> -->
+                        <div class="tgl1">
+                            <h5>Status</h5>
+                            <input type="text" name="status" id="status" class="date"
+                                placeholder="Tuliskan status karyawan, di sini" value="{{ $item->status }}" readonly>
+                        </div>
                     </div>
                 </div>
             </form>

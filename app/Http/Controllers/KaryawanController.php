@@ -111,10 +111,10 @@ class KaryawanController extends Controller
      */
     public function store(KaryawanRequest $request)
     {
-        $data = $request->all();
+        $data = Karyawan::create($request->all());
 
-        Karyawan::create($data);
-        return redirect()->route('admin.karyawan.index');
+        // Karyawan::create($data);
+        return redirect()->route('admin.karyawan.index')->with('success');
     }
 
     /**
@@ -125,13 +125,11 @@ class KaryawanController extends Controller
      */
     public function show($id)
     {
-        $item = Karyawan::findOrFail($id);
-        $position = Position::all();
+        $item = Karyawan::with([
+            'position'
+        ])->findOrFail($id);
 
-        return view('admin.karyawan.detail', [
-            'item' => $item,
-            'position' => $position
-        ]);
+        return view('admin.karyawan.detail', compact('item'));
     }
 
     /**

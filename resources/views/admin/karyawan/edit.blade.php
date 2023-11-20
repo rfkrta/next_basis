@@ -17,7 +17,7 @@
     </div>
     @endif
 
-    <div class="cong-box2">
+    <div class="cong-box1">
         <form action="{{ route('admin.karyawan.update', $item->id) }}" method="post" enctype="multipart/form-data">
             @method('PUT')
             @csrf
@@ -61,6 +61,20 @@
                         <input type="date" name="tanggal_selesai" id="" class="date" value="{{ $item->tanggal_selesai }}">
                     </div>
                 </div>
+                <div class="tglx1">
+                        <div class="tgl1">
+                            <h5>Status</h5>
+                            <div class="form-group">
+                                <select value='status' name="status" id="status" class="form-control">
+                                    <option value="{{ $item->status }}">
+                                        {{ $item->status }}
+                                    </option>
+                                    <option value="Aktif">Aktif</option>
+                                    <option value="Tidak Aktif">Tidak Aktif</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 <div class="button">
                     <button type="submit" class="btnc btn-primary btn-block">
                         Ubah Karyawan

@@ -5,6 +5,21 @@
     <div class="main-top">
         <h1>Karyawan</h1>
     </div>
+
+    @if(session('success'))
+        <div class="alert alert-success">
+            <div class="notif">
+                <div class="notifikasi">
+                    <div class="check">
+                        <i class="cent fa fa-check"></i>
+                    </div>
+                    <p class="isi">Berhasil membuat karyawan baru</p>
+                    <i class="silang fa fa-times" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="view">
         <div class="search">
             <i class="fa fa-search"></i>
@@ -75,6 +90,9 @@
                         <td>{{ $item->position->nama_posisi }}</td>
                         <td>{{ $item->status }}</td>
                         <td>
+                            <a href="{{ route('admin.karyawan.show', $item->id) }}" class="btn btn-danger">
+                                <i class="btn1 fa fa-eye"></i>
+                            </a>
                             <a href="{{ route('admin.karyawan.edit', $item->id) }}" class="btn btn-danger">
                                 <i class="btn3 fa fa-pencil"></i>
                             </a>

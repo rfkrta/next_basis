@@ -734,8 +734,19 @@ body {
     border-radius: 5px;
 }
 
-.nama1 {
+.nama1 h5 {
     margin-top: 24px;
+}
+
+.nama1 .input2 {
+    margin-top: 10px;
+    background: transparent;
+    height: 27px;
+    width: 905px;
+    padding-left: 5px;
+    padding-top: 0px;
+    border: 2px solid var(--grey);
+    border-radius: 5px;
 }
 
 .tgl {
@@ -1205,3 +1216,56 @@ tbody tr {
     color: var(--font-color);
     text-align: center;
 } */
+
+.notif {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+    /* background-color: #f5f5f5; */
+    margin: 0;
+}
+
+.notifikasi {
+    width: 300px;
+    /* height: 56px; */
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #1D77Ca;
+    display: flex;
+}
+
+.notifikasi .check {
+    width: 35px;
+    height: 25px;
+    /* padding: 10px; */
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.isi {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #ffffff;
+    margin: 0;
+    margin-left: 5px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.notifikasi .silang {
+    margin-left: 45px;
+    font-size: 20px;
+    /* width: 50px;
+    height: 50px; */
+    color: #A81616;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}

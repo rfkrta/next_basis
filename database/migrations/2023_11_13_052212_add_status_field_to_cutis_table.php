@@ -15,7 +15,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('cutis', function (Blueprint $table) {
-            $table->string('status')->default('tertunda');
+            $table->string('status')->default('Tertunda');
         });
     }
 

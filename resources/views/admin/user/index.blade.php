@@ -69,6 +69,7 @@
                             </a>
                         </td>
                     </tr>
+
                     @endforeach
                     @if($users->isEmpty() && $filter === 'Aktif')
                     <tr>

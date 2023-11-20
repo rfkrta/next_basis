@@ -13,8 +13,9 @@ class Cuti extends Model
 
     protected $fillable = [
         'id_nama', 'id_kategori', 'keterangan',
-        'tanggal_mulai', 'tanggal_selesai'
+        'tanggal_mulai', 'tanggal_selesai', 'status'
     ];
+    
 
     protected $hidden = [
         //

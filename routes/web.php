@@ -72,6 +72,13 @@ Route::post('/admin/user/store', [UserController::class, 'store'])->name('admin.
 Route::get('/get-nip-by-name/{name}', [KaryawanController::class, 'getNIPByName'])->name('getNIPByName');
 Route::get('/admin/karyawan/getgajiposisi', [KaryawanController::class, 'getGajiPosisiById'])->name('admin.karyawan.getgajiposisi');
 Route::get('/admin/karyawan/getgajiposisi/{id}', [KaryawanController::class, 'getGajiPosisiById'])->name('admin.karyawan.getgajiposisi');
+Route::put('/admin/pengajuancuti/{id}/updateToDiterima', [PengajuanCutiController::class, 'updateToDiterima'])->name('admin.pengajuancuti.updateToDiterima');
+Route::put('/admin/pengajuancuti/{id}/updateToDitolak', [PengajuancutiController::class, 'updateToDitolak'])->name('admin.pengajuancuti.updateToDitolak');
+
+
+
+
+
 
 
 

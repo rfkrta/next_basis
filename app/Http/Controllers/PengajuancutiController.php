@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CutiRequest;
 use App\Models\Cuti;
 use App\Models\Karyawan;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 
 class PengajuancutiController extends Controller
@@ -19,12 +21,12 @@ class PengajuancutiController extends Controller
     public function index()
     {
         $cuti_baru = Cuti::join('karyawans', 'karyawans.id', '=', 'cutis.id_nama')
-                    ->select('cutis.*', 'karyawans.nama')
-                    ->get();
+            ->select('cutis.*', 'karyawans.nama')
+            ->get();
 
         $cuti_baru = Cuti::join('kategoris', 'kategoris.id', '=', 'cutis.id_kategori')
-                    ->select('cutis.*', 'kategoris.nama_kategori')
-                    ->get();
+            ->select('cutis.*', 'kategoris.nama_kategori')
+            ->get();
 
         $karyawan = Karyawan::all();
         $kategori = Kategori::all();
@@ -36,6 +38,30 @@ class PengajuancutiController extends Controller
         //     'items' => $items
         // ]);
     }
+    public function updateToDiterima($id)
+    {
+        $pengajuanCuti = Cuti::findOrFail($id);
+
+        // Update the status to 'diterima'
+        $pengajuanCuti->update([
+            'status' => 'diterima',
+        ]);
+
+        // Redirect to a specific route or return a response
+        return redirect()->route('admin.pengajuancuti.index');
+    }
+    public function updateToDitolak($id)
+    {
+        $pengajuanCuti = Cuti::findOrFail($id);
+
+        // Update the status to 'ditolak'
+        $pengajuanCuti->update([
+            'status' => 'ditolak',
+        ]);
+
+        return redirect()->route('admin.pengajuancuti.index');
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -48,6 +74,7 @@ class PengajuancutiController extends Controller
         $kategori = Kategori::all();
         return view('admin.pengajuancuti.create', compact('kategori', 'karyawan'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -115,16 +142,3 @@ class PengajuancutiController extends Controller
         //
     }
 }
-// {
-//     public function index()
-//     {
-//         // Logika untuk menampilkan halaman dashboard
-//         return view('admin.pengajuancuti.index');
-//     }
-
-//     public function create()
-//     {
-//         // Logika untuk menampilkan halaman dashboard
-//         return view('admin.pengajuancuti.create');
-//     }
-// }

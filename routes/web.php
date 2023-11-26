@@ -9,86 +9,66 @@ use App\Http\Controllers\PengajuancutiController;
 use App\Http\Controllers\PerjalanandinasController;
 use App\Http\Controllers\RouterController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('auth.login');
 });
-// Route::get('/home', function () {
-//     return redirect('/admin.dashboard.index');
-// });
-//login
-Route::get('/login', [LoginController::class, 'index'])->name('auth.login');
+Route::post('/login', [LoginController::class, 'index'])->name('auth.login');
 Route::post('/', [LoginController::class, 'login_proses'])->name('login-proses');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-//
-Route::get('/admin/dashboard', [DashboardController::class, 'index'])->middleware('laravel10')->name('admin.dashboard.index');
-Route::get('/admin/pengajuancuti', [PengajuancutiController::class, 'index'])->middleware('laravel10')->name('admin.pengajuancuti.index');
-Route::get('/admin/pengajuancuti/create', [PengajuancutiController::class, 'create'])->middleware('laravel10')->name('admin.pengajuancuti.create');
-Route::post('/admin/pengajuancuti/store', [PengajuancutiController::class, 'store'])->middleware('laravel10')->name('admin.pengajuancuti.store');
-Route::get('/admin/pengajuancuti/{id}', [PengajuancutiController::class, 'show'])->middleware('laravel10')->name('admin.pengajuancuti.show');
-Route::get('/admin/perjalanandinas', [PerjalanandinasController::class, 'index'])->middleware('laravel10')->name('admin.perjalanandinas.index');
-Route::get('/admin/perjalanandinas/create', [PerjalanandinasController::class, 'create', 'user'])->middleware('laravel10')->name('admin.perjalanandinas.create');
-Route::post('/admin/perjalanandinas/store', [PerjalanandinasController::class, 'store'])->middleware('laravel10')->name('admin.perjalanandinas.store');
-Route::get('/getPosisiById/{id}', [PerjalanandinasController::class, 'getPosisiById'])->name('getPosisiById');
-Route::get('/getPosisiById1/{id}', [PerjalanandinasController::class, 'getPosisiById1'])->name('getPosisiById1');
-Route::get('/getPosisiById2/{id}', [PerjalanandinasController::class, 'getPosisiById2'])->name('getPosisiById2');
-Route::get('/admin/perjalanandinas/detail/{id}', [PerjalanandinasController::class, 'show'])->middleware('laravel10')->name('admin.perjalanandinas.show');
-Route::get('/admin/perjalanandinas/edit/{id}', [PerjalanandinasController::class, 'edit'])->middleware('laravel10')->name('admin.perjalanandinas.edit');
-Route::put('/admin/perjalanandinas/{id}', [PerjalanandinasController::class, 'update'])->middleware('laravel10')->name('admin.perjalanandinas.update');
-Route::get('/admin/karyawan', [KaryawanController::class, 'index'])->middleware('laravel10')->name('admin.karyawan.index');
-Route::get('/admin/karyawan/create', [KaryawanController::class, 'create', 'user'])->middleware('laravel10')->name('admin.karyawan.create');
-Route::post('/admin/karyawan/store', [KaryawanController::class, 'store', 'user'])->middleware('laravel10')->name('admin.karyawan.store');
-Route::get('/admin/karyawan/show/{id}', [KaryawanController::class, 'show'])->middleware('laravel10')->name('admin.karyawan.show');
-Route::get('/admin/karyawan/{id}', [KaryawanController::class, 'edit'])->middleware('laravel10')->name('admin.karyawan.edit');
-Route::put('/admin/karyawan/{id}', [KaryawanController::class, 'update'])->middleware('laravel10')->name('admin.karyawan.update');
-Route::get('/admin/karyawan/ajax', [KaryawanController::class, 'ajax'])->middleware('laravel10')->name('admin.karyawan.ajax');
-Route::get('/admin/karyawan/getgaji', [KaryawanController::class, 'getgaji'])->middleware('laravel10')->name('admin.karyawan.getgaji');
-Route::get('/admin/karyawan/getgaji1', [KaryawanController::class, 'getgaji1'])->middleware('laravel10')->name('admin.karyawan.getgaji1');
-Route::get('/admin/karyawan/getgaji2', [KaryawanController::class, 'getgaji2'])->middleware('laravel10')->name('admin.karyawan.getgaji2');
-Route::get('/admin/mitra', [MitraController::class, 'index'])->middleware('laravel10')->name('admin.mitra.index');
-Route::get('/admin/mitra/create', [MitraController::class, 'create'])->middleware('laravel10')->name('admin.mitra.create');
-Route::post('/admin/mitra/store', [MitraController::class, 'store'])->middleware('laravel10')->name('admin.mitra.store');
-Route::post('/admin/mitra/getkota', [MitraController::class, 'getkota'])->middleware('laravel10')->name('getkota');
-Route::post('/admin/mitra/getkecamatan', [MitraController::class, 'getkecamatan'])->middleware('laravel10')->name('getkecamatan');
-Route::post('/admin/mitra/getkelurahan', [MitraController::class, 'getkelurahan'])->middleware('laravel10')->name('getkelurahan');
-Route::get('/admin/mitra/{id}', [MitraController::class, 'edit'])->middleware('laravel10')->name('admin.mitra.edit');
-Route::get('/admin/mitra/detail/{id}', [MitraController::class, 'show'])->middleware('laravel10')->name('admin.mitra.show');
-Route::put('/admin/mitra/{id}', [MitraController::class, 'update'])->middleware('laravel10')->name('admin.mitra.update');
-Route::get('/admin/dataperusahaan/inventaris', [InventarisController::class, 'index'])->middleware('laravel10')->name('admin.dataperusahaan.inventaris.index');
-Route::get('/admin/dataperusahaan/router', [RouterController::class, 'index'])->middleware('laravel10')->name('admin.dataperusahaan.router.index');
-Route::get('/admin/user/', [UserController::class, 'index'])->middleware('laravel10')->name('admin.user.index');
-Route::get('/getGajiPosisiById/{id}', [KaryawanController::class, 'getGajiPosisiById'])->name('getGajiPosisiById');
-Route::get('/admin/users', [UserController::class, 'index'])->middleware('laravel10')->name('admin.users.index');
-Route::get('/admin/user/create', [UserController::class, 'create'])->middleware('laravel10')->name('admin.user.create');
-Route::get('/admin/karyawan/filter', [KaryawanController::class, 'filterKaryawan'])->name('admin.karyawan.filter');
-Route::post('/admin/user/store', [UserController::class, 'store'])->name('admin.user.store');
-Route::get('/get-nip-by-name/{name}', [KaryawanController::class, 'getNIPByName'])->name('getNIPByName');
-Route::get('/admin/karyawan/getgajiposisi', [KaryawanController::class, 'getGajiPosisiById'])->name('admin.karyawan.getgajiposisi');
-Route::get('/admin/karyawan/getgajiposisi/{id}', [KaryawanController::class, 'getGajiPosisiById'])->name('admin.karyawan.getgajiposisi');
-Route::put('/admin/pengajuancuti/{id}/updateToDiterima', [PengajuanCutiController::class, 'updateToDiterima'])->name('admin.pengajuancuti.updateToDiterima');
-Route::put('/admin/pengajuancuti/{id}/updateToDitolak', [PengajuancutiController::class, 'updateToDitolak'])->name('admin.pengajuancuti.updateToDitolak');
 
+// Middleware
+Route::middleware('laravel10')->group(function () {
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+    //
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard.index');
 
+    // Cuti
+    Route::get('/admin/pengajuancuti', [PengajuancutiController::class, 'index'])->name('admin.pengajuancuti.index');
+    Route::get('/admin/pengajuancuti/create', [PengajuancutiController::class, 'create'])->name('admin.pengajuancuti.create');
+    Route::post('/admin/pengajuancuti/store', [PengajuancutiController::class, 'store'])->name('admin.pengajuancuti.store');
+    Route::get('/admin/pengajuancuti/{id}', [PengajuancutiController::class, 'show'])->name('admin.pengajuancuti.show');
+    Route::put('/admin/pengajuancuti/{id}/updateToDiterima', [PengajuanCutiController::class, 'updateToDiterima'])->name('admin.pengajuancuti.updateToDiterima');
+    Route::put('/admin/pengajuancuti/{id}/updateToDitolak', [PengajuancutiController::class, 'updateToDitolak'])->name('admin.pengajuancuti.updateToDitolak');
+    Route::get('/admin/perjalanandinas', [PerjalanandinasController::class, 'index'])->name('admin.perjalanandinas.index');
 
+    // Dinas
+    Route::get('/admin/perjalanandinas/create', [PerjalanandinasController::class, 'create', 'user'])->name('admin.perjalanandinas.create');
+    Route::post('/admin/perjalanandinas/store', [PerjalanandinasController::class, 'store'])->name('admin.perjalanandinas.store');
 
+    // Karyawan
+    Route::get('/admin/karyawan', [KaryawanController::class, 'index'])->name('admin.karyawan.index');
+    Route::get('/admin/karyawan/create', [KaryawanController::class, 'create', 'user'])->name('admin.karyawan.create');
+    Route::post('/admin/karyawan/store', [KaryawanController::class, 'store', 'user'])->name('admin.karyawan.store');
+    Route::get('/admin/karyawan/show', [KaryawanController::class, 'show'])->name('admin.karyawan.show');
+    Route::get('/admin/karyawan/{id}', [KaryawanController::class, 'edit'])->name('admin.karyawan.edit');
+    Route::put('/admin/karyawan/{id}', [KaryawanController::class, 'update'])->name('admin.karyawan.update');
+    Route::get('/admin/karyawan/ajax', [KaryawanController::class, 'ajax'])->name('admin.karyawan.ajax');
+    Route::get('/getGajiPosisiById/{id}', [KaryawanController::class, 'getGajiPosisiById'])->name('getGajiPosisiById');
+    Route::get('/admin/karyawan/filter', [KaryawanController::class, 'filterKaryawan'])->name('admin.karyawan.filter');
+    Route::get('/get-nip-by-name/{name}', [KaryawanController::class, 'getNIPByName'])->name('getNIPByName');
 
+    // Mitra
+    Route::get('/admin/mitra', [MitraController::class, 'index'])->name('admin.mitra.index');
+    Route::get('/admin/mitra/create', [MitraController::class, 'create'])->name('admin.mitra.create');
+    Route::post('/admin/mitra/store', [MitraController::class, 'store'])->name('admin.mitra.store');
+    Route::post('/admin/mitra/getkota', [MitraController::class, 'getkota'])->name('getkota');
+    Route::post('/admin/mitra/getkecamatan', [MitraController::class, 'getkecamatan'])->name('getkecamatan');
+    Route::post('/admin/mitra/getkelurahan', [MitraController::class, 'getkelurahan'])->name('getkelurahan');
+    Route::get('/admin/mitra/{id}', [MitraController::class, 'edit'])->name('admin.mitra.edit');
+    Route::get('/admin/mitra/detail/{id}', [MitraController::class, 'show'])->name('admin.mitra.show');
+    Route::put('/admin/mitra/{id}', [MitraController::class, 'update'])->name('admin.mitra.update');
 
+    // Inventaris
+    Route::get('/admin/dataperusahaan/inventaris', [InventarisController::class, 'index'])->name('admin.dataperusahaan.inventaris.index');
+    Route::get('/admin/dataperusahaan/router', [RouterController::class, 'index'])->name('admin.dataperusahaan.router.index');
 
-
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    // User
+    Route::get('/admin/user/', [UserController::class, 'index'])->name('admin.user.index');
+    Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users.index');
+    Route::get('/admin/user/create', [UserController::class, 'create'])->name('admin.user.create');
+    Route::post('/admin/user/store', [UserController::class, 'store'])->name('admin.user.store');
+    Route::get('/admin/user/{id}', [UserController::class, 'edit'])->name('admin.user.edit');
+    Route::put('/admin/user/{id}', [UserController::class, 'update'])->name('admin.user.edit');
+});

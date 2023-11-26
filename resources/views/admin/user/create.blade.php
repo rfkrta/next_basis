@@ -17,7 +17,7 @@
     </div>
     @endif
 
-    <div class="cong-box1">
+    <div class="cong-box2">
         <form action="{{ route('admin.user.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="content">
@@ -112,125 +112,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
-        // $(function (){
-        //     $('#id_positions').on('change',function(){
-        //         var id = $('#id_positions').val();
-
-        //         console.log(id);
-        //         $.ajax({
-        //             type : 'GET',
-        //             url : "{{ route('admin.karyawan.getgaji1') }}",
-        //             data : {'id':id},
-        //             dataType : 'json',
-        //             cache : false,
-
-        //             success : function(msg){
-        //                 $('#gaji_posisi').html(msg);
-        //             },
-        //             error : function(data){
-        //                 console.log('error:',data)
-        //             },
-        //         });
-        //     });
-        // });
-
-        // $(document).on('change','.karyawan',function () {
-        //     var position_id=$(this).val();
-
-        //     var a=$(this).parent();
-        //     console.log(position_id);
-        //     var op="";
-        //     $.ajax({
-        //         type: 'get',
-        //         url: "{{ route('admin.karyawan.getgaji') }}",
-        //         data: {'id':position_id},
-        //         dataType: 'json',//return data will be json
-        //         success:function(data){
-        //             console.log("gaji_posisi");
-        //             console.log(data.gaji_posisi);
-
-        //             // here price is coloumn name in products table data.coln name
-
-        //             a.find('.gaji_posisi').val(data.gaji_posisi);
-
-        //         },
-        //         error:function(){
-
-        //         }
-        //     });
-
-
-        // });
-
-        // $('#id_positions').on('change', (event) => {
-        //     getGaji(event.target.value).then(position => {
-        //         $('#gaji_posisi').val(position.gaji_posisi);
-        //     });
-        // });
-
-        // async function getGaji(id) {
-        //     let response = await fetch('{{ route("admin.karyawan.getgaji2") }}' + id)
-        //     let data = await response.json();
-
-        //     return data;
-        // }
-
-        // $(function (){
-        //     $(document).on('change','.karyawan',function (){
-        //         var id = $(this).val();
-
-        //         var a=$(this).parent();
-        //         console.log(id);
-        //         var op="";
-        //         $.ajax({
-        //             type : 'GET',
-        //             url : "{{ route('admin.karyawan.getgaji1') }}",
-        //             data : {'id':id},
-        //             dataType : 'json',
-        //             cache : false,
-
-        //             success : function(msg){
-        //                 $('#gaji_posisi').html(msg);
-        //                 console.log("gaji_posisi");
-        //                 console.log(msg.gaji_posisi);
-
-        //                 // here price is coloumn name in products table msg.coln name
-
-        //                 // a.find('.gaji_posisi').val(msg.gaji_posisi);
-        //             },
-        //             error : function(data){
-        //                 console.log('error:',data)
-        //             },
-        //         });
-        //     });
-        // });
-
-        $(document).ready(function() {
-            $('#id_positions').on('change', function() {
-                var selectedValue = $(this).val();
-                // var a=$(this).parent();
-                console.log(selectedValue);
-                $.ajax({
-                    url: "{{ route('admin.karyawan.getgaji1') }}",
-                    type: 'GET',
-                    data: {
-                        'id_positions': selectedValue
-                    },
-                    success: function(data) {
-                        // Update data tampilan disini
-                        $('#gaji_posisi').html(data);
-                        // console.log("gaji_posisi");
-                        // console.log(data.gaji_posisi);
-
-                        // here price is coloumn name in products table data.coln name
-
-                        // a.find('.gaji_posisi').val(data.gaji_posisi);
-                    }
-                });
-            });
-        });
-    });
 </script>
 @endpush
 <!-- <div class="form-group">

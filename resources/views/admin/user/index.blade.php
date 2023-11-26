@@ -64,7 +64,7 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('admin.karyawan.edit', ['id' => $user->id]) }}" class="btn btn-danger">
+                            <a href="{{ route('admin.user.edit', ['id' => $user->id]) }}" class="btn btn-danger">
                                 <i class="btn3 fa fa-pencil"></i>
                             </a>
                         </td>

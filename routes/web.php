@@ -42,6 +42,7 @@ Route::middleware('laravel10')->group(function () {
     Route::get('/admin/karyawan/create', [KaryawanController::class, 'create', 'user'])->name('admin.karyawan.create');
     Route::post('/admin/karyawan/store', [KaryawanController::class, 'store', 'user'])->name('admin.karyawan.store');
     Route::get('/admin/karyawan/show', [KaryawanController::class, 'show'])->name('admin.karyawan.show');
+    Route::get('/admin/karyawan/show/{id}', [KaryawanController::class, 'show'])->name('admin.karyawan.edit');
     Route::get('/admin/karyawan/{id}', [KaryawanController::class, 'edit'])->name('admin.karyawan.edit');
     Route::put('/admin/karyawan/{id}', [KaryawanController::class, 'update'])->name('admin.karyawan.update');
     Route::get('/admin/karyawan/ajax', [KaryawanController::class, 'ajax'])->name('admin.karyawan.ajax');

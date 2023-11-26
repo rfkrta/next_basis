@@ -9,8 +9,9 @@
     <title>NextBasis</title>
     <link rel="shortcut icon" href="logo.png" />
 
-
+    <!-- @stack('prepend-style') -->
     @include('style')
+    <!-- @stack('addon-style') -->
 </head>
 
 <body>

@@ -25,14 +25,16 @@ class DinasRequest extends FormRequest
     {
         return [
             'id_mitras' => 'required|max:255',
-            'kota' => 'required|max:255',
-            'komisi' => 'required|max:255',
+            'kota_keberangkatan' => 'required|max:255',
+            'komisi_dinas' => 'required|max:255',
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date',
             'id_anggota1' => 'required|max:255',
             'id_anggota2' => 'required|max:255',
-            'pic_perusahaan' => 'required|max:255',
-            'jabatan_pic' => 'required|max:255'
+            'id_anggota3' => 'max:255',
+            'id_anggota4' => 'max:255',
+            'nama_PIC_perusahaan' => 'required|max:255',
+            'jabatan_PIC' => 'required|max:255'
         ];
     }
 }

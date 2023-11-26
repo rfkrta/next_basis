@@ -17,7 +17,7 @@
     </div>
     @endif
 
-    <div class="cong-box2">
+    <div class="cong-box1">
         <form action="{{ route('admin.user.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="content">

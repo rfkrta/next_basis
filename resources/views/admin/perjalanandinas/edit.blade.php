@@ -4,7 +4,7 @@
     <div class="main">
         <div class="main-top1">
             <a href="{{ route('admin.perjalanandinas.index') }}"><i class="fa fa-angle-left"></i></a>
-            <h3>Tambah Perjalanan Dinas</h3>
+            <h3>Edit PVR Perjalanan Dinas {{ $item->mitra->nama_mitra }}</h3>
         </div>
 
         @if ($errors->any())
@@ -17,94 +17,54 @@
             </div>
         @endif
 
-        <div class="cong-box4">
-            <form action="{{ route('admin.perjalanandinas.store') }}" method="post" enctype="multipart/form-data">
+        <div class="cong-box1">
+            <form action="{{ route('admin.perjalanandinas.update', $item->id) }}" method="post" enctype="multipart/form-data">
+                @method('PUT')
                 @csrf
                 <div class="content">
-                    <h5>Perusahaan</h5>
-                    <div class="form-group">
-                        <select name="id_mitras" id="id_mitras" required class="form-control">
-                            <option value="">
-                                Pilih Perusahaan
-                            </option>
-                        @foreach ($mitra as $mitra)
-                            <option value="{{ $mitra->id }}">{{ $mitra->nama_mitra }}</option>
-                        @endforeach
-                        </select>
+                    <div class="tglx">
+                        <div class="tgl1">
+                            <h5>Biaya Hotel</h5>
+                            <input type="text" name="nama_mitra" id="nama_mitra" class="date" placeholder="Tuliskan biaya untuk hotel, di sini" value="{{ old('nama_mitra') }}">
+                        </div>
+                        <div class="tgl1">
+                            <h5>Biaya Transportasi</h5>
+                            <input type="text" name="nama_mitra" id="nama_mitra" class="date" placeholder="Tuliskan biaya untuk perusahaan, di sini" value="{{ old('nama_mitra') }}">
+                        </div>
                     </div>
                     <div class="tglx1">
                         <div class="tgl1">
-                            <h5>Kota Keberangkatan</h5>
-                            <div class="form-group1">
-                                <select name="kota_keberangkatan" id="kota_keberangkatan" required class="form-control1">
-                                    <option>
-                                        Pilih Kabupaten / Kota...
-                                    </option>
-                                @foreach ($regencies as $kota)
-                                    <option value="{{ $kota->id }}">{{ $kota->name }}</option>
-                                @endforeach
-                                </select>
-                            </div>
-                            <!-- <input type="text" name="kota" id="kota" class="date" placeholder="Tuliskan kota keberangkatan, di sini" value="{{ old('kota') }}"> -->
+                            <h5>Keterangan Hotel</h5>
+                            <textarea name="alamat_lengkap" id="alamat_lengkap" cols="58" rows="5" placeholder="Tuliskan keterangan untuk hotel, di sini">{{ old('alamat_lengkap') }}</textarea>
                         </div>
                         <div class="tgl1">
-                            <h5>Komisi</h5>
-                            <input type="number" name="komisi_dinas" id="komisi_dinas" class="date" placeholder="" readonly>
+                            <h5>Keterangan Transportasi</h5>
+                            <textarea name="alamat_lengkap" id="alamat_lengkap" cols="58" rows="5" placeholder="Tuliskan keterangan untuk transportasi, di sini">{{ old('alamat_lengkap') }}</textarea>
                         </div>
                     </div>
-                    <div class="tgl">
-                        <div class="tgl1">
-                            <h5>Tanggal Mulai</h5>
-                            <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="date" value="{{ old('tanggal_mulai') }}">
-                        </div>
-                        <div class="tgl1">
-                            <h5>Tanggal Selesai</h5>
-                            <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="date" value="{{ old('tanggal_selesai') }}">
-                        </div>
-                    </div>
-                    <h5 class="tim1">Tim</h5>
-                    <div class="tim">
-                        <div class="form-group1">
-                            <select name="id_anggota1" id="id_anggota1" required class="form-control1">
-                                <option value="">
-                                    Pilih anggota 1
-                                </option>
-                            @foreach ($karyawan as $karyawan)
-                                <option value="{{ $karyawan->id }}">{{ $karyawan->nama }}</option>
-                            @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group1">
-                            <select name="id_anggota2" id="id_anggota2" required class="form-control1">
-                                <option value="">
-                                    Pilih anggota 2
-                                </option>
-                            @foreach ($karyawan1 as $karyawan)
-                                <option value="{{ $karyawan->id }}">{{ $karyawan->nama }}</option>
-                            @endforeach
-                            </select>
-                        </div>
-                        
-                    </div>
-                    <!-- <div class="button">
-                        <button type="button" class="btnx btn-primary btn-block">
-                            Tambah Anggota
-                        </button>
-                    </div> -->
                     <div class="tglx1">
                         <div class="tgl1">
-                            <h5>PIC Perusahaan</h5>
-                            <input type="text" name="nama_PIC_perusahaan" id="nama_PIC_perusahaan" class="date" readonly>
+                            <h5>Biaya Konsumsi</h5>
+                            <input type="text" name="nama_PIC_perusahaan" id="" class="date" placeholder="Tuliskan biaya untuk konsumsi, di sini" value="{{ old('nama_PIC_perusahaan') }}">
                         </div>
                         <div class="tgl1">
-                            <h5>Jabatan PIC</h5>
-                            <input type="text" name="jabatan_PIC" id="jabatan_PIC" class="date" readonly>
+                            <h5>Biaya Keperluan Lain</h5>
+                            <input type="text" name="jabatan_PIC" id="jabatan_PIC" class="date" placeholder="Tuliskan biaya untuk keperluan lainnya, di sini" value="{{ old('jabatan_PIC') }}">
+                        </div>
+                    </div>
+                    <div class="tglx1">
+                        <div class="tgl1">
+                            <h5>Keterangan Konsumsi</h5>
+                            <textarea name="alamat_lengkap" id="alamat_lengkap" cols="58" rows="5" placeholder="Tuliskan keterangan untuk konsumsi, di sini">{{ old('alamat_lengkap') }}</textarea>
+                        </div>
+                        <div class="tgl1">
+                            <h5>Keterangan Keperluan Lain</h5>
+                            <textarea name="alamat_lengkap" id="alamat_lengkap" cols="58" rows="5" placeholder="Tuliskan keterangan untuk keperluan lainnya, di sini">{{ old('alamat_lengkap') }}</textarea>
                         </div>
                     </div>
                     <div class="button">
                         <button type="submit" class="btny1 btn-primary btn-block">
-                            Ajukan Dinas
+                            Edit PVR
                         </button>
                     </div>
                 </div>

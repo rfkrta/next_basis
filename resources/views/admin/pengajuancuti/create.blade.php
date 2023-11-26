@@ -3,7 +3,12 @@
 @section('content')
     <div class="main">
         <div class="main-top1">
-            <a href="{{ route('admin.pengajuancuti.index') }}"><i class="fa fa-angle-left"></i></a>
+            <button type="button" class="btnclass btn-primary" onclick="openConfirmationModal()">
+                <i class="fa fa-angle-left"></i>
+            </button>
+            @include('admin.pengajuancuti.back')
+            <!-- Modal Konfirmasi -->
+            <!-- <a href="{{ route('admin.pengajuancuti.index') }}" data-toggle="modal" data-target="#confirmationModal"><i class="fa fa-angle-left"></i></a> -->
             <h3>Pengajuan Cuti</h3>
         </div>
 
@@ -67,12 +72,85 @@
                         </div>
                     </div>
                     <div class="button">
-                        <button type="submit" class="btn1 btn-primary btn-block">
+                        <button type="button" class="btn1 btn-primary btn-block" onclick="openConfirmationAddModal()">
                             Ajukan Cuti
                         </button>
+                        @include('admin.pengajuancuti.add-confirm')
                     </div>
                 </div>
             </form>
+            
+        </div>
+
+    </div>
+    <!-- Alert -->
+    <div id="alertBox" class="alert-container" style="display:none;">
+        <div class="alert-content">
+            <p>Mohon isi semua field sebelum menambah pengajuan cuti!</p>
+            <span class="close-button" onclick="closeAlertBox()">&times;</span>
         </div>
     </div>
+    <div id="successAlert" class="alert success" style="display:none;">
+        <span class="closebtn" onclick="closeAlert()">&times;</span>
+        Data berhasil ditambahkan!
+    </div>
 @endsection
+
+@push('addon-script')
+    <script>
+        function openConfirmationModal() {
+            // Ambil nilai dari setiap input
+            var nama = document.getElementById('id_nama').value;
+            var kategori = document.getElementById('id_kategori').value;
+            var keterangan = document.getElementById('keterangan').value;
+            var mulai = document.getElementById('tanggal_mulai').value;
+            var selesai = document.getElementById('tanggal_selesai').value;
+
+            // Periksa apakah semua field tidak kosong
+            if (nama.trim() !== '' || kategori.trim() !== '' || keterangan.trim() !== '' || mulai.trim() !== '' || selesai.trim() !== '') {
+                // Jika semua field tidak kosong, buka modal konfirmasi
+                document.getElementById('confirmationModal').style.display = 'block';
+            } else {
+                // Jika ada field yang kosong, berikan pesan peringatan atau tindakan lain
+                // alert('Mohon isi semua field sebelum menambah data.');
+                window.location.href = "{{ route('admin.pengajuancuti.index') }}";
+            }
+        }
+
+        function openConfirmationAddModal() {
+            // Ambil nilai dari setiap input
+            var nama = document.getElementById('id_nama').value;
+            var kategori = document.getElementById('id_kategori').value;
+            var keterangan = document.getElementById('keterangan').value;
+            var mulai = document.getElementById('tanggal_mulai').value;
+            var selesai = document.getElementById('tanggal_selesai').value;
+
+            // Periksa apakah semua field tidak kosong
+            if (nama.trim() !== '' && kategori.trim() !== '' && keterangan.trim() !== '' && mulai.trim() !== '' && selesai.trim() !== '') {
+                // Jika semua field tidak kosong, buka modal konfirmasi
+                document.getElementById('confirmationAddModal').style.display = 'block';
+            } else {
+                // Jika ada field yang kosong, berikan pesan peringatan atau tindakan lain
+                // alert('Mohon isi semua field sebelum menambah data.');
+                document.getElementById('alertBox').style.display = 'block';
+            }
+        }
+
+        function closeAlertBox() {
+            // Sembunyikan alert saat tombol close diklik
+            document.getElementById('alertBox').style.display = 'none';
+        }
+
+        function confirmAdd() {
+        // ... (skrip sebelumnya) ...
+
+        // Tampilkan alert ketika data berhasil ditambahkan
+            document.getElementById('successAlert').style.display = 'block';
+        }
+
+        function closeAlert() {
+            // Sembunyikan alert saat tombol close diklik
+            document.getElementById('successAlert').style.display = 'none';
+        }
+    </script>
+@endpush

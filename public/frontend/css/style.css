@@ -568,6 +568,12 @@ body {
     background-color: var(--blue);
 }
 
+.line5 {
+    height: 2px;
+    width: 305px;
+    background-color: var(--blue);
+}
+
 .filterx {
     margin-top: 24px;
 }
@@ -973,6 +979,32 @@ body {
     color: var(--green);
 }
 
+.btnclass {
+    height: 20px;
+    width: 20px;
+    /* padding: 3px; */
+    /* height: 29px;
+    width: 29px;
+    border-radius: 10px; */
+    /* align-items: center; */
+    /* margin: 2px; */
+    font-size: 12px;
+    /* background: var(--darkblue); */
+    /* color: var(--white); */
+    border: none;
+    border-radius: 28px;
+    /* display: flex; */
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+
+.btnclass i {
+    color: var(--black2);
+    /* justify-content: center;
+    align-items: center; */
+}
+
 .com-box {
     height: 180px;
     width: 18%;
@@ -1217,55 +1249,131 @@ tbody tr {
     text-align: center;
 } */
 
-.notif {
-    display: flex;
+.modal-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 550px;
+    width: 312px;
+    height: 194px;
+    /* background-color: rgba(0, 0, 0, 0.5); */
     justify-content: center;
     align-items: center;
-    height: 20vh;
-    /* background-color: #f5f5f5; */
+}
+
+.confirmation-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+.confirmation-container h2 {
+    margin-bottom: 20px;
+}
+
+.confirmation-container p {
     margin: 0;
+    font-size: 16px;
+    color: #555;
 }
 
-.notifikasi {
+.confirmation-buttons {
+    margin-top: 20px;
+}
+
+.confirmation-buttons button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+
+.cancel-button {
+    background-color: #ccc;
+    color: #333;
+}
+
+.confirm-button {
+    background-color: #4285f4;
+    color: #fff;
+}
+
+.alert-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
     width: 300px;
-    /* height: 56px; */
-    padding: 10px;
-    border-radius: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #1D77Ca;
-    display: flex;
+    background-color: var(--red);
+    color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.notifikasi .check {
+.alert-container1 {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    background-color: var(--blue);
+    color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.alert-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.check {
     width: 35px;
     height: 25px;
     /* padding: 10px; */
     border-radius: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
-    display: grid;
+    /* display: grid;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
 }
 
-.isi {
-    font-size: 14px;
-    line-height: 1.5;
-    color: #ffffff;
-    margin: 0;
-    margin-left: 5px;
-    display: grid;
-    justify-content: center;
-    align-items: center;
+.close-button {
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
 }
 
-.notifikasi .silang {
-    margin-left: 45px;
-    font-size: 20px;
-    /* width: 50px;
-    height: 50px; */
-    color: #A81616;
-    display: grid;
-    justify-content: center;
-    align-items: center;
+.alert {
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.success {
+    color: #4CAF50;
+    background-color: #DFF2BF;
+    border-color: #4CAF50;
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: #333;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: #fff;
 }

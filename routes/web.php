@@ -42,6 +42,12 @@ Route::get('/admin/pengajuancuti/{id}', [PengajuancutiController::class, 'show']
 Route::get('/admin/perjalanandinas', [PerjalanandinasController::class, 'index'])->middleware('laravel10')->name('admin.perjalanandinas.index');
 Route::get('/admin/perjalanandinas/create', [PerjalanandinasController::class, 'create', 'user'])->middleware('laravel10')->name('admin.perjalanandinas.create');
 Route::post('/admin/perjalanandinas/store', [PerjalanandinasController::class, 'store'])->middleware('laravel10')->name('admin.perjalanandinas.store');
+Route::get('/getPosisiById/{id}', [PerjalanandinasController::class, 'getPosisiById'])->name('getPosisiById');
+Route::get('/getPosisiById1/{id}', [PerjalanandinasController::class, 'getPosisiById1'])->name('getPosisiById1');
+Route::get('/getPosisiById2/{id}', [PerjalanandinasController::class, 'getPosisiById2'])->name('getPosisiById2');
+Route::get('/admin/perjalanandinas/detail/{id}', [PerjalanandinasController::class, 'show'])->middleware('laravel10')->name('admin.perjalanandinas.show');
+Route::get('/admin/perjalanandinas/edit/{id}', [PerjalanandinasController::class, 'edit'])->middleware('laravel10')->name('admin.perjalanandinas.edit');
+Route::put('/admin/perjalanandinas/{id}', [PerjalanandinasController::class, 'update'])->middleware('laravel10')->name('admin.perjalanandinas.update');
 Route::get('/admin/karyawan', [KaryawanController::class, 'index'])->middleware('laravel10')->name('admin.karyawan.index');
 Route::get('/admin/karyawan/create', [KaryawanController::class, 'create', 'user'])->middleware('laravel10')->name('admin.karyawan.create');
 Route::post('/admin/karyawan/store', [KaryawanController::class, 'store', 'user'])->middleware('laravel10')->name('admin.karyawan.store');

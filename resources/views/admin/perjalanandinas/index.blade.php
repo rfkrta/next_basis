@@ -63,10 +63,10 @@
                                 <td>{{ $item->tanggal_selesai }}</td>
                                 <!-- <td>{{ $item->status }}</td> -->
                                 <td>
-                                    <a href="DetailDinas.html" class="btn btn-danger">
+                                    <a href="{{ route('admin.perjalanandinas.show', $item->id) }}" class="btn btn-danger">
                                         <i class="btn1 fa fa-eye"></i>
                                     </a>
-                                    <a href="EditPVR.html" class="btn btn-danger">
+                                    <a href="{{ route('admin.perjalanandinas.edit', $item->id) }}" class="btn btn-danger">
                                         <i class="btn3 fa fa-pencil"></i>
                                     </a>
                                     <a href="#" class="btn btn-danger">

@@ -6,6 +6,7 @@ use App\Http\Requests\Admin\DinasRequest;
 use App\Models\Dinas;
 use App\Models\Karyawan;
 use App\Models\Mitra;
+use App\Models\Regency;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
@@ -42,7 +43,73 @@ class PerjalanandinasController extends Controller
     {
         $mitra = Mitra::all();
         $karyawan = Karyawan::all();
-        return view('admin.perjalanandinas.create', compact('mitra', 'karyawan'));
+        $karyawan1 = Karyawan::all();
+        $regencies = Regency::all();
+        // $regencies = Regency::where('name', 'LIKE', '%CIANJUR%')->first();
+        return view('admin.perjalanandinas.create', compact('regencies', 'mitra', 'karyawan', 'karyawan1'));
+    }
+
+    public function getPosisiById($id)
+    {
+        // Find the position by ID
+        $mitra = Mitra::find($id);
+
+        if (!$mitra) {
+            // Handle if the position ID is not found
+            return response()->json(['error' => 'Mitra not found'], 404);
+        }
+
+        // Retrieve the gaji posisi value for the position
+        $komisi = $mitra->komisi_dinas;
+        $picMitra = $mitra->nama_PIC_perusahaan;
+        $jabatanPic = $mitra->jabatan_PIC;
+
+        // Return the gaji posisi as a JSON response
+        return response()->json(['komisi_dinas' => $komisi]);
+        return response()->json(['nama_PIC_perusahaan' => $picMitra]);
+        return response()->json(['jabatan_PIC' => $jabatanPic]);
+    }
+
+    public function getPosisiById1($id)
+    {
+        // Find the position by ID
+        $mitra = Mitra::find($id);
+
+        if (!$mitra) {
+            // Handle if the position ID is not found
+            return response()->json(['error' => 'Mitra not found'], 404);
+        }
+
+        // Retrieve the gaji posisi value for the position
+        // $komisi = $mitra->komisi_dinas;
+        $picMitra = $mitra->nama_PIC_perusahaan;
+        // $jabatanPic = $mitra->jabatan_PIC;
+
+        // Return the gaji posisi as a JSON response
+        // return response()->json(['komisi_dinas' => $komisi]);
+        return response()->json(['nama_PIC_perusahaan' => $picMitra]);
+        // return response()->json(['jabatan_PIC' => $jabatanPic]);
+    }
+
+    public function getPosisiById2($id)
+    {
+        // Find the position by ID
+        $mitra = Mitra::find($id);
+
+        if (!$mitra) {
+            // Handle if the position ID is not found
+            return response()->json(['error' => 'Mitra not found'], 404);
+        }
+
+        // Retrieve the gaji posisi value for the position
+        // $komisi = $mitra->komisi_dinas;
+        // $picMitra = $mitra->nama_PIC_perusahaan;
+        $jabatanPic = $mitra->jabatan_PIC;
+
+        // Return the gaji posisi as a JSON response
+        // return response()->json(['komisi_dinas' => $komisi]);
+        // return response()->json(['nama_PIC_perusahaan' => $picMitra]);
+        return response()->json(['jabatan_PIC' => $jabatanPic]);
     }
 
     /**
@@ -67,7 +134,11 @@ class PerjalanandinasController extends Controller
      */
     public function show($id)
     {
-        //
+        $item = Dinas::with([
+            'mitra', 'regency', 'karyawan', 'karyawan1'
+        ])->findOrFail($id);
+
+        return view('admin.perjalanandinas.detail', compact('item'));
     }
 
     /**
@@ -78,7 +149,15 @@ class PerjalanandinasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Dinas::with([
+            'mitra', 'regency', 'karyawan', 'karyawan1'
+        ])->findOrFail($id);
+        $mitra = Mitra::all();
+        $karyawan = Karyawan::all();
+        $karyawan1 = Karyawan::all();
+        $regencies = Regency::all();
+
+        return view('admin.perjalanandinas.edit', compact('regencies', 'item', 'mitra', 'karyawan', 'karyawan1'));
     }
 
     /**
@@ -90,7 +169,11 @@ class PerjalanandinasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $item = Dinas::findOrFail($id);
+        $item->update($data);
+
+        return redirect()->route('admin.perjalanandinas.index');
     }
 
     /**

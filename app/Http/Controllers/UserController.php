@@ -44,7 +44,8 @@ class UserController extends Controller
             'alamat' => 'required|string',
             'no_hp' => 'required|string|min:11',
             'tanggal_lahir' => 'required|date',
-            'agama' => 'nullable|string', // Validate the agama field
+            'agama' => 'nullable|string',
+            'jenis_kelamin' => 'nullable|string',
         ]);
         $existingNIP = User::where('nip', $validatedData['nip'])->first();
         if ($existingNIP) {

@@ -60,10 +60,16 @@
                         <input type="text" name="no_hp" id="no_hp" class="date" placeholder="Tuliskan no telp, di sini" value="{{ old('no_hp') }}">
                     </div>
                     <!-- <div id="gaji"></div> -->
+                    @foreach ($users as $user)
                     <div class="tgl1">
                         <h5>Jenis Kelamin</h5>
-                        <input type="jk" name="jk" id="jk" class="date" placeholder="Pilih Jenis Kelamin, di sini">
+                        <select name="jenis_kelamin" id="jenis_kelamin" class="date">
+                            <option value="{{$users -> jenis_kelamin}}">{{$users -> jenis_kelamin}}</option>
+                            <option value="Pria">Pria</option>
+                            <option value="Wanita">Wanita</option>
+                        </select>
                     </div>
+                    @endforeach
                 </div>
                 <div class="tgl">
                     <div class="tgl1">

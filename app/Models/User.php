@@ -25,7 +25,8 @@ class User extends Authenticatable
         'alamat',
         'no_hp',
         'tanggal_lahir',
-        'agama'
+        'agama',
+        'jenis_kelamin'
     ];
 
     /**

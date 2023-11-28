@@ -36,7 +36,7 @@
         <div class="out">
             <img src="{{ asset('img/avatar.svg') }}" alt="">
             <div class="admin1">
-                <a href="#">Budi Santoso</a>
+            <a href="#">{{ auth()->user()->name }}</a>
                 <h6>Admin</h6>
             </div>
             <div class="admin2">

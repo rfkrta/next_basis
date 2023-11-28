@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) { // Corrected table name 'users'
-            $table->string('status')->default('Aktif');
+            $table->string('status')->default('Aktif')->nullable();
         });
     }
 
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) { // Corrected table name 'users'
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('status');
         });
     }

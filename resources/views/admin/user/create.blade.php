@@ -17,7 +17,7 @@
     </div>
     @endif
 
-    <div class="cong-box2">
+    <div class="cong-box1">
         <form action="{{ route('admin.user.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="content">
@@ -46,7 +46,12 @@
                 <div class="tgl">
                     <div class="tgl1">
                         <h5>Kota</h5>
-                        <input type="text" name="kota" id="kota" class="date" placeholder="Tuliskan kota, di sini" value="">
+                        <select name="kota" id="kota" required class="form-control1">
+                            <option>Pilih Kota...</option>
+                            @foreach ($cities as $kota) <!-- Ganti $kotas sesuai dengan variabel yang berisi data kota -->
+                            <option value="{{ $kota->id }}" id="option-{{ $kota->id }}">{{ $kota->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <!-- <div id="gaji"></div> -->
                     <div class="tgl1">
@@ -60,16 +65,14 @@
                         <input type="text" name="no_hp" id="no_hp" class="date" placeholder="Tuliskan no telp, di sini" value="{{ old('no_hp') }}">
                     </div>
                     <!-- <div id="gaji"></div> -->
-                    @foreach ($users as $user)
                     <div class="tgl1">
-                        <h5>Jenis Kelamin</h5>
+                        <h5>Gender</h5>
                         <select name="jenis_kelamin" id="jenis_kelamin" class="date">
-                            <option value="{{$users -> jenis_kelamin}}">{{$users -> jenis_kelamin}}</option>
+                            <option value="">Pilih Gender</option>
                             <option value="Pria">Pria</option>
                             <option value="Wanita">Wanita</option>
                         </select>
                     </div>
-                    @endforeach
                 </div>
                 <div class="tgl">
                     <div class="tgl1">
@@ -118,6 +121,110 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
+        $(function() {
+            $('#provinsi').on('change', function() {
+                let id_provinsi = $('#provinsi').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('getkota') }}",
+                    data: {
+                        id_provinsi: id_provinsi
+                    },
+                    cache: false,
+
+                    success: function(msg) {
+                        $('#kota').html(msg);
+                        $('#kecamatan').html('');
+                        $('#kelurahan').html('');
+                    },
+                    error: function(data) {
+                        console.log('error:', data)
+                    },
+                })
+            })
+        })
+
+        $(function() {
+            $('#kota').on('change', function() {
+                let id_kota = $('#kota').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('getkecamatan') }}",
+                    data: {
+                        id_kota: id_kota
+                    },
+                    cache: false,
+
+                    success: function(msg) {
+                        $('#kecamatan').html(msg);
+                        $('#kelurahan').html('');
+                    },
+                    error: function(data) {
+                        console.log('error:', data)
+                    },
+                })
+            })
+        })
+
+        $(function() {
+            $('#kecamatan').on('change', function() {
+                let id_kecamatan = $('#kecamatan').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('getkelurahan') }}",
+                    data: {
+                        id_kecamatan: id_kecamatan
+                    },
+                    cache: false,
+
+                    success: function(msg) {
+                        $('#kelurahan').html(msg);
+                    },
+                    error: function(data) {
+                        console.log('error:', data)
+                    },
+                })
+            })
+        })
+
+    });
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        const selectElement = document.getElementById('kota');
+
+        selectElement.addEventListener('click', function() {
+            this.focus();
+        });
+
+        selectElement.addEventListener('keydown', function(e) {
+            const key = e.key.toLowerCase();
+            const options = Array.from(this.options);
+
+            const findOptionByLetter = (startIndex) => {
+                for (let i = startIndex; i < options.length; i++) {
+                    const optionText = options[i].textContent.toLowerCase();
+                    if (optionText.startsWith(key)) {
+                        return i;
+                    }
+                }
+                return -1;
+            };
+
+            let startIndex = this.selectedIndex + 1;
+            if (startIndex >= options.length) {
+                startIndex = 0;
+            }
+
+            const index = findOptionByLetter(startIndex);
+            if (index !== -1) {
+                this.selectedIndex = index;
+            }
+        });
+    });
 </script>
 @endpush
 <!-- <div class="form-group">

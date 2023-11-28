@@ -14,7 +14,7 @@ class Dinas extends Model
     protected $fillable = [
         'id_mitras', 'kota_keberangkatan', 'komisi_dinas',
         'tanggal_mulai', 'tanggal_selesai', 'id_anggota1',
-        'id_anggota2', 'id_anggota3', 'id_anggota4', 'nama_PIC_perusahaan', 'jabatan_PIC'
+        'id_anggota2', 'id_anggota3', 'id_anggota4', 'nama_PIC_perusahaan', 'jabatan_PIC', 'status'
     ];
 
     protected $hidden = [
@@ -26,15 +26,23 @@ class Dinas extends Model
     }
 
     public function karyawan() {
-        return $this->belongsTo(Karyawan::class, 'id_anggota1', 'id');
+        return $this->belongsTo(Karyawan::class, 'id_anggota1', 'id', 'nama');
     }
 
     public function karyawan1() {
-        return $this->belongsTo(Karyawan::class, 'id_anggota2', 'id');
+        return $this->belongsTo(Karyawan::class, 'id_anggota2', 'id', 'nama');
+    }
+
+    public function karyawan2() {
+        return $this->belongsTo(Karyawan::class, 'id_anggota3', 'id', 'nama');
+    }
+
+    public function karyawan3() {
+        return $this->belongsTo(Karyawan::class, 'id_anggota4', 'id', 'nama');
     }
 
     public function regency()
     {
-        return $this->belongsTo(Regency::class, 'kota_keberangkatan'); // Adjust 'kota' with your foreign key column name
+        return $this->belongsTo(Regency::class, 'kota_keberangkatan', 'id', 'name'); // Adjust 'kota' with your foreign key column name
     }
 }

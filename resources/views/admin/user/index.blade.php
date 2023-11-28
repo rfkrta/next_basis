@@ -40,7 +40,7 @@
             <table class="box" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>No</th>
+                        <th class="lebarTabel">No</th>
                         <th>Nama</th>
                         <th>Email</th>
                         <th>Status</th>

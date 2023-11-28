@@ -36,14 +36,19 @@ Route::middleware('laravel10')->group(function () {
     // Dinas
     Route::get('/admin/perjalanandinas/create', [PerjalanandinasController::class, 'create', 'user'])->name('admin.perjalanandinas.create');
     Route::post('/admin/perjalanandinas/store', [PerjalanandinasController::class, 'store'])->name('admin.perjalanandinas.store');
+    Route::get('/admin/perjalanandinas/edit/{id}', [PerjalanandinasController::class, 'edit'])->name('admin.perjalanandinas.edit');
+    Route::get('/admin/perjalanandinas/show/{id}', [PerjalanandinasController::class, 'show'])->name('admin.perjalanandinas.show');
+    Route::get('/getPosisiById/{id}', [PerjalanandinasController::class, 'getPosisiById'])->name('getPosisiById');
+    Route::get('/getPosisiById1/{id}', [PerjalanandinasController::class, 'getPosisiById1'])->name('getPosisiById1');
+    Route::get('/getPosisiById2/{id}', [PerjalanandinasController::class, 'getPosisiById2'])->name('getPosisiById2');
+    Route::get('/getKaryawanOptions', [PerjalanandinasController::class, 'getKaryawanOptions'])->name('getKaryawanOptions');     
 
     // Karyawan
     Route::get('/admin/karyawan', [KaryawanController::class, 'index'])->name('admin.karyawan.index');
     Route::get('/admin/karyawan/create', [KaryawanController::class, 'create', 'user'])->name('admin.karyawan.create');
     Route::post('/admin/karyawan/store', [KaryawanController::class, 'store', 'user'])->name('admin.karyawan.store');
-    Route::get('/admin/karyawan/show', [KaryawanController::class, 'show'])->name('admin.karyawan.show');
-    Route::get('/admin/karyawan/show/{id}', [KaryawanController::class, 'show'])->name('admin.karyawan.edit');
-    Route::get('/admin/karyawan/{id}', [KaryawanController::class, 'edit'])->name('admin.karyawan.edit');
+    Route::get('/admin/karyawan/show/{id}', [KaryawanController::class, 'show'])->name('admin.karyawan.show');
+    Route::get('/admin/karyawan/edit/{id}', [KaryawanController::class, 'edit'])->name('admin.karyawan.edit');
     Route::put('/admin/karyawan/{id}', [KaryawanController::class, 'update'])->name('admin.karyawan.update');
     Route::get('/admin/karyawan/ajax', [KaryawanController::class, 'ajax'])->name('admin.karyawan.ajax');
     Route::get('/getGajiPosisiById/{id}', [KaryawanController::class, 'getGajiPosisiById'])->name('getGajiPosisiById');

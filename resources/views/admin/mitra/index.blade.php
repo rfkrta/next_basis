@@ -38,7 +38,7 @@
                 <table class="box" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>No</th>
+                            <th class="lebarTabel">No</th>
                             <th>Nama Perusahaan</th>
                             <th>Kota</th>
                             <th>PIC</th>

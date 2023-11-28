@@ -28,10 +28,15 @@ class PerjalanandinasController extends Controller
                     ->select('dinas.*', 'karyawans.nama')
                     ->get();
 
+        $dinas_baru = Dinas::join('regencies', 'regencies.id', '=', 'dinas.kota_keberangkatan')
+                    ->select('dinas.*', 'regencies.name')
+                    ->get();
+
         $mitra = Mitra::all();
         $karyawan = Karyawan::all();
+        $regency = Regency::all();
         //Logika untuk menampilkan halaman dashboard
-        return view('admin.perjalanandinas.index', compact('karyawan', 'mitra', 'dinas_baru'));
+        return view('admin.perjalanandinas.index', compact('regency', 'karyawan', 'mitra', 'dinas_baru'));
     }
 
     /**
@@ -44,9 +49,18 @@ class PerjalanandinasController extends Controller
         $mitra = Mitra::all();
         $karyawan = Karyawan::all();
         $karyawan1 = Karyawan::all();
-        $regencies = Regency::all();
-        // $regencies = Regency::where('name', 'LIKE', '%CIANJUR%')->first();
-        return view('admin.perjalanandinas.create', compact('regencies', 'mitra', 'karyawan', 'karyawan1'));
+        $karyawan2 = Karyawan::all();
+        $karyawan3 = Karyawan::all();
+        $regency = Regency::all();
+        // $regency = Regency::where('name', 'LIKE', '%CIANJUR%')->first();
+        return view('admin.perjalanandinas.create', compact('regency', 'mitra', 'karyawan', 'karyawan1', 'karyawan2', 'karyawan3'));
+    }
+
+    public function getKaryawanOptions()
+    {
+        $karyawanOptions = Karyawan::pluck('nama', 'id')->toArray();
+
+        return response()->json($karyawanOptions);
     }
 
     public function getPosisiById($id)
@@ -135,7 +149,7 @@ class PerjalanandinasController extends Controller
     public function show($id)
     {
         $item = Dinas::with([
-            'mitra', 'regency', 'karyawan', 'karyawan1'
+            'mitra', 'regency', 'karyawan', 'karyawan1', 'karyawan2', 'karyawan3'
         ])->findOrFail($id);
 
         return view('admin.perjalanandinas.detail', compact('item'));

@@ -34,7 +34,8 @@ class DinasRequest extends FormRequest
             'id_anggota3' => 'max:255',
             'id_anggota4' => 'max:255',
             'nama_PIC_perusahaan' => 'required|max:255',
-            'jabatan_PIC' => 'required|max:255'
+            'jabatan_PIC' => 'required|max:255',
+            'status' => 'max:255'
         ];
     }
 }

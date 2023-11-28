@@ -1252,7 +1252,7 @@ tbody tr {
 .modal-container {
     display: none;
     position: fixed;
-    top: 0;
+    top: 20px;
     left: 550px;
     width: 312px;
     height: 194px;
@@ -1376,4 +1376,39 @@ tbody tr {
 
 .closebtn:hover {
     color: #fff;
+}
+
+select {
+    height: 31px;
+    width: 450px;
+    border: 2px solid var(--grey);
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.lebarTabel {
+    width: 50px;
+}
+
+/* Tombol Grup */
+.btn-group {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Margin antara tombol */
+.btn-group .btn {
+    margin-right: 5px;
+}
+
+/* Padding dan styling untuk membentuk tombol */
+.btn-group .btn {
+    padding: 5px 10px;
+}
+
+/* Gaya tombol 'Action' pada setiap baris tabel */
+.table tbody tr td .btn-group {
+    display: flex;
+    justify-content: flex-start; /* Sesuaikan dengan kebutuhan Anda */
 }

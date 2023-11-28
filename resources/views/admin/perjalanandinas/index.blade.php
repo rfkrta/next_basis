@@ -44,12 +44,12 @@
                 <table class="box" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>No</th>
+                            <th class="lebarTabel">No</th>
                             <th>Perusahaan</th>
                             <th>Kota Keberangkatan</th>
                             <th>Tanggal Mulai</th>
                             <th>Tanggal Berakhir</th>
-                            <!-- <th>Status</th> -->
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -58,26 +58,28 @@
                             <tr>
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->mitra->nama_mitra }}</td>
-                                <td>{{ $item->kota }}</td>
+                                <td>{{ $item->regency->name }}</td>
                                 <td>{{ $item->tanggal_mulai }}</td>
                                 <td>{{ $item->tanggal_selesai }}</td>
-                                <!-- <td>{{ $item->status }}</td> -->
+                                <td>{{ $item->status }}</td>
                                 <td>
-                                    <a href="{{ route('admin.perjalanandinas.show', $item->id) }}" class="btn btn-danger">
-                                        <i class="btn1 fa fa-eye"></i>
-                                    </a>
-                                    <a href="{{ route('admin.perjalanandinas.edit', $item->id) }}" class="btn btn-danger">
-                                        <i class="btn3 fa fa-pencil"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-danger">
-                                        <i class="btn2 fa fa-print"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-danger">
-                                        <i class="btn1 fa fa-check"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-danger">
-                                        <i class="btn2 fa fa-times"></i>
-                                    </a>
+                                    <div class="btn-group">
+                                        <a href="{{ route('admin.perjalanandinas.show', $item->id) }}" class="btn btn-danger">
+                                            <i class="btn1 fa fa-eye"></i>
+                                        </a>
+                                        <a href="{{ route('admin.perjalanandinas.edit', $item->id) }}" class="btn btn-danger">
+                                            <i class="btn3 fa fa-pencil"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-danger">
+                                            <i class="btn2 fa fa-print"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-danger">
+                                            <i class="btn1 fa fa-check"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-danger">
+                                            <i class="btn2 fa fa-times"></i>
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         @empty

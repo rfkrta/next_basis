@@ -43,7 +43,7 @@
             <table class="box" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>No</th>
+                        <th class="lebarTabel">No</th>
                         <th>Nama</th>
                         <th>Kategori</th>
                         <th>Tanggal Mulai</th>
@@ -62,27 +62,29 @@
                         <td>{{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('d-m-Y') }}</td>
                         <td>{{ $item->status }}</td>
                         <td>
-                            <!-- Update status buttons -->
-                            <!-- <form id="formDiterima" method="POST" action="{{ route('admin.pengajuancuti.updateToDiterima', $item->id) }}" onsubmit="return showConfirmationModal('formDiterima', 'btnDiterima');"> -->
-                            <form id="formDiterima" method="POST" action="{{ route('admin.pengajuancuti.updateToDiterima', $item->id) }}" onsubmit="return confirm('Anda yakin ingin menerima pengajuan ini?');"> 
-                                @csrf
-                                @method('PUT')
-                                <button type="submit" class="btn btn-dangger" id="btnDiterima">
-                                    <i class="btn1 fa fa-check"></i>
-                                </button>
-                            </form>
-                            <!-- Form to update status to Ditolak -->
-                            <!-- <form id="formDitolak" method="POST" action="{{ route('admin.pengajuancuti.updateToDitolak', $item->id) }}" onsubmit="return showConfirmationModal('formDitolak', 'btnDitolak');"> -->
-                            <form id="formDitolak" method="POST" action="{{ route('admin.pengajuancuti.updateToDitolak', $item->id) }}" onsubmit="return confirm('Anda yakin ingin menolak pengajuan ini?');">
-                                @csrf
-                                @method('PUT')
-                                <button type="submit" class="btn btn-danger" id="btnDitolak">
-                                    <i class="btn2 fa fa-times"></i>
-                                </button>
-                            </form>
-                            <a href="{{ route('admin.pengajuancuti.show', $item->id) }}" class="btn btn-danger">
-                                <i class="btn3 fa fa-eye"></i>
-                            </a>
+                            <div class="btn-group">
+                                <!-- Update status buttons -->
+                                <!-- <form id="formDiterima" method="POST" action="{{ route('admin.pengajuancuti.updateToDiterima', $item->id) }}" onsubmit="return showConfirmationModal('formDiterima', 'btnDiterima');"> -->
+                                <form id="formDiterima" method="POST" action="{{ route('admin.pengajuancuti.updateToDiterima', $item->id) }}" onsubmit="return confirm('Anda yakin ingin menerima pengajuan ini?');"> 
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-dangger" id="btnDiterima">
+                                        <i class="btn1 fa fa-check"></i>
+                                    </button>
+                                </form>
+                                <!-- Form to update status to Ditolak -->
+                                <!-- <form id="formDitolak" method="POST" action="{{ route('admin.pengajuancuti.updateToDitolak', $item->id) }}" onsubmit="return showConfirmationModal('formDitolak', 'btnDitolak');"> -->
+                                <form id="formDitolak" method="POST" action="{{ route('admin.pengajuancuti.updateToDitolak', $item->id) }}" onsubmit="return confirm('Anda yakin ingin menolak pengajuan ini?');">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-danger" id="btnDitolak">
+                                        <i class="btn2 fa fa-times"></i>
+                                    </button>
+                                </form>
+                                <a href="{{ route('admin.pengajuancuti.show', $item->id) }}" class="btn btn-danger">
+                                    <i class="btn3 fa fa-eye"></i>
+                                </a>
+                            </div>
                         </td>
                     </tr>
                     @empty

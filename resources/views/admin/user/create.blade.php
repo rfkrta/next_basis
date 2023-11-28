@@ -62,7 +62,14 @@
                     <!-- <div id="gaji"></div> -->
                     <div class="tgl1">
                         <h5>Jenis Kelamin</h5>
+<<<<<<< Updated upstream
                         <input type="jk" name="jk" id="jk" class="date" placeholder="Pilih Jenis Kelamin, di sini">
+=======
+                        <select name="jenis_kelamin" id="jenis_kelamin" class="date">
+                            <option value="Pria">Pria</option>
+                            <option value="Wanita">Wanita</option>
+                        </select>
+>>>>>>> Stashed changes
                     </div>
                 </div>
                 <div class="tgl">

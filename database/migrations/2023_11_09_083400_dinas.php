@@ -25,9 +25,11 @@ return new class extends Migration
             $table->string('id_anggota2');
             $table->string('pic_perusahaan')->nullable();
             $table->string('jabatan_pic')->nullable();
+            $table->string('kota_keberangkatan')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamp('updated_at')->nullable();
+
         });
     }
 

@@ -84,7 +84,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">
+                                <td colspan="7" class="text-center">
                                     <img src="{{ asset('img/1.png') }}" alt="none">
                                     <p>Tidak ada perjalanan dinas</p>
                                 </td>

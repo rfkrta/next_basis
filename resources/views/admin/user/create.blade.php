@@ -66,9 +66,9 @@
                     </div>
                     <!-- <div id="gaji"></div> -->
                     <div class="tgl1">
-                        <h5>Gender</h5>
+                        <h5>Jenis Kelamin</h5>
                         <select name="jenis_kelamin" id="jenis_kelamin" class="date">
-                            <option value="">Pilih Gender</option>
+                            <option value="">Pilih Jenis Kelamin</option>
                             <option value="Pria">Pria</option>
                             <option value="Wanita">Wanita</option>
                         </select>

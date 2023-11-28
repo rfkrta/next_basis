@@ -17,7 +17,7 @@
     </div>
     @endif
 
-    <div class="cong-box2">
+    <div class="cong-box1">
         <form action="" method="post" enctype="multipart/form-data">
             @method('PUT')
             @csrf
@@ -47,7 +47,12 @@
                 <div class="tgl">
                     <div class="tgl1">
                         <h5>Kota</h5>
-                        <input type="text" name="kota" id="kota" class="date" placeholder="Tuliskan kota, di sini" value="{{$item -> kota}}">
+                        <select name="kota" id="kota" required class="form-control1">
+                            <option>Pilih Kota...</option>
+                            @foreach ($cities as $kota) <!-- Ganti $kotas sesuai dengan variabel yang berisi data kota -->
+                            <option value="{{ $kota->id }}" id="option-{{ $kota->id }}">{{ $kota->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <!-- <div id="gaji"></div> -->
                     <div class="tgl1">
@@ -70,19 +75,11 @@
                         </select>
                     </div>
                 </div>
-                <div class="tgl1">
-                        <div class="button">
-                            <button type="submit" class="btnc btn-primary btn-block">
-                                Ubah User
-                            </button>
-                        </div>
-                    </div>
                 <div class="tgl">
                     <div class="tgl1">
                         <h5>Tanggal Lahir</h5>
                         <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="date" placeholder="Tuliskan no telp, di sini" value="{{ $item -> tanggal_lahir}}">
                     </div>
-                    
                     <div class="tgl1">
                         <h5>Agama</h5>
                         <select name="agama" id="agama" class="date">
@@ -95,9 +92,12 @@
                             <option value="Konghucu">Konghucu</option>
                         </select>
                     </div>
-
                 </div>
-
+                <div class="button">
+                    <button type="submit" class="btnc btn-primary btn-block">
+                        Ubah User
+                    </button>
+                </div>
         </form>
 
         @endsection

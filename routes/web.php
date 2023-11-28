@@ -41,7 +41,7 @@ Route::middleware('laravel10')->group(function () {
     Route::get('/getPosisiById/{id}', [PerjalanandinasController::class, 'getPosisiById'])->name('getPosisiById');
     Route::get('/getPosisiById1/{id}', [PerjalanandinasController::class, 'getPosisiById1'])->name('getPosisiById1');
     Route::get('/getPosisiById2/{id}', [PerjalanandinasController::class, 'getPosisiById2'])->name('getPosisiById2');
-    Route::get('/getKaryawanOptions', [PerjalanandinasController::class, 'getKaryawanOptions'])->name('getKaryawanOptions');     
+    Route::get('/getKaryawanOptions', [PerjalanandinasController::class, 'getKaryawanOptions'])->name('getKaryawanOptions');
 
     // Karyawan
     Route::get('/admin/karyawan', [KaryawanController::class, 'index'])->name('admin.karyawan.index');

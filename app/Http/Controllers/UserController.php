@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Position;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Regency;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -29,8 +31,9 @@ class UserController extends Controller
     public function create()
     {
         $position = Position::all();
+        $cities = Regency::orderBy('name', 'asc')->get();
         $users = User::all();
-        return view('admin.user.create', compact('position', 'users'));
+        return view('admin.user.create', compact('position', 'users','cities'));
     }
 
     public function store(Request $request)
@@ -87,17 +90,20 @@ class UserController extends Controller
     public function edit($id)
     {
         $item = User::findOrFail($id);
+        $cities = Regency::orderBy('name', 'asc')->get();
         $position = Position::all();
 
         return view('admin.user.edit', [
             'item' => $item,
-            'position' => $position
+            'position' => $position,
+            'cities' => $cities
         ]);
     }
     public function update(Request $request, $id)
     {
         // Find the user by ID
         $user = User::findOrFail($id);
+
 
         // Validate the incoming request data
         $validatedData = $request->validate([

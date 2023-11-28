@@ -49,28 +49,23 @@
                     <div class="tglx1">
                         <div class="tgl1">
                             <h5>Anggota 1</h5>
-                            <input type="text" name="id_anggota1" id="id_anggota1" class="date" value="{{ $item->karyawan->nama }}" readonly>
+                            <input type="text" name="id_anggota1" id="id_anggota1" class="date" value="{{ $item->id_anggota1 }}" readonly>
                         </div>
                         <div class="tgl1">
                             <h5>Anggota 2</h5>
-                            <input type="text" name="id_anggota2" id="id_anggota2" class="date" value="{{ $item->karyawan1->nama }}" readonly>
+                            <input type="text" name="id_anggota2" id="id_anggota2" class="date" value="{{ $item->id_anggota2 }}" readonly>
                         </div>
                     </div>
-                    <!-- <div class="tim">
-                        <div class="form-group1">
-                            <input type="text" name="id_anggota1" id="id_anggota1" class="date" value="{{ $item->karyawan->nama }}" readonly>
+                    <div class="tglx1">
+                        <div class="tgl1">
+                            <h5>Anggota 3</h5>
+                            <input type="text" name="id_anggota3" id="id_anggota3" class="date" value="{{ $item->id_anggota3 }}" readonly>
                         </div>
-
-                        <div class="form-group1">
-                            <input type="text" name="id_anggota2" id="id_anggota2" class="date" value="{{ $item->karyawan->nama }}" readonly>
+                        <div class="tgl1">
+                            <h5>Anggota 4</h5>
+                            <input type="text" name="id_anggota4" id="id_anggota4" class="date" value="{{ $item->id_anggota4 }}" readonly>
                         </div>
-                        
-                    </div> -->
-                    <!-- <div class="button">
-                        <button type="button" class="btnx btn-primary btn-block">
-                            Tambah Anggota
-                        </button>
-                    </div> -->
+                    </div>
                     <div class="tglx1">
                         <div class="tgl1">
                             <h5>PIC Perusahaan</h5>

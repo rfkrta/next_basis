@@ -121,6 +121,26 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+        $(document).ready(function() {
+            $('#id_positions').on('change', function() {
+                var selectedValue = $(this).val();
+
+                $.ajax({
+                    url: "{{ route('getGajiPosisiById', ':id') }}".replace(':id', selectedValue),
+                    type: 'GET',
+                    success: function(data) {
+                        // Format the received salary as IDR before setting it in the input field
+                        var formattedSalary = 'Rp.' + new Intl.NumberFormat('id-ID').format(data.gaji_posisi);
+
+                        // Update the gaji_posisi field value here with the formatted salary
+                        $('#gaji_posisi').val(formattedSalary);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
 
         $(function() {
             $('#provinsi').on('change', function() {
@@ -192,7 +212,7 @@
         })
 
     });
-    
+
     document.addEventListener("DOMContentLoaded", function() {
         const selectElement = document.getElementById('kota');
 
@@ -226,6 +246,7 @@
         });
     });
 </script>
+
 @endpush
 <!-- <div class="form-group">
                         <h5>NIP</h5>

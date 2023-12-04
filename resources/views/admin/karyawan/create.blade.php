@@ -59,7 +59,7 @@
                     <!-- <div id="gaji"></div> -->
                     <div class="tgl1">
                         <h5>Gaji</h5>
-                        <input type="text" name="gaji_posisi" id="gaji_posisi" class="date gaji_posisi" readonly >
+                        <input type="text" name="gaji_posisi" id="gaji_posisi" class="date gaji_posisi" readonly>
                     </div>
 
                 </div>

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use NumberFormatter;
 
 class Position extends Model
 {
@@ -20,4 +21,8 @@ class Position extends Model
     ];
     
 
+    public function getFormattedSalaryAttribute()
+    {
+        return 'Rp ' . number_format($this->gaji_posisi, 0, ',', '.');
+    }
 }

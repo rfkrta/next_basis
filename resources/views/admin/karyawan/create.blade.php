@@ -146,7 +146,7 @@
                     type: 'GET',
                     success: function(data) {
                         // Format the received salary as IDR before setting it in the input field
-                        var formattedSalary = 'Rp ' + new Intl.NumberFormat('id-ID').format(data.gaji_posisi);
+                        var formattedSalary = 'Rp.' + new Intl.NumberFormat('id-ID').format(data.gaji_posisi);
 
                         // Update the gaji_posisi field value here with the formatted salary
                         $('#gaji_posisi').val(formattedSalary);

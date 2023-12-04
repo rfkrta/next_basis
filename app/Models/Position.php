@@ -20,9 +20,4 @@ class Position extends Model
         //
     ];
     
-
-    public function getFormattedSalaryAttribute()
-    {
-        return 'Rp ' . number_format($this->gaji_posisi, 0, ',', '.');
-    }
 }

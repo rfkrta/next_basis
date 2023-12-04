@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('pic_perusahaan')->nullable();
             $table->string('jabatan_pic')->nullable();
             $table->string('kota_keberangkatan')->nullable();
+            $table->string('komisi_dinas')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamp('updated_at')->nullable();

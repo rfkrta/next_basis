@@ -17,7 +17,11 @@
     </div>
     @endif
 
+<<<<<<< Updated upstream
     <div class="cong-box1">
+=======
+    <div class="cong-box4">
+>>>>>>> Stashed changes
         <form action="{{ route('admin.user.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="content">
@@ -100,7 +104,7 @@
 
                 </div>
                 <div class="button">
-                    <button type="submit" class="btnc btn-primary btn-block">
+                    <button type="button" class="btnc btn-primary btn-block">
                         Tambah Karyawan
                     </button>
                 </div>

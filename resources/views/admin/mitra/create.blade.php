@@ -113,7 +113,11 @@
                         </div>
                     </div>
                     <div class="button">
+<<<<<<< Updated upstream
                         <button type="submit" class="btny1x btn-primary btn-block" onclick="openConfirmationAddModal()">
+=======
+                        <button type="button" class="btny1x btn-primary btn-block" onclick="openConfirmationAddModal()">
+>>>>>>> Stashed changes
                             Tambah Mitra
                         </button>
                     </div>

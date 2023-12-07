@@ -78,6 +78,29 @@
                     </div>
                 </div>
             </form>
+
+            <!-- <h5>Biaya Estimasi</h5> -->
+            <table class="box" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="lebarTabel">No</th>
+                        <th>Biaya Hotel</th>
+                        <th>Biaya Transportasi</th>
+                        <th>Biaya Konsumsi</th>
+                        <th>Biaya Lainnya</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ $item->biayaDinas->id }}</td>
+                        <td>{{ $item->biayaDinas->biaya_hotel }}</td>
+                        <td>{{ $item->biayaDinas->biaya_transportasi }}</td>
+                        <td>{{ $item->biayaDinas->biaya_konsumsi }}</td>
+                        <td>{{ $item->biayaDinas->biaya_lain }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
     </div>
 @endsection

@@ -32,7 +32,7 @@ class PengajuancutiController extends Controller
         $karyawan = User::all();
         $kategori = Kategori::all();
         //Logika untuk menampilkan halaman dashboard
-        return view('admin.pengajuancuti.index', compact('kategori', 'karyawan', 'cuti_baru'));
+        return view('admin.pengajuancuti.index', compact('kategori', 'karyawan', 'cuti_baru', 'data'));
         // $items = Cuti::all();
 
         // return view('admin.pengajuancuti.index', [
@@ -48,8 +48,13 @@ class PengajuancutiController extends Controller
             'status' => 'diterima',
         ]);
 
+        // Kurangi jumlah cuti pada pengguna terkait
+        $karyawan = Karyawan::find($pengajuanCuti->id_nama);
+        $karyawan->jmlCuti -= 1;
+        $karyawan->save();
+
         // Redirect to a specific route or return a response
-        return redirect()->route('admin.pengajuancuti.index');
+        return redirect()->route('admin.pengajuancuti.index')->with('success', 'Pengajuan cuti diterima');
     }
     public function updateToDitolak($id)
     {

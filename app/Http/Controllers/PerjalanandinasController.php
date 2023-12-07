@@ -9,6 +9,7 @@ use App\Models\Karyawan;
 use App\Models\Mitra;
 use App\Models\Regency;
 use App\Models\User;
+use App\Models\BiayaDinas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
@@ -169,7 +170,7 @@ class PerjalanandinasController extends Controller
     public function show($id)
     {
         $item = Dinas::with([
-            'mitra', 'regency', 'user', 'user1', 'user2', 'user3'
+            'mitra', 'regency', 'user', 'user1', 'user2', 'user3', 'biayaDinas'
         ])->findOrFail($id);
 
         return view('admin.perjalanandinas.detail', compact('item'));

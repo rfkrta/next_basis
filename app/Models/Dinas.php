@@ -28,22 +28,22 @@ class Dinas extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_anggota1', 'id');
+        return $this->belongsTo(User::class, 'id_anggota1', 'id', 'nama');
     }
 
     public function user1()
     {
-        return $this->belongsTo(User::class, 'id_anggota2', 'id');
+        return $this->belongsTo(User::class, 'id_anggota2', 'id', 'nama');
     }
 
     public function user2()
     {
-        return $this->belongsTo(User::class, 'id_anggota3', 'id');
+        return $this->belongsTo(User::class, 'id_anggota3', 'id', 'nama');
     }
 
     public function user3()
     {
-        return $this->belongsTo(User::class, 'id_anggota4', 'id');
+        return $this->belongsTo(User::class, 'id_anggota4', 'id', 'nama');
     }
 
     public function regency()

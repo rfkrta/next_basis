@@ -115,6 +115,7 @@ class UserController extends Controller
             'tanggal_lahir' => 'required|date',
             'agama' => 'nullable|string',
             'jenis_kelamin' => 'nullable|string',
+            'kota' => 'required|string'
             // Add validation rules for other fields as necessary
         ]);
 
@@ -141,6 +142,7 @@ class UserController extends Controller
         $user->tanggal_lahir = $validatedData['tanggal_lahir'];
         $user->agama = $validatedData['agama'];
         $user->jenis_kelamin = $validatedData['jenis_kelamin'];
+        $user->kota = $validatedData['kota'];
         // Update other fields accordingly
 
         // Save the updated user data

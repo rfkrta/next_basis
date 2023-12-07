@@ -11,17 +11,20 @@ use Illuminate\Http\Request;
 
 class CutiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $cuti_baru = Cuti::with(['karyawan', 'kategori'])->get();
-        $karyawan = Karyawan::all();
-        $kategori = Kategori::all();
+        $cuti_baru = Cuti::where('cutis.user_id', $request->id_user)->get();
 
-        return response()->json([
-            // 'cuti_baru' => $cuti_baru,
-            'karyawan' => $karyawan,
-            'kategori' => $kategori
-        ]);
+        if ($cuti_baru->isEmpty()) {
+            return response()->json([
+                'message' => 'Tidak ada data cuti untuk pengguna ini.',
+                'data' => null,
+            ]);
+        } else {
+            return response()->json([
+                'data' => $cuti_baru
+            ]);
+        }
     }
 
     public function updateToDiterima($id)
@@ -60,10 +63,17 @@ class CutiController extends Controller
     public function store(CutiRequest $request)
     {
         $data = $request->validated();
+        // Menerima data dari request
+        $data = $request->only(['user_id', 'id_kategori', 'keterangan', 'status','tanggal_mulai', 'tanggal_selesai']);
 
-        $cuti = Cuti::create($data);
+        // Operasi Create pada Model Cuti
+        $cuti_baru = Cuti::create($data);
 
-        return response()->json(['message' => 'Pengajuan cuti berhasil dibuat.', 'cuti' => $cuti], 201);
+        // Berikan respons terhadap hasil create
+        return response()->json([
+            'message' => 'Data cuti berhasil dibuat.',
+            'data' => $cuti_baru,
+        ]);
     }
 
     public function show($id)

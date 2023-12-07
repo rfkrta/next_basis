@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\Controller;
+use App\Models\Karyawan;
 
 class AuthController extends Controller
 {
@@ -34,22 +35,26 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
+    
         $user = User::where('email', $request->email)->first();
-
+    
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
-
+    
         $token = $user->createToken('authToken')->plainTextToken;
-
+    
         return response()->json([
             'token' => $token,
-            'data' => $user,
+            'user' => $user,
+            // 'data' => [
+            //     // 'id_karyawan' => $karyawan ? $karyawan->id : null, // Include the employee ID if available
+            // ],
         ], 200);
     }
+    
 
     public function logout(Request $request)
     {

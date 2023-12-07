@@ -7,6 +7,7 @@ use Database\Seeders\IndoRegionProvinceSeeder;
 use Database\Seeders\IndoRegionRegencySeeder;
 use Database\Seeders\IndoRegionSeeder;
 use Database\Seeders\IndoRegionVillageSeeder;
+use Database\Seeders\RoleSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(IndoRegionDistrictSeeder::class);
         $this->call(IndoRegionProvinceSeeder::class);
         $this->call(IndoRegionVillageSeeder::class);
+        $this->call(RoleSeeder::class);
     }
 }

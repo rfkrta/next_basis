@@ -12,7 +12,7 @@
             <i class="fa fa-plane"></i> <a >Perjalanan Dinas</a>
         </li>
         <li style="cursor: pointer;" onclick="window.location='{{ route('admin.karyawan.index') }}';">
-            <i class="fa fa-users"></i> <a >Karyawan</a>
+            <i class="fa fa-users"></i> <a >Absensi</a>
         </li>
         <li style="cursor: pointer;" onclick="window.location='{{ route('admin.mitra.index') }}';">
             <i class="fa fa-building"></i> <a>Mitra Perusahaan</a>

@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('karyawans', function (Blueprint $table) {
-            $table->string('status')->default('Aktif');
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('karyawans', function (Blueprint $table) {
-            $table->dwopColumn('status');
-        });
+        Schema::dropIfExists('roles');
     }
 };

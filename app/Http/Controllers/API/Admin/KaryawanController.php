@@ -17,7 +17,8 @@ class KaryawanController extends Controller
     {
         $kry_baru = Karyawan::join('positions', 'positions.id', '=', 'karyawans.id_positions')
         ->select('karyawans.*', 'positions.nama_posisi', 'positions.gaji_posisi')
-        ->get();
+        ->where('karyawans.user_id', $request->id_user) // Menambahkan klausa where untuk filter berdasarkan ID user
+        ->first();
 
     return response()->json(['data' => $kry_baru]);
     }

@@ -54,7 +54,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($dinas_baru as $item)
+                        @forelse ($dinas_mitra as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->mitra->nama_mitra }}</td>

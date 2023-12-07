@@ -86,7 +86,7 @@
                     <tr>
                         <!-- Table rows for each employee -->
                         <td>{{ $item->id }}</td>
-                        <td>{{ $item->nama }}</td>
+                        <td>{{ $item->user->name }}</td>
                         <td>{{ $item->position->nama_posisi }}</td>
                         <td>{{ $item->status }}</td>
                         <td>

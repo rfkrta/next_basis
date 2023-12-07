@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'kota',
         'password',
         'nip',
         'alamat',
@@ -50,5 +51,10 @@ class User extends Authenticatable
     public function regencies()
     {
         return $this->hasManyThrough(Regency::class, Province::class);
+    }
+    
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }

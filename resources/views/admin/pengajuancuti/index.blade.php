@@ -56,7 +56,7 @@
                     @forelse ($cuti_baru as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
-                        <td>{{ $item->karyawan->nama }}</td>
+                        <td>{{ $item->user->name }}</td>
                         <td>{{ $item->kategori->nama_kategori }}</td>
                         <td>{{ \Carbon\Carbon::parse($item->tanggal_mulai)->format('d-m-Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('d-m-Y') }}</td>

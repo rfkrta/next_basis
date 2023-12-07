@@ -21,28 +21,33 @@ class Dinas extends Model
         //
     ];
 
-    public function mitra() {
+    public function mitra()
+    {
         return $this->belongsTo(Mitra::class, 'id_mitras', 'id');
     }
 
-    public function karyawan() {
-        return $this->belongsTo(Karyawan::class, 'id_anggota1', 'id', 'nama');
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_anggota1', 'id');
     }
 
-    public function karyawan1() {
-        return $this->belongsTo(Karyawan::class, 'id_anggota2', 'id', 'nama');
+    public function user1()
+    {
+        return $this->belongsTo(User::class, 'id_anggota2', 'id');
     }
 
-    public function karyawan2() {
-        return $this->belongsTo(Karyawan::class, 'id_anggota3', 'id', 'nama');
+    public function user2()
+    {
+        return $this->belongsTo(User::class, 'id_anggota3', 'id');
     }
 
-    public function karyawan3() {
-        return $this->belongsTo(Karyawan::class, 'id_anggota4', 'id', 'nama');
+    public function user3()
+    {
+        return $this->belongsTo(User::class, 'id_anggota4', 'id');
     }
 
     public function regency()
     {
-        return $this->belongsTo(Regency::class, 'kota_keberangkatan', 'id', 'name'); // Adjust 'kota' with your foreign key column name
+        return $this->belongsTo(Regency::class, 'kota_keberangkatan', 'id'); // Sesuaikan dengan kolom foreign key yang benar
     }
 }

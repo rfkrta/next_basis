@@ -48,9 +48,9 @@
                     <div class="tgl1">
                         <h5>Kota</h5>
                         <select name="kota" id="kota" required class="form-control1">
-                            <option>Pilih Kota...</option>
+                            <option value="{{$item -> jenis_kelamin}}">{{$item->kota}}</option>
                             @foreach ($cities as $kota) <!-- Ganti $kotas sesuai dengan variabel yang berisi data kota -->
-                            <option value="{{ $kota->id }}" id="option-{{ $kota->id }}">{{ $kota->name }}</option>
+                            <option value="{{ $kota->name }}" id="option-{{ $kota->name }}">{{ $kota->name }}</option>
                             @endforeach
                         </select>
                     </div>

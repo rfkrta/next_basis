@@ -36,12 +36,20 @@ Route::middleware('laravel10')->group(function () {
     // Dinas
     Route::get('/admin/perjalanandinas/create', [PerjalanandinasController::class, 'create', 'user'])->name('admin.perjalanandinas.create');
     Route::post('/admin/perjalanandinas/store', [PerjalanandinasController::class, 'store'])->name('admin.perjalanandinas.store');
+<<<<<<< Updated upstream
     Route::get('/admin/perjalanandinas/edit/{id}', [PerjalanandinasController::class, 'edit'])->name('admin.perjalanandinas.edit');
+=======
+    Route::get('/admin/perjalanandinas/{id}/edit', [PerjalanandinasController::class, 'edit'])->name('admin.perjalanandinas.edit');
+>>>>>>> Stashed changes
     Route::get('/admin/perjalanandinas/show/{id}', [PerjalanandinasController::class, 'show'])->name('admin.perjalanandinas.show');
     Route::get('/getPosisiById/{id}', [PerjalanandinasController::class, 'getPosisiById'])->name('getPosisiById');
     Route::get('/getPosisiById1/{id}', [PerjalanandinasController::class, 'getPosisiById1'])->name('getPosisiById1');
     Route::get('/getPosisiById2/{id}', [PerjalanandinasController::class, 'getPosisiById2'])->name('getPosisiById2');
     Route::get('/getKaryawanOptions', [PerjalanandinasController::class, 'getKaryawanOptions'])->name('getKaryawanOptions');
+<<<<<<< Updated upstream
+=======
+    Route::put('/admin/perjalanandinas/{id}/biaya', [PerjalanandinasController::class, 'updateBiaya'])->name('admin.perjalanandinas.updateBiaya');     
+>>>>>>> Stashed changes
 
     // Karyawan
     Route::get('/admin/karyawan', [KaryawanController::class, 'index'])->name('admin.karyawan.index');

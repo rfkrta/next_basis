@@ -7,6 +7,7 @@ use App\Models\Dinas;
 use App\Models\Karyawan;
 use App\Models\Mitra;
 use App\Models\Regency;
+use App\Models\BiayaDinas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
@@ -149,7 +150,11 @@ class PerjalanandinasController extends Controller
     public function show($id)
     {
         $item = Dinas::with([
+<<<<<<< Updated upstream
             'mitra', 'regency', 'karyawan', 'karyawan1', 'karyawan2', 'karyawan3'
+=======
+            'mitra', 'regency', 'karyawan', 'karyawan1', 'karyawan2', 'karyawan3', 'biayaDinas'
+>>>>>>> Stashed changes
         ])->findOrFail($id);
 
         return view('admin.perjalanandinas.detail', compact('item'));
@@ -167,11 +172,40 @@ class PerjalanandinasController extends Controller
             'mitra', 'regency', 'karyawan', 'karyawan1'
         ])->findOrFail($id);
         $mitra = Mitra::all();
-        $karyawan = Karyawan::all();
-        $karyawan1 = Karyawan::all();
-        $regencies = Regency::all();
+        $biayaDinas = BiayaDinas::where('perjalanan_dinas_id', $id)->first();
 
-        return view('admin.perjalanandinas.edit', compact('regencies', 'item', 'mitra', 'karyawan', 'karyawan1'));
+        return view('admin.perjalanandinas.edit', compact('item', 'mitra', 'biayaDinas'));
+    }
+
+    public function updateBiaya(Request $request, $id)
+    {
+        // Validasi request sesuai kebutuhan
+        $request->validate([
+            'perjalanan_dinas_id' => 'max:255',
+            'biaya_hotel' => 'required|max:255',
+            'keterangan_hotel' => 'required|max:255',
+            'biaya_transportasi' => 'required|max:255',
+            'keterangan_transportasi' => 'required|max:255',
+            'biaya_konsumsi' => 'required|max:255',
+            'keterangan_konsumsi' => 'required|max:255',
+            'biaya_lain' => 'required|max:255',
+            'keterangan_lain' => 'required|max:255',
+        ]);
+
+        // Simpan biaya ke dalam tabel biaya_dinas
+        BiayaDinas::create([
+            'perjalanan_dinas_id' => $id,
+            'biaya_hotel' => $request->biaya_hotel,
+            'keterangan_hotel' => $request->keterangan_hotel,
+            'biaya_transportasi' => $request->biaya_transportasi,
+            'keterangan_transportasi' => $request->keterangan_transportasi,
+            'biaya_konsumsi' => $request->biaya_konsumsi,
+            'keterangan_konsumsi' => $request->keterangan_konsumsi,
+            'biaya_lain' => $request->biaya_lain,
+            'keterangan_lain' => $request->keterangan_lain,
+        ]);
+
+        return redirect()->route('admin.perjalanandinas.index')->with('success', 'Biaya perjalanan dinas berhasil disimpan');
     }
 
     /**

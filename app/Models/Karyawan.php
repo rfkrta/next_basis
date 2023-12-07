@@ -13,7 +13,7 @@ class Karyawan extends Model
 
     protected $fillable = [
         'nama', 'id_positions', 'nip', 'gaji_posisi',
-        'tanggal_mulai', 'tanggal_selesai', 'status'
+        'tanggal_mulai', 'tanggal_selesai', 'status', 'jmlCuti'
     ];
 
     protected $hidden = [

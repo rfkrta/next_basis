@@ -44,5 +44,12 @@ class Dinas extends Model
     public function regency()
     {
         return $this->belongsTo(Regency::class, 'kota_keberangkatan', 'id', 'name'); // Adjust 'kota' with your foreign key column name
+<<<<<<< Updated upstream
+=======
+    }
+
+    public function biayaDinas() {
+        return $this->belongsTo(BiayaDinas::class, 'id', 'perjalanan_dinas_id');
+>>>>>>> Stashed changes
     }
 }

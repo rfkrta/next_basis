@@ -31,9 +31,13 @@ Route::middleware('laravel10')->group(function () {
     Route::get('/admin/pengajuancuti/{id}', [PengajuancutiController::class, 'show'])->name('admin.pengajuancuti.show');
     Route::put('/admin/pengajuancuti/{id}/updateToDiterima', [PengajuanCutiController::class, 'updateToDiterima'])->name('admin.pengajuancuti.updateToDiterima');
     Route::put('/admin/pengajuancuti/{id}/updateToDitolak', [PengajuancutiController::class, 'updateToDitolak'])->name('admin.pengajuancuti.updateToDitolak');
-    Route::get('/admin/perjalanandinas', [PerjalanandinasController::class, 'index'])->name('admin.perjalanandinas.index');
+    Route::get('/admin/pengajuancuti/create', [PengajuancutiController::class, 'create'])->name('admin.pengajuancuti.create');
+    Route::post('/admin/pengajuancuti/store', [PengajuancutiController::class, 'store'])->name('admin.pengajuancuti.store');
+
+
 
     // Dinas
+    Route::get('/admin/perjalanandinas', [PerjalanandinasController::class, 'index'])->name('admin.perjalanandinas.index');
     Route::get('/admin/perjalanandinas/create', [PerjalanandinasController::class, 'create', 'user'])->name('admin.perjalanandinas.create');
     Route::post('/admin/perjalanandinas/store', [PerjalanandinasController::class, 'store'])->name('admin.perjalanandinas.store');
 <<<<<<< Updated upstream

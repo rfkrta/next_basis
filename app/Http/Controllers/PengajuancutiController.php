@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\CutiRequest;
 use App\Models\Cuti;
 use App\Models\Karyawan;
 use App\Models\Kategori;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
@@ -20,16 +21,15 @@ class PengajuancutiController extends Controller
      */
     public function index()
     {
-        $cuti_baru = Cuti::join('karyawans', 'karyawans.id', '=', 'cutis.id_nama')
-            ->select('cutis.*', 'karyawans.nama')
+        $cuti_baru = Cuti::join('users', 'users.id', '=', 'cutis.user_id')
+            ->select('cutis.*', 'users.name')
             ->get();
 
         $cuti_baru = Cuti::join('kategoris', 'kategoris.id', '=', 'cutis.id_kategori')
             ->select('cutis.*', 'kategoris.nama_kategori')
             ->get();
 
-        $data = Cuti::paginate(10);
-        $karyawan = Karyawan::all();
+        $karyawan = User::all();
         $kategori = Kategori::all();
         //Logika untuk menampilkan halaman dashboard
         return view('admin.pengajuancuti.index', compact('kategori', 'karyawan', 'cuti_baru', 'data'));
@@ -76,9 +76,9 @@ class PengajuancutiController extends Controller
      */
     public function create()
     {
-        $karyawan = Karyawan::all();
+        $users = User::all();
         $kategori = Kategori::all();
-        return view('admin.pengajuancuti.create', compact('kategori', 'karyawan'));
+        return view('admin.pengajuancuti.create', compact('kategori', 'users'));
     }
 
 
@@ -88,13 +88,35 @@ class PengajuancutiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CutiRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->all();
+        // Validate the request
+        $validatedData = $request->validate([
+            'user_id' => 'required', // Update with your validation rules
+            'id_kategori' => 'required', // Update with your validation rules
+            'keterangan' => 'required', // Update with your validation rules
+            'tanggal_mulai' => 'required|date', // Update with your validation rules
+            'tanggal_selesai' => 'required|date', // Update with your validation rules
+            'file_surat' => 'required|file|mimes:pdf|max:2048', // Validation for file upload
+        ]);
 
-        Cuti::create($data);
+        // Store file in storage/app/public/surat folder
+        if ($request->hasFile('file_surat')) {
+            $file = $request->file('file_surat');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('public/surat', $fileName);
+        }
+
+        // Create Cuti instance
+        $cuti = Cuti::create(array_merge(
+            $validatedData,
+            ['file_surat' => $fileName] // Save the file name in the database
+        ));
+
+        // Redirect to the index page after successful creation
         return redirect()->route('admin.pengajuancuti.index');
     }
+
 
     /**
      * Display the specified resource.
@@ -106,7 +128,7 @@ class PengajuancutiController extends Controller
     {
         // $item = Cuti::findOrFail($id);
         $item = Cuti::with([
-            'karyawan', 'kategori'
+            'user', 'kategori'
         ])->findOrFail($id);
 
         return view('admin.pengajuancuti.detail', [

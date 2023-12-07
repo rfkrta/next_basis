@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DinasRequest;
 use App\Models\Dinas;
 use App\Models\Karyawan;
 use App\Models\Mitra;
 use App\Models\Regency;
-use App\Models\BiayaDinas;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
@@ -21,23 +22,41 @@ class PerjalanandinasController extends Controller
      */
     public function index()
     {
-        $dinas_baru = Dinas::join('mitras', 'mitras.id', '=', 'dinas.id_mitras')
-                    ->select('dinas.*', 'mitras.nama_mitra', 'mitras.komisi_dinas')
-                    ->get();
+        // $dinas_baru = Dinas::join('mitras', 'mitras.id', '=', 'dinas.id_mitras')
+        //     ->select('dinas.*', 'mitras.nama_mitra', 'mitras.komisi_dinas')
+        //     ->get();
 
-        $dinas_baru = Dinas::join('karyawans', 'karyawans.id', '=', 'dinas.id_anggota1')
-                    ->select('dinas.*', 'karyawans.nama')
-                    ->get();
+        // $dinas_baru = Dinas::join('users', 'users.id', '=', 'dinas.id_anggota1')
+        //     ->select('dinas.*', 'users.name')
+        //     ->get();
 
-        $dinas_baru = Dinas::join('regencies', 'regencies.id', '=', 'dinas.kota_keberangkatan')
-                    ->select('dinas.*', 'regencies.name')
-                    ->get();
+        // $dinas_baru = Dinas::join('regencies', 'regencies.id', '=', 'dinas.kota_keberangkatan')
+        //     ->select('dinas.*', 'regencies.name')
+        //     ->get();
+
+        // $mitra = Mitra::all();
+        // $user = User::all();
+        // $regency = Regency::all();
+        // //Logika untuk menampilkan halaman dashboard
+        // return view('admin.perjalanandinas.index', compact('regency', 'user', 'mitra', 'dinas_baru'));
+
+        $dinas_mitra = Dinas::join('mitras', 'mitras.id', '=', 'dinas.id_mitras')
+            ->select('dinas.*', 'mitras.nama_mitra', 'mitras.komisi_dinas')
+            ->get();
+
+        $dinas_user = Dinas::join('users', 'users.id', '=', 'dinas.id_anggota1')
+            ->select('dinas.*', 'users.name')
+            ->get();
+
+        $dinas_regency = Dinas::join('regencies', 'regencies.id', '=', 'dinas.kota_keberangkatan')
+            ->select('dinas.*', 'regencies.name')
+            ->get();
 
         $mitra = Mitra::all();
-        $karyawan = Karyawan::all();
+        $user = User::all();
         $regency = Regency::all();
-        //Logika untuk menampilkan halaman dashboard
-        return view('admin.perjalanandinas.index', compact('regency', 'karyawan', 'mitra', 'dinas_baru'));
+
+        return view('admin.perjalanandinas.index', compact('regency', 'user', 'mitra', 'dinas_mitra', 'dinas_user', 'dinas_regency'));
     }
 
     /**
@@ -48,13 +67,13 @@ class PerjalanandinasController extends Controller
     public function create()
     {
         $mitra = Mitra::all();
-        $karyawan = Karyawan::all();
-        $karyawan1 = Karyawan::all();
-        $karyawan2 = Karyawan::all();
-        $karyawan3 = Karyawan::all();
+        $user = User::all();
+        $user1 = User::all();
+        $user2 = User::all();
+        $user3 = User::all();
         $regency = Regency::all();
         // $regency = Regency::where('name', 'LIKE', '%CIANJUR%')->first();
-        return view('admin.perjalanandinas.create', compact('regency', 'mitra', 'karyawan', 'karyawan1', 'karyawan2', 'karyawan3'));
+        return view('admin.perjalanandinas.create', compact('regency', 'mitra', 'user', 'user1', 'user2', 'user3'));
     }
 
     public function getKaryawanOptions()
@@ -136,7 +155,7 @@ class PerjalanandinasController extends Controller
     public function store(DinasRequest $request)
     {
         $data = $request->all();
-
+        // dd($data);
         Dinas::create($data);
         return redirect()->route('admin.perjalanandinas.index');
     }
@@ -150,11 +169,7 @@ class PerjalanandinasController extends Controller
     public function show($id)
     {
         $item = Dinas::with([
-<<<<<<< Updated upstream
-            'mitra', 'regency', 'karyawan', 'karyawan1', 'karyawan2', 'karyawan3'
-=======
-            'mitra', 'regency', 'karyawan', 'karyawan1', 'karyawan2', 'karyawan3', 'biayaDinas'
->>>>>>> Stashed changes
+            'mitra', 'regency', 'user', 'user1', 'user2', 'user3'
         ])->findOrFail($id);
 
         return view('admin.perjalanandinas.detail', compact('item'));
@@ -169,7 +184,7 @@ class PerjalanandinasController extends Controller
     public function edit($id)
     {
         $item = Dinas::with([
-            'mitra', 'regency', 'karyawan', 'karyawan1'
+            'mitra', 'regency', 'user', 'user1'
         ])->findOrFail($id);
         $mitra = Mitra::all();
         $biayaDinas = BiayaDinas::where('perjalanan_dinas_id', $id)->first();

@@ -24,7 +24,8 @@ class KaryawanController extends Controller
 
         // Start building the query to fetch employees with their positions
         $kry_baru = Karyawan::join('positions', 'positions.id', '=', 'karyawans.id_positions')
-            ->select('karyawans.*', 'positions.nama_posisi', 'positions.gaji_posisi');
+        ->join('users', 'users.id', '=', 'karyawans.user_id')
+            ->select('karyawans.*', 'positions.nama_posisi', 'positions.gaji_posisi', 'users.name');
 
         // Apply status filter if provided in the URL
         if ($filter === 'Aktif') {
@@ -37,10 +38,11 @@ class KaryawanController extends Controller
         $kry_baru = $kry_baru->get();
 
         // Fetch all positions
+        $user = User::all('users.id');
         $position = Position::all('positions.id');
 
         // Return the view with the filtered employees and positions
-        return view('admin.karyawan.index', compact('position', 'kry_baru', 'filter'));
+        return view('admin.karyawan.index', compact('position', 'kry_baru', 'filter', 'user'));
     }
 
 
@@ -177,10 +179,3 @@ class KaryawanController extends Controller
         //
     }
 }
-// {
-//     public function index()
-//     {
-//         // Logika untuk menampilkan halaman dashboard
-//         return view('admin.karyawan.index');
-//     }
-// }

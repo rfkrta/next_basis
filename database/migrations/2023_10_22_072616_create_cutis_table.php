@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('cutis', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('id_nama');
+            $table->foreignId('user_id')->constrained();
             $table->string('id_kategori');
             $table->longText('keterangan');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
+            $table->string('file_surat')->nullable(); // Menyimpan nama file atau path surat PDF
             $table->timestamp('created_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamp('updated_at')->nullable();

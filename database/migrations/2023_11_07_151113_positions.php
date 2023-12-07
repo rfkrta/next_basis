@@ -14,21 +14,19 @@ return new class extends Migration
      */
     public function up()
     {
-        //
         Schema::create('positions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nama_posisi', 100);
             $table->integer('gaji_posisi');
             $table->timestamp('deleted_at')->nullable();
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
         DB::table('positions')->insert([
-            ['nama_posisi' => 'Admin', 'gaji_posisi' => 1],
-            ['nama_posisi' => 'Super Admin', 'gaji_posisi' => 1],
-            ['nama_posisi' => 'Normal User', 'gaji_posisi' => 1],
-            ['nama_posisi' => 'Employee', 'gaji_posisi' => 1],
-        ]);        
+            ['nama_posisi' => 'Admin', 'gaji_posisi' => 1000000],
+            ['nama_posisi' => 'Super Admin', 'gaji_posisi' => 500000],
+            ['nama_posisi' => 'Normal User', 'gaji_posisi' => 250000],
+            ['nama_posisi' => 'Employee', 'gaji_posisi' => 200000],
+        ]);  
     }
 
     /**

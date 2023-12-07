@@ -57,10 +57,9 @@
                         <input type="text" name="nip" id="nip" class="date" placeholder="Tuliskan NIP di sini" value="{{ $nip ?? old('nip') }}">
                     </div>
                     <!-- <div id="gaji"></div> -->
-
                     <div class="tgl1">
                         <h5>Gaji</h5>
-                        <input type="text" name="gaji_posisi" id="gaji_posisi" class="date gaji_posisi">
+                        <input type="text" name="gaji_posisi" id="gaji_posisi" class="date gaji_posisi" readonly>
                     </div>
 
                 </div>
@@ -88,46 +87,46 @@
         </form>
     </div>
 </div>
-    <!-- resources/views/confirmation-modal.blade.php -->
-    <div id="confirmationModal" class="modal-container" style="display:none;">
-        <div class="confirmation-container">
-            <h2>Keluar Halaman ?</h2>
-            <p>Kamu akan membatalkan perubahan
-                tambah karyawan. Semua perubahan
-                data tidak akan di simpan.</p>
-            <div class="confirmation-buttons">
-                <button class="cancel-button" onclick="cancelExit()">Batal</button>
-                <button class="confirm-button" onclick="confirmExit()">Keluar</button>
-            </div>
+<!-- resources/views/confirmation-modal.blade.php -->
+<div id="confirmationModal" class="modal-container" style="display:none;">
+    <div class="confirmation-container">
+        <h2>Keluar Halaman ?</h2>
+        <p>Kamu akan membatalkan perubahan
+            tambah karyawan. Semua perubahan
+            data tidak akan di simpan.</p>
+        <div class="confirmation-buttons">
+            <button class="cancel-button" onclick="cancelExit()">Batal</button>
+            <button class="confirm-button" onclick="confirmExit()">Keluar</button>
         </div>
     </div>
+</div>
 
-    <!-- resources/views/confirmation-modal.blade.php -->
-    <div id="confirmationAddModal" class="modal-container" style="display:none;">
-        <div class="confirmation-container">
-            <!-- <h2>Keluar Halaman ?</h2> -->
-            <p>Apakah karyawan 
-                yang ingin ditambahkan
-                sudah benar ?</p>
-            <div class="confirmation-buttons">
-                <button class="cancel-button" onclick="cancelExitAdd()">Tidak</button>
-                <button type="submit" class="confirm-button" onclick="confirmExitAdd()">Iya</button>
-            </div>
+<!-- resources/views/confirmation-modal.blade.php -->
+<div id="confirmationAddModal" class="modal-container" style="display:none;">
+    <div class="confirmation-container">
+        <!-- <h2>Keluar Halaman ?</h2> -->
+        <p>Apakah karyawan
+            yang ingin ditambahkan
+            sudah benar ?</p>
+        <div class="confirmation-buttons">
+            <button class="cancel-button" onclick="cancelExitAdd()">Tidak</button>
+            <button type="submit" class="confirm-button" onclick="confirmExitAdd()">Iya</button>
         </div>
     </div>
+</div>
 
-    <div id="successAlert" class="alert success" style="display:none;">
-        <span class="closebtn" onclick="closeAlert()">&times;</span>
-        Data berhasil ditambahkan!
-    </div>
+<div id="successAlert" class="alert success" style="display:none;">
+    <span class="closebtn" onclick="closeAlert()">&times;</span>
+    Data berhasil ditambahkan!
+</div>
 
-    <!-- Alert -->
-    <div id="alertBox" class="alert-container" style="display:none;">
-        <div class="alert-content">
-            <p>Mohon isi semua field sebelum menambah karyawan!</p>
-            <span class="close-button" onclick="closeAlertBox()">&times;</span>
-        </div>
+<!-- Alert -->
+<div id="alertBox" class="alert-container" style="display:none;">
+    <div class="alert-content">
+        <p>Mohon isi semua field sebelum menambah karyawan!</p>
+        <span class="close-button" onclick="closeAlertBox()">&times;</span>
     </div>
+</div>
 @endsection
 
 @push('addon-script')
@@ -150,8 +149,11 @@
                     url: "{{ route('getGajiPosisiById', ':id') }}".replace(':id', selectedValue),
                     type: 'GET',
                     success: function(data) {
-                        // Update the gaji_posisi field value here
-                        $('#gaji_posisi').val(data.gaji_posisi);
+                        // Format the received salary as IDR before setting it in the input field
+                        var formattedSalary = 'Rp.' + new Intl.NumberFormat('id-ID').format(data.gaji_posisi);
+
+                        // Update the gaji_posisi field value here with the formatted salary
+                        $('#gaji_posisi').val(formattedSalary);
                     },
                     error: function(xhr, status, error) {
                         console.error(error);
@@ -251,9 +253,9 @@
     }
 
     function confirmAdd() {
-    // ... (skrip sebelumnya) ...
+        // ... (skrip sebelumnya) ...
 
-    // Tampilkan alert ketika data berhasil ditambahkan
+        // Tampilkan alert ketika data berhasil ditambahkan
         document.getElementById('successAlert').style.display = 'block';
     }
 

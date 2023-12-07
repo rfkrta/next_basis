@@ -73,3 +73,15 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
 Route::get('/users', [UserController::class, 'index']); // Endpoint to fetch all users
 // Route::get('/users/create', [UserController::class, 'create']); // Endpoint to get data for user creation (positions, users, etc.)
 Route::post('/users/create', [UserController::class, 'store']); // Endpoint to create a new user
+
+
+
+Route::middleware('auth:sanctum')->prefix('user')->group(function () {
+    Route::get('/pengajuancuti', [CutiController::class, 'index'])->name('user.pengajuancuti.index');
+    Route::get('/pengajuancuti/create', [CutiController::class, 'create'])->name('user.pengajuancuti.create');
+    Route::post('/pengajuancuti/store', [CutiController::class, 'store'])->name('user.pengajuancuti.store');
+    Route::get('/pengajuancuti/{id}', [CutiController::class, 'show'])->name('user.pengajuancuti.show');
+    Route::put('/pengajuancuti/{id}/updateToDiterima', [CutiController::class, 'updateToDiterima'])->name('user.pengajuancuti.updateToDiterima');
+    Route::put('/pengajuancuti/{id}/updateToDitolak', [CutiController::class, 'updateToDitolak'])->name('user.pengajuancuti.updateToDitolak');
+});
+

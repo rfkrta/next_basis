@@ -18,48 +18,48 @@
         @endif
 
         <div class="cong-box1">
-            <form action="{{ route('admin.perjalanandinas.update', $item->id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('admin.perjalanandinas.updateBiaya', ['id' => $item->id]) }}" method="post" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="content">
                     <div class="tglx">
                         <div class="tgl1">
                             <h5>Biaya Hotel</h5>
-                            <input type="text" name="nama_mitra" id="nama_mitra" class="date" placeholder="Tuliskan biaya untuk hotel, di sini" value="{{ old('nama_mitra') }}">
+                            <input type="number" name="biaya_hotel" id="biaya_hotel" class="date" placeholder="Tuliskan biaya untuk hotel, di sini" value="{{ old('biaya_hotel', $biayaDinas->biaya_hotel ?? '') }}">
                         </div>
                         <div class="tgl1">
                             <h5>Biaya Transportasi</h5>
-                            <input type="text" name="nama_mitra" id="nama_mitra" class="date" placeholder="Tuliskan biaya untuk perusahaan, di sini" value="{{ old('nama_mitra') }}">
+                            <input type="number" name="biaya_transportasi" id="biaya_transportasi" class="date" placeholder="Tuliskan biaya untuk perusahaan, di sini" value="{{ old('biaya_transportasi', $biayaDinas->biaya_transportasi ?? '') }}">
                         </div>
                     </div>
                     <div class="tglx1">
                         <div class="tgl1">
                             <h5>Keterangan Hotel</h5>
-                            <textarea name="alamat_lengkap" id="alamat_lengkap" cols="58" rows="5" placeholder="Tuliskan keterangan untuk hotel, di sini">{{ old('alamat_lengkap') }}</textarea>
+                            <textarea name="keterangan_hotel" id="keterangan_hotel" cols="58" rows="5" placeholder="Tuliskan keterangan untuk hotel, di sini">{{ old('keterangan_hotel', $biayaDinas->keterangan_hotel ?? '') }}</textarea>
                         </div>
                         <div class="tgl1">
                             <h5>Keterangan Transportasi</h5>
-                            <textarea name="alamat_lengkap" id="alamat_lengkap" cols="58" rows="5" placeholder="Tuliskan keterangan untuk transportasi, di sini">{{ old('alamat_lengkap') }}</textarea>
+                            <textarea name="keterangan_transportasi" id="keterangan_transportasi" cols="58" rows="5" placeholder="Tuliskan keterangan untuk transportasi, di sini">{{ old('keterangan_transportasi', $biayaDinas->keterangan_transportasi ?? '') }}</textarea>
                         </div>
                     </div>
                     <div class="tglx1">
                         <div class="tgl1">
                             <h5>Biaya Konsumsi</h5>
-                            <input type="text" name="nama_PIC_perusahaan" id="" class="date" placeholder="Tuliskan biaya untuk konsumsi, di sini" value="{{ old('nama_PIC_perusahaan') }}">
+                            <input type="number" name="biaya_konsumsi" id="biaya_konsumsi" class="date" placeholder="Tuliskan biaya untuk konsumsi, di sini" value="{{ old('biaya_konsumsi', $biayaDinas->biaya_konsumsi ?? '') }}">
                         </div>
                         <div class="tgl1">
                             <h5>Biaya Keperluan Lain</h5>
-                            <input type="text" name="jabatan_PIC" id="jabatan_PIC" class="date" placeholder="Tuliskan biaya untuk keperluan lainnya, di sini" value="{{ old('jabatan_PIC') }}">
+                            <input type="number" name="biaya_lain" id="biaya_lain" class="date" placeholder="Tuliskan biaya untuk keperluan lainnya, di sini" value="{{ old('biaya_lain', $biayaDinas->biaya_lain ?? '') }}">
                         </div>
                     </div>
                     <div class="tglx1">
                         <div class="tgl1">
                             <h5>Keterangan Konsumsi</h5>
-                            <textarea name="alamat_lengkap" id="alamat_lengkap" cols="58" rows="5" placeholder="Tuliskan keterangan untuk konsumsi, di sini">{{ old('alamat_lengkap') }}</textarea>
+                            <textarea name="keterangan_konsumsi" id="keterangan_konsumsi" cols="58" rows="5" placeholder="Tuliskan keterangan untuk konsumsi, di sini">{{ old('keterangan_konsumsi', $biayaDinas->keterangan_konsumsi ?? '') }}</textarea>
                         </div>
                         <div class="tgl1">
                             <h5>Keterangan Keperluan Lain</h5>
-                            <textarea name="alamat_lengkap" id="alamat_lengkap" cols="58" rows="5" placeholder="Tuliskan keterangan untuk keperluan lainnya, di sini">{{ old('alamat_lengkap') }}</textarea>
+                            <textarea name="keterangan_lain" id="keterangan_lain" cols="58" rows="5" placeholder="Tuliskan keterangan untuk keperluan lainnya, di sini">{{ old('keterangan_lain', $biayaDinas->keterangan_lain ?? '') }}</textarea>
                         </div>
                     </div>
                     <div class="button">

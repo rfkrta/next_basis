@@ -97,6 +97,10 @@
                     @endforelse
                 </tbody>
             </table>
+            <!-- Tampilkan pagination links -->
+            <div class="pagination">
+                {{ $data->links() }}
+            </div>
         </div>
     </div>
 </div>

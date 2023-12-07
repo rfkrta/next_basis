@@ -1411,4 +1411,37 @@ select {
 .table tbody tr td .btn-group {
     display: flex;
     justify-content: flex-start; /* Sesuaikan dengan kebutuhan Anda */
+<<<<<<< Updated upstream
+=======
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination a, .pagination span {
+    padding: 8px 12px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    color: #333;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+.pagination .active span {
+    background-color: #337ab7;
+    color: #fff;
+>>>>>>> Stashed changes
 }

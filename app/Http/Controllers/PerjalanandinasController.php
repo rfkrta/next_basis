@@ -187,11 +187,40 @@ class PerjalanandinasController extends Controller
             'mitra', 'regency', 'user', 'user1'
         ])->findOrFail($id);
         $mitra = Mitra::all();
-        $user = User::all();
-        $user1 = User::all();
-        $regencies = Regency::all();
+        $biayaDinas = BiayaDinas::where('perjalanan_dinas_id', $id)->first();
 
-        return view('admin.perjalanandinas.edit', compact('regencies', 'item', 'mitra', 'user', 'user1'));
+        return view('admin.perjalanandinas.edit', compact('item', 'mitra', 'biayaDinas'));
+    }
+
+    public function updateBiaya(Request $request, $id)
+    {
+        // Validasi request sesuai kebutuhan
+        $request->validate([
+            'perjalanan_dinas_id' => 'max:255',
+            'biaya_hotel' => 'required|max:255',
+            'keterangan_hotel' => 'required|max:255',
+            'biaya_transportasi' => 'required|max:255',
+            'keterangan_transportasi' => 'required|max:255',
+            'biaya_konsumsi' => 'required|max:255',
+            'keterangan_konsumsi' => 'required|max:255',
+            'biaya_lain' => 'required|max:255',
+            'keterangan_lain' => 'required|max:255',
+        ]);
+
+        // Simpan biaya ke dalam tabel biaya_dinas
+        BiayaDinas::create([
+            'perjalanan_dinas_id' => $id,
+            'biaya_hotel' => $request->biaya_hotel,
+            'keterangan_hotel' => $request->keterangan_hotel,
+            'biaya_transportasi' => $request->biaya_transportasi,
+            'keterangan_transportasi' => $request->keterangan_transportasi,
+            'biaya_konsumsi' => $request->biaya_konsumsi,
+            'keterangan_konsumsi' => $request->keterangan_konsumsi,
+            'biaya_lain' => $request->biaya_lain,
+            'keterangan_lain' => $request->keterangan_lain,
+        ]);
+
+        return redirect()->route('admin.perjalanandinas.index')->with('success', 'Biaya perjalanan dinas berhasil disimpan');
     }
 
     /**

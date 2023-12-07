@@ -16,10 +16,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(DummyUsersSeeder::class);
         $this->call(IndoRegionSeeder::class);
-        $this->call(IndoRegionRegencySeeder::class);
-        $this->call(IndoRegionDistrictSeeder::class);
-        $this->call(IndoRegionProvinceSeeder::class);
-        $this->call(IndoRegionVillageSeeder::class);
+        // $this->call(IndoRegionRegencySeeder::class);
+        // $this->call(IndoRegionDistrictSeeder::class);
+        // $this->call(IndoRegionProvinceSeeder::class);
+        // $this->call(IndoRegionVillageSeeder::class);
         $this->call(RoleSeeder::class);
     }
 }

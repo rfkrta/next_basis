@@ -3,12 +3,7 @@
 @section('content')
 <div class="main">
     <div class="main-top1">
-        <button type="button" class="btnclass btn-primary" onclick="openConfirmationModal()">
-            <i class="fa fa-angle-left"></i>
-        </button>
-        @include('admin.pengajuancuti.back')
-        <!-- Modal Konfirmasi -->
-        <!-- <a href="{{ route('admin.pengajuancuti.index') }}" data-toggle="modal" data-target="#confirmationModal"><i class="fa fa-angle-left"></i></a> -->
+        <a href="{{ route('admin.pengajuancuti.index') }}"><i class="fa fa-angle-left"></i></a>
         <h3>Pengajuan Cuti</h3>
     </div>
 
@@ -71,10 +66,10 @@
                         <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="date" value="{{ old('tanggal_selesai') }}">
                     </div>
                 </div>
-                <div>
+                <!-- <div>
                     <label for="file_surat">File Surat (PDF only, max 2MB):</label>
                     <input type="file" id="file_surat" name="file_surat" accept=".pdf">
-                </div>
+                </div> -->
                 <div class="button">
                     <button type="submit" class="btnc btn-primary btn-block">
                         Ajukan Cuti

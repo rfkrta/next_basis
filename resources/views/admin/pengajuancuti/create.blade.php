@@ -3,7 +3,10 @@
 @section('content')
 <div class="main">
     <div class="main-top1">
-        <a href="{{ route('admin.pengajuancuti.index') }}"><i class="fa fa-angle-left"></i></a>
+        <button type="button" class="btnclass btn-primary" onclick="openConfirmationModal()">
+            <i class="fa fa-angle-left"></i>
+        </button>
+        @include('admin.pengajuancuti.back')
         <h3>Pengajuan Cuti</h3>
     </div>
 
@@ -26,7 +29,7 @@
                         <h5>Nama</h5>
                         <!-- <input type="text" name="nama" id="nama" class="date" placeholder="Tuliskan nama, di sini" value="{{ old('nama') }}"> -->
                         <div class="form-group1">
-                            <select name="user_id" id="user_id" required class="form-control1">
+                            <select name="id_nama" id="id_nama" required class="form-control1">
                                 <option value="">
                                     Pilih Nama Karyawan
                                 </option>

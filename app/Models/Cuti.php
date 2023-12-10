@@ -12,8 +12,8 @@ class Cuti extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'id_kategori', 'keterangan',
-        'tanggal_mulai', 'tanggal_selesai', 'status', 'id_user','file_surat'
+        'id_nama', 'id_kategori', 'keterangan',
+        'tanggal_mulai', 'tanggal_selesai', 'status'
     ];
 
 
@@ -21,10 +21,10 @@ class Cuti extends Model
         //
     ];
 
-    public function karyawan()
-    {
-        return $this->belongsTo(Karyawan::class, 'id_nama', 'id');
-    }
+    // public function karyawan()
+    // {
+    //     return $this->belongsTo(Karyawan::class, 'id_nama', 'id');
+    // }
 
     public function kategori()
     {
@@ -32,6 +32,6 @@ class Cuti extends Model
     }
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id', 'name');
+        return $this->belongsTo(User::class, 'id_nama', 'id', 'name');
     }
 }

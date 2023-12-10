@@ -24,7 +24,7 @@ class CutiRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|max:255',
+            'id_nama' => 'required|max:255',
             'id_kategori' => 'required|max:255',
             'keterangan' => 'required',
             'tanggal_mulai' => 'required|date',

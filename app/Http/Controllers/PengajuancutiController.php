@@ -21,18 +21,18 @@ class PengajuancutiController extends Controller
      */
     public function index()
     {
-        $cuti_baru = Cuti::join('users', 'users.id', '=', 'cutis.user_id')
-            ->select('cutis.*', 'users.name')
+        $cuti_baru = Cuti::join('users', 'users.id', '=', 'cutis.id_nama')
+            ->select('cutis.*', 'users.id', 'users.name')
             ->get();
 
         $cuti_baru = Cuti::join('kategoris', 'kategoris.id', '=', 'cutis.id_kategori')
             ->select('cutis.*', 'kategoris.nama_kategori')
             ->get();
 
-        $karyawan = User::all();
+        $user = User::all();
         $kategori = Kategori::all();
         //Logika untuk menampilkan halaman dashboard
-        return view('admin.pengajuancuti.index', compact('kategori', 'karyawan', 'cuti_baru', 'data'));
+        return view('admin.pengajuancuti.index', compact('kategori', 'user', 'cuti_baru'));
         // $items = Cuti::all();
 
         // return view('admin.pengajuancuti.index', [
@@ -49,9 +49,9 @@ class PengajuancutiController extends Controller
         ]);
 
         // Kurangi jumlah cuti pada pengguna terkait
-        $karyawan = Karyawan::find($pengajuanCuti->id_nama);
-        $karyawan->jmlCuti -= 1;
-        $karyawan->save();
+        $user = User::find($pengajuanCuti->id_nama);
+        $user->jmlCuti -= 1;
+        $user->save();
 
         // Redirect to a specific route or return a response
         return redirect()->route('admin.pengajuancuti.index')->with('success', 'Pengajuan cuti diterima');
@@ -88,30 +88,34 @@ class PengajuancutiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CutiRequest $request)
     {
-        // Validate the request
-        $validatedData = $request->validate([
-            'user_id' => 'required', // Update with your validation rules
-            'id_kategori' => 'required', // Update with your validation rules
-            'keterangan' => 'required', // Update with your validation rules
-            'tanggal_mulai' => 'required|date', // Update with your validation rules
-            'tanggal_selesai' => 'required|date', // Update with your validation rules
-            'file_surat' => 'required|file|mimes:pdf|max:2048', // Validation for file upload
-        ]);
+        // // Validate the request
+        // $validatedData = $request->validate([
+        //     'id_nama' => 'required', // Update with your validation rules
+        //     'id_kategori' => 'required', // Update with your validation rules
+        //     'keterangan' => 'required', // Update with your validation rules
+        //     'tanggal_mulai' => 'required|date', // Update with your validation rules
+        //     'tanggal_selesai' => 'required|date', // Update with your validation rules
+        //     'file_surat' => 'required|file|mimes:pdf|max:2048', // Validation for file upload
+        // ]);
 
-        // Store file in storage/app/public/surat folder
-        if ($request->hasFile('file_surat')) {
-            $file = $request->file('file_surat');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $filePath = $file->storeAs('public/surat', $fileName);
-        }
+        // // Store file in storage/app/public/surat folder
+        // if ($request->hasFile('file_surat')) {
+        //     $file = $request->file('file_surat');
+        //     $fileName = time() . '_' . $file->getClientOriginalName();
+        //     $filePath = $file->storeAs('public/surat', $fileName);
+        // }
 
-        // Create Cuti instance
-        $cuti = Cuti::create(array_merge(
-            $validatedData,
-            ['file_surat' => $fileName] // Save the file name in the database
-        ));
+        // // Create Cuti instance
+        // $cuti = Cuti::create(array_merge(
+        //     $validatedData,
+        //     ['file_surat' => $fileName] // Save the file name in the database
+        // ));
+
+        $data = $request->all();
+        // dd($data);
+        Cuti::create($data);
 
         // Redirect to the index page after successful creation
         return redirect()->route('admin.pengajuancuti.index');

@@ -45,8 +45,8 @@
                 <div class="tgl">
                     <div class="tgl1">
                         <h5>Kota</h5>
-                        <select name="kota" id="kota" required class="form-control1">
-                            <option value="{{$item -> jenis_kelamin}}">{{$item->kota}}</option>
+                        <select name="kota" id="kota" class="date">
+                            <option value="{{$item -> kota}}">{{$item->kota}}</option>
                             @foreach ($cities as $kota) <!-- Ganti $kotas sesuai dengan variabel yang berisi data kota -->
                             <option value="{{ $kota->name }}" id="option-{{ $kota->name }}">{{ $kota->name }}</option>
                             @endforeach
@@ -92,8 +92,8 @@
                 </div>
                 <div class="tgl">
                     <div>
-                        <label for="id_positions">Posisi:</label>
-                        <select name="id_positions" id="id_positions">
+                        <h5>Posisi</h5>
+                        <select name="id_positions" id="id_positions" class = "date">
                             @foreach ($positions as $position)
                             <option value="{{ $position->id }}" data-gaji="{{ $position->gaji_posisi }}" {{ $item->id_positions == $position->id ? 'selected' : '' }}>
                                 {{ $position->nama_posisi }}
@@ -121,7 +121,9 @@
                         <h5>Role</h5>
                         <select name="role_id" class="date">
                             @foreach($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            <option value="{{ $role->id }}" {{ $role->id == $item->role_id ? 'selected' : '' }}>
+                                {{ $role->name }}
+                            </option>
                             @endforeach
                         </select>
                     </div>
@@ -135,10 +137,9 @@
                         Ubah User
                     </button>
                 </div>
+            </div>
         </form>
-
         @endsection
-
         @push('addon-script')
         <script type="text/javascript" src="{{ asset('admin/js/jquery-1.10.2.js') }}"></script>
         <script type="text/javascript">

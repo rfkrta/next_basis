@@ -20,29 +20,10 @@ class KaryawanController extends Controller
      */
     public function index(Request $request)
     {
-        $filter = $request->input('filter'); // Get the filter parameter from the URL
 
-        // Start building the query to fetch employees with their positions
-        $kry_baru = Karyawan::join('positions', 'positions.id', '=', 'karyawans.id_positions')
-        ->join('users', 'users.id', '=', 'karyawans.user_id')
-            ->select('karyawans.*', 'positions.nama_posisi', 'positions.gaji_posisi', 'users.name');
-
-        // Apply status filter if provided in the URL
-        if ($filter === 'Aktif') {
-            $kry_baru = $kry_baru->where('karyawans.status', 'Aktif');
-        } elseif ($filter === 'Tidak Aktif') {
-            $kry_baru = $kry_baru->where('karyawans.status', 'Tidak Aktif');
-        }
-
-        // Get the filtered employees along with their associated positions
-        $kry_baru = $kry_baru->get();
-
-        // Fetch all positions
-        $user = User::all('users.id');
-        $position = Position::all('positions.id');
 
         // Return the view with the filtered employees and positions
-        return view('admin.karyawan.index', compact('position', 'kry_baru', 'filter', 'user'));
+        return view('admin.karyawan.index');
     }
 
 

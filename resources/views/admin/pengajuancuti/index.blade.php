@@ -17,26 +17,27 @@
     </div>
     <div class="filter">
         <ul class="filterx">
-            <li class="activev">
-                <a href="#">Semua</a>
+            <li class="{{ request()->input('status') === null ? 'activev' : '' }}">
+                <a href="{{ route('admin.pengajuancuti.index') }}">Semua</a>
             </li>
         </ul>
         <ul class="filterx">
-            <li>
-                <a href="#">Diterima</a>
+            <li class="{{ request()->input('status') === 'diterima' ? 'activev' : '' }}">
+                <a href="{{ route('admin.pengajuancuti.index', ['status' => 'diterima']) }}">Diterima</a>
             </li>
         </ul>
         <ul class="filterx">
-            <li>
-                <a href="#">Tertunda</a>
+            <li class="{{ request()->input('status') === 'ditolak' ? 'activev' : '' }}">
+                <a href="{{ route('admin.pengajuancuti.index', ['status' => 'ditolak']) }}">Ditolak</a>
             </li>
         </ul>
         <ul class="filterx">
-            <li>
-                <a href="#">Ditolak</a>
+            <li class="{{ request()->input('status') === 'tertunda' ? 'activev' : '' }}">
+                <a href="{{ route('admin.pengajuancuti.index', ['status' => 'tertunda']) }}">Tertunda</a>
             </li>
         </ul>
     </div>
+    </table>
     <div class="line5"></div>
     <div class="cong-box">
         <div>
@@ -53,19 +54,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($cuti_baru as $item)
+                    @forelse ($cutis as $cuti)
                     <tr>
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $item->user->name }}</td>
-                        <td>{{ $item->kategori->nama_kategori }}</td>
-                        <td>{{ \Carbon\Carbon::parse($item->tanggal_mulai)->format('d-m-Y') }}</td>
-                        <td>{{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('d-m-Y') }}</td>
-                        <td>{{ $item->status }}</td>
+                        <td>{{ $cuti->id }}</td>
+                        <td>{{ $cuti->user->name }}</td>
+                        <td>{{ $cuti->kategori->nama_kategori }}</td>
+                        <td>{{ \Carbon\Carbon::parse($cuti->tanggal_mulai)->format('d-m-Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($cuti->tanggal_selesai)->format('d-m-Y') }}</td>
+                        <td>{{ $cuti->status }}</td>
                         <td>
                             <div class="btn-group">
-                                <!-- Update status buttons -->
-                                <!-- <form id="formDiterima" method="POST" action="{{ route('admin.pengajuancuti.updateToDiterima', $item->id) }}" onsubmit="return showConfirmationModal('formDiterima', 'btnDiterima');"> -->
-                                <form id="formDiterima" method="POST" action="{{ route('admin.pengajuancuti.updateToDiterima', $item->id) }}" onsubmit="return confirm('Anda yakin ingin menerima pengajuan ini?');"> 
+                                <form id="formDiterima" method="POST" action="{{ route('admin.pengajuancuti.updateToDiterima', $cuti->id) }}" onsubmit="return confirm('Anda yakin ingin menerima pengajuan ini?');">
                                     @csrf
                                     @method('PUT')
                                     <button type="submit" class="btn btn-dangger" id="btnDiterima">
@@ -73,15 +72,15 @@
                                     </button>
                                 </form>
                                 <!-- Form to update status to Ditolak -->
-                                <!-- <form id="formDitolak" method="POST" action="{{ route('admin.pengajuancuti.updateToDitolak', $item->id) }}" onsubmit="return showConfirmationModal('formDitolak', 'btnDitolak');"> -->
-                                <form id="formDitolak" method="POST" action="{{ route('admin.pengajuancuti.updateToDitolak', $item->id) }}" onsubmit="return confirm('Anda yakin ingin menolak pengajuan ini?');">
+                                <!-- <form id="formDitolak" method="POST" action="{{ route('admin.pengajuancuti.updateToDitolak', $cuti->id) }}" onsubmit="return showConfirmationModal('formDitolak', 'btnDitolak');"> -->
+                                <form id="formDitolak" method="POST" action="{{ route('admin.pengajuancuti.updateToDitolak', $cuti->id) }}" onsubmit="return confirm('Anda yakin ingin menolak pengajuan ini?');">
                                     @csrf
                                     @method('PUT')
                                     <button type="submit" class="btn btn-danger" id="btnDitolak">
                                         <i class="btn2 fa fa-times"></i>
                                     </button>
                                 </form>
-                                <a href="{{ route('admin.pengajuancuti.show', $item->id) }}" class="btn btn-danger">
+                                <a href="{{ route('admin.pengajuancuti.show', $cuti->id) }}" class="btn btn-danger">
                                     <i class="btn3 fa fa-eye"></i>
                                 </a>
                             </div>
@@ -91,7 +90,7 @@
                     <tr>
                         <td colspan="7" class="text-center">
                             <img src="{{ asset('img/1.png') }}" alt="none">
-                            <p>Tidak ada pengajuan cuti yang pending</p>
+                            <p>Tidak ada data pengajuan cuti</p>
                         </td>
                     </tr>
                     @endforelse
@@ -101,12 +100,12 @@
     </div>
 </div>
 <!-- Alert -->
-    <div id="alertBox1" class="alert-container1" style="display:none;">
-        <div class="alert-content">
-            <p>Mohon isi semua field sebelum menambah pengajuan cuti!</p>
-            <span class="close-button" onclick="closeAlertBox()">&times;</span>
-        </div>
+<div id="alertBox1" class="alert-container1" style="display:none;">
+    <div class="alert-content">
+        <p>Mohon isi semua field sebelum menambah pengajuan cuti!</p>
+        <span class="close-button" onclick="closeAlertBox()">&times;</span>
     </div>
+</div>
 
 <div id="confirmationModal" class="modal-container">
     <div class="confirmation-container">

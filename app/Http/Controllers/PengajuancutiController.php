@@ -22,7 +22,7 @@ class PengajuancutiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $cuti_baru = Cuti::join('users', 'users.id', '=', 'cutis.user_id')
             ->select('cutis.*', 'users.id', 'users.name')
@@ -34,10 +34,20 @@ class PengajuancutiController extends Controller
 
         $users = User::all();
         $kategori = Kategori::all();
-        //Logika untuk menampilkan halaman dashboard
-        // $items = Cuti::all();
+        $status = $request->input('status'); // Get the 'status' parameter from the request
 
-        return view('admin.pengajuancuti.index', compact('kategori', 'users', 'cuti_baru'));
+        $cutis = Cuti::with('user', 'kategori'); // Eager load relationships 'user' and 'kategori'
+    
+        // Filter Cutis based on 'status' parameter
+        if ($status === 'diterima' || $status === 'ditolak' || $status === 'tertunda') {
+            $cutis->where('status', $status);
+        }
+    
+        $cutis = $cutis->get(); // Retrieve filtered cutis
+    
+        $users = User::all();
+        $kategori = Kategori::all();
+        return view('admin.pengajuancuti.index', compact('kategori', 'users', 'cuti_baru','cutis'));
     }
     public function updateToDiterima($id)
     {
@@ -67,7 +77,7 @@ class PengajuancutiController extends Controller
         }
         return redirect()->route('admin.pengajuancuti.index')->with('success', 'Pengajuan cuti diterima');
     }
-    
+
     public function updateToDitolak($id)
     {
         $pengajuanCuti = Cuti::findOrFail($id);
@@ -109,28 +119,28 @@ class PengajuancutiController extends Controller
             'tanggal_selesai' => 'required|date',
             'file_surat' => 'nullable|mimes:pdf|max:2048',
         ]);
-    
+
         // Jika validasi gagal, kembalikan respons dengan pesan error
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-    
+
         // Temukan user
         $user = User::find($request->user_id);
-    
+
         // Periksa apakah user ditemukan
         if (!$user) {
             return redirect()->back()->withErrors(['error' => 'User tidak ditemukan']);
         }
-    
+
         // Periksa apakah user memiliki cukup cuti
         if ($user->jmlCuti <= 0) {
             return redirect()->back()->withErrors(['error' => 'Jumlah cuti tidak mencukupi']);
         }
-    
+
         // Inisialisasi $fileName
         $fileName = null;
-    
+
         // Simpan file di folder storage/app/public/surat
         if ($request->hasFile('file_surat')) {
             $file = $request->file('file_surat');
@@ -138,17 +148,17 @@ class PengajuancutiController extends Controller
             $filePath = $file->storeAs('public/surat', $fileName);
         }
         $user->save();
-    
+
         // Buat instance Cuti
         $cuti = Cuti::create(array_merge(
             $validator->validated(),
             ['file_surat' => $fileName]
         ));
-    
+
         // Kembalikan respons berhasil
         return redirect()->route('admin.pengajuancuti.index')->with('success', 'Pengajuan cuti berhasil diajukan');
     }
-    
+
 
 
 

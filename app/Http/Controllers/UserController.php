@@ -15,7 +15,8 @@ class UserController extends Controller
 
     {
         $user_baru = User::join('positions', 'positions.id', '=', 'users.id_positions')
-            ->select('users.*', 'positions.nama_posisi', 'positions.gaji_posisi')
+            ->join('roles', 'roles.id', '=', 'users.role_id') // Joining the 'roles' table
+            ->select('users.*', 'positions.nama_posisi', 'positions.gaji_posisi', 'roles.name') // Selecting fields from roles table
             ->get();
 
         // Fetch all users
@@ -127,8 +128,11 @@ class UserController extends Controller
         $positions = Position::all();
         $roles = Role::all(); // Fetch all roles from the database
 
-        return view('admin.user.edit', compact('item', 'positions','roles', 'cities'));
+        return view('admin.user.edit', compact('item', 'positions', 'roles', 'cities'));
     }
+
+
+
     public function update(Request $request, $id)
     {
         // Find the user by ID
@@ -165,7 +169,7 @@ class UserController extends Controller
             return redirect()->back()->withInput()->withErrors(['no_hp' => 'The phone number has already been taken.']);
             // Redirect back to the form with an error message for 'no_hp'
         }
-        
+
 
         // Update the user data with the validated data
         $user->name = $validatedData['name'];
@@ -176,11 +180,11 @@ class UserController extends Controller
         $user->tanggal_lahir = $validatedData['tanggal_lahir'];
         $user->agama = $validatedData['agama'];
         $user->jenis_kelamin = $validatedData['jenis_kelamin'];
-        $user->kota = $validatedData['kota'];   
+        $user->kota = $validatedData['kota'];
         $user->id_positions = $validatedData['id_positions'];
         $user->gaji_posisi = $validatedData['gaji_posisi'];
         $user->role_id = $validatedData['role_id'];
-        
+
         // Update other fields accordingly
 
         // Save the updated user data

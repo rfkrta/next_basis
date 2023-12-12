@@ -63,43 +63,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($kry_baru->isEmpty() && $filter === null)
                     <tr>
                         <td colspan="5" class="text-center">
                             <img src="{{ asset('img/1.png') }}" alt="none">
                             <p>Tidak ada data karyawan</p>
                         </td>
                     </tr>
-                    @elseif ($kry_baru->isEmpty() && ($filter === 'Aktif' || $filter === 'Tidak Aktif'))
                     <tr>
-                        <td colspan="5" class="text-center">
-                            <img src="{{ asset('img/1.png') }}" alt="none">
-                            @if ($filter === 'Aktif')
-                            <p>Tidak ada data karyawan</p>
-                            @elseif ($filter === 'Tidak Aktif')
-                            <p>Tidak ada data karyawan</p>
-                            @endif
-                        </td>
-                    </tr>
-                    @else
-                    @foreach ($kry_baru as $item)
-                    <tr>
-                        <!-- Table rows for each employee -->
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $item->user->name }}</td>
-                        <td>{{ $item->position->nama_posisi }}</td>
-                        <td>{{ $item->status }}</td>
+                        <!-- Table rows for each employee
                         <td>
-                            <a href="{{ route('admin.karyawan.show', $item->id) }}" class="btn btn-danger">
+                            <a href="" class="btn btn-danger">
                                 <i class="btn1 fa fa-eye"></i>
                             </a>
-                            <a href="{{ route('admin.karyawan.edit', $item->id) }}" class="btn btn-danger">
+                            <a href="" class="btn btn-danger">
                                 <i class="btn3 fa fa-pencil"></i>
-                            </a>
+                            </a> -->
                         </td>
                     </tr>
-                    @endforeach
-                    @endif
                 </tbody>
 
 

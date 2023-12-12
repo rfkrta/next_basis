@@ -32,16 +32,8 @@ class PengajuancutiController extends Controller
             ->select('cutis.*', 'kategoris.nama_kategori')
             ->get();
 
-<<<<<<< Updated upstream
-        $user = User::all();
-        $kategori = Kategori::all();
-        //Logika untuk menampilkan halaman dashboard
-        return view('admin.pengajuancuti.index', compact('kategori', 'user', 'cuti_baru'));
-        // $items = Cuti::all();
-=======
         $users = User::all();
         $kategori = Kategori::all();
->>>>>>> Stashed changes
 
         return view('admin.pengajuancuti.index', compact('kategori', 'users', 'cuti_baru'));
     }
@@ -54,16 +46,9 @@ class PengajuancutiController extends Controller
             'status' => 'diterima',
         ]);
 
-<<<<<<< Updated upstream
-        // Kurangi jumlah cuti pada pengguna terkait
-        $user = User::find($pengajuanCuti->id_nama);
-        $user->jmlCuti -= 1;
-        $user->save();
-=======
         // Calculate the number of days for the cuti
         $startDate = $pengajuanCuti->tanggal_mulai;
         $endDate = $pengajuanCuti->tanggal_selesai;
->>>>>>> Stashed changes
 
         // Calculate the difference in days between the start and end dates
         $diffInDays = strtotime($endDate) - strtotime($startDate);
@@ -111,38 +96,6 @@ class PengajuancutiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-<<<<<<< Updated upstream
-    public function store(CutiRequest $request)
-    {
-        // // Validate the request
-        // $validatedData = $request->validate([
-        //     'id_nama' => 'required', // Update with your validation rules
-        //     'id_kategori' => 'required', // Update with your validation rules
-        //     'keterangan' => 'required', // Update with your validation rules
-        //     'tanggal_mulai' => 'required|date', // Update with your validation rules
-        //     'tanggal_selesai' => 'required|date', // Update with your validation rules
-        //     'file_surat' => 'required|file|mimes:pdf|max:2048', // Validation for file upload
-        // ]);
-
-        // // Store file in storage/app/public/surat folder
-        // if ($request->hasFile('file_surat')) {
-        //     $file = $request->file('file_surat');
-        //     $fileName = time() . '_' . $file->getClientOriginalName();
-        //     $filePath = $file->storeAs('public/surat', $fileName);
-        // }
-
-        // // Create Cuti instance
-        // $cuti = Cuti::create(array_merge(
-        //     $validatedData,
-        //     ['file_surat' => $fileName] // Save the file name in the database
-        // ));
-
-        $data = $request->all();
-        // dd($data);
-        Cuti::create($data);
-=======
-
-
     public function store(Request $request)
     {
         // Validasi request
@@ -189,7 +142,6 @@ class PengajuancutiController extends Controller
             $validator->validated(),
             ['file_surat' => $fileName]
         ));
->>>>>>> Stashed changes
 
         // Kembalikan respons JSON berhasil
         return response()->json(['message' => 'Pengajuan cuti berhasil diajukan'], 201);

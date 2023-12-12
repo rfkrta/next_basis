@@ -12,13 +12,8 @@ class Cuti extends Model
     use HasFactory;
 
     protected $fillable = [
-<<<<<<< Updated upstream
-        'id_nama', 'id_kategori', 'keterangan',
-        'tanggal_mulai', 'tanggal_selesai', 'status'
-=======
         'user_id', 'id_kategori', 'keterangan',
         'tanggal_mulai', 'tanggal_selesai', 'status', 'id_user'
->>>>>>> Stashed changes
     ];
 
 

@@ -40,6 +40,11 @@ Route::middleware('laravel10')->group(function () {
     Route::get('/admin/perjalanandinas', [PerjalanandinasController::class, 'index'])->name('admin.perjalanandinas.index');
     Route::get('/admin/perjalanandinas/create', [PerjalanandinasController::class, 'create', 'user'])->name('admin.perjalanandinas.create');
     Route::post('/admin/perjalanandinas/store', [PerjalanandinasController::class, 'store'])->name('admin.perjalanandinas.store');
+<<<<<<< Updated upstream
+=======
+    Route::get('/admin/perjalanandinas/edit/{id}', [PerjalanandinasController::class, 'edit'])->name('admin.perjalanandinas.edit');
+    Route::get('/admin/perjalanandinas/edit/{id}', [PerjalanandinasController::class, 'edit'])->name('admin.perjalanandinas.edit');
+>>>>>>> Stashed changes
     Route::get('/admin/perjalanandinas/{id}/edit', [PerjalanandinasController::class, 'edit'])->name('admin.perjalanandinas.edit');
     Route::get('/admin/perjalanandinas/show/{id}', [PerjalanandinasController::class, 'show'])->name('admin.perjalanandinas.show');
     Route::get('/getPosisiById/{id}', [PerjalanandinasController::class, 'getPosisiById'])->name('getPosisiById');

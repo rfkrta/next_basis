@@ -24,7 +24,7 @@ class PengajuancutiController extends Controller
      */
     public function index()
     {
-        $cuti_baru = Cuti::join('users', 'users.id', '=', 'cutis.id_nama')
+        $cuti_baru = Cuti::join('users', 'users.id', '=', 'cutis.user_id')
             ->select('cutis.*', 'users.id', 'users.name')
             ->get();
 
@@ -34,6 +34,8 @@ class PengajuancutiController extends Controller
 
         $users = User::all();
         $kategori = Kategori::all();
+        //Logika untuk menampilkan halaman dashboard
+        // $items = Cuti::all();
 
         return view('admin.pengajuancuti.index', compact('kategori', 'users', 'cuti_baru'));
     }

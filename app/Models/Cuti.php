@@ -32,6 +32,7 @@ class Cuti extends Model
     }
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_nama', 'id', 'name');
+        return $this->belongsTo(User::class, 'user_id', 'id', 'name');
     }
+
 }

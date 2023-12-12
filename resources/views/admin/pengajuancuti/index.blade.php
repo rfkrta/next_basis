@@ -8,7 +8,7 @@
     <div class="view">
         <div class="search">
             <i class="fa fa-search"></i>
-            <input type="text" name="search" class="input1" placeholder="Search">
+            <input type="text" name="" class="input1" placeholder="Search">
         </div>
         <div class="plus">
             <i class="fa fa-plus"></i>

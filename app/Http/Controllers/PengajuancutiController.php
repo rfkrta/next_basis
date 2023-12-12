@@ -48,12 +48,23 @@ class PengajuancutiController extends Controller
             'status' => 'diterima',
         ]);
 
-        // Kurangi jumlah cuti pada pengguna terkait
-        $karyawan = Karyawan::find($pengajuanCuti->id_nama);
-        $karyawan->jmlCuti -= 1;
-        $karyawan->save();
+        // Calculate the number of days for the cuti
+        $startDate = $pengajuanCuti->tanggal_mulai;
+        $endDate = $pengajuanCuti->tanggal_selesai;
 
-        // Redirect to a specific route or return a response
+        // Calculate the difference in days between the start and end dates
+        $diffInDays = strtotime($endDate) - strtotime($startDate);
+        $numDays = round($diffInDays / (60 * 60 * 24)); // Convert seconds to days and round
+
+        $user = $pengajuanCuti->user;
+        if ($user) {
+            // Deduct the number of days for cuti from jmlCuti
+            $user->jmlCuti -= $numDays;
+            $user->save();
+        } else {
+            // Handle the case where the associated user is not found
+            // This could be a scenario that needs further investigation or error handling
+        }
         return redirect()->route('admin.pengajuancuti.index')->with('success', 'Pengajuan cuti diterima');
     }
     public function updateToDitolak($id)
@@ -88,6 +99,8 @@ class PengajuancutiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
     public function store(Request $request)
     {
         // Validate the request
@@ -106,6 +119,7 @@ class PengajuancutiController extends Controller
             $fileName = time() . '_' . $file->getClientOriginalName();
             $filePath = $file->storeAs('public/surat', $fileName);
         }
+        $user->save();
 
         // Create Cuti instance
         $cuti = Cuti::create(array_merge(

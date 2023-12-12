@@ -98,9 +98,10 @@
                 </tbody>
             </table>
             <!-- Tampilkan pagination links -->
-            <div class="pagination">
-                {{ $data->links() }}
-            </div>
+<<<<<<< Updated upstream
+            <!--  -->
+=======
+>>>>>>> Stashed changes
         </div>
     </div>
 </div>

@@ -27,7 +27,10 @@ class User extends Authenticatable
         'no_hp',
         'tanggal_lahir',
         'agama',
-        'jenis_kelamin'
+        'jenis_kelamin',
+        'jmlCuti',
+        'role_id',
+        'tanggal_mulai', 'tanggal_selesai', 'status', 'id_positions', 'gaji_posisi'
     ];
 
     /**
@@ -52,9 +55,19 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(Regency::class, Province::class);
     }
-    
-    public function role()
+
+    public function roles()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function position()
+    {
+        return $this->belongsTo(Position::class, 'id_positions');
+    }
+
+    public function getFormattedGajiAttribute()
+    {
+        return $this->position->formatted_gaji_posisi ?? '';
     }
 }

@@ -19,5 +19,5 @@ class Position extends Model
     protected $hidden = [
         //
     ];
-    
+
 }

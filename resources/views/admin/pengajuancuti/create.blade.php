@@ -19,6 +19,11 @@
         </ul>
     </div>
     @endif
+    @if(Session::has('alert'))
+    <script>
+        alert("{{ Session::get('alert') }}");
+    </script>
+    @endif
 
     <div class="cong-box2">
         <form action="{{ route('admin.pengajuancuti.store') }}" method="post" enctype="multipart/form-data">
@@ -34,7 +39,9 @@
                                     Pilih Nama Karyawan
                                 </option>
                                 @foreach ($users as $user)
+                                @if ($user->role_id === 3)
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endif
                                 @endforeach
                             </select>
                         </div>

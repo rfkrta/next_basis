@@ -6,14 +6,18 @@ use App\Models\Position;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Regency;
+use App\Models\Role;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    //
     public function index(Request $request)
 
     {
+        $user_baru = User::join('positions', 'positions.id', '=', 'users.id_positions')
+            ->select('users.*', 'positions.nama_posisi', 'positions.gaji_posisi')
+            ->get();
+
         // Fetch all users
         $users = User::all();
         // Filter User
@@ -28,12 +32,14 @@ class UserController extends Controller
         // Pass the user data to the view
         return view('admin.user.index', compact('users', 'filter'));
     }
+
     public function create()
     {
         $position = Position::all();
         $cities = Regency::orderBy('name', 'asc')->get();
         $users = User::all();
-        return view('admin.user.create', compact('position', 'users','cities'));
+        $roles = Role::all(); // Fetch all roles from the database
+        return view('admin.user.create', compact('position', 'users', 'cities', 'roles'));
     }
 
     public function store(Request $request)
@@ -49,29 +55,19 @@ class UserController extends Controller
             'tanggal_lahir' => 'required|date',
             'agama' => 'nullable|string',
             'jenis_kelamin' => 'nullable|string',
+            'kota' => 'nullable|string',
+            'id_positions' => 'required|integer',
+            'role_id' => 'required|integer', // Validation for role_id
+            'gaji_posisi' => 'required|string', // Validation for gaji_posisi
+            'tanggal_mulai' => 'required|date', // Validation for tanggal_mulai
+            'tanggal_selesai' => 'required|date|after:tanggal_mulai', // Validation for tanggal_selesai
         ]);
-        $existingNIP = User::where('nip', $validatedData['nip'])->first();
-        if ($existingNIP) {
-            return redirect()->back()->withInput()->withErrors(['nip' => 'The NIP has already been taken.']);
-            // Redirect back to the form with an error message for 'nip'
-        }
 
-        // Check if the 'email' already exists in the database
-        $existingEmail = User::where('email', $validatedData['email'])->first();
-        if ($existingEmail) {
-            return redirect()->back()->withInput()->withErrors(['email' => 'The email has already been taken.']);
-            // Redirect back to the form with an error message for 'email'
-        }
+        // ... Existing validation and error handling logic
 
-        // Check if the 'no_hp' already exists in the database
-        $existingNoHp = User::where('no_hp', $validatedData['no_hp'])->first();
-        if ($existingNoHp) {
-            return redirect()->back()->withInput()->withErrors(['no_hp' => 'The phone number has already been taken.']);
-            // Redirect back to the form with an error message for 'no_hp'
-        }
-
-        // Create a new user using the validated data
-        $user = User::create([
+        // Create a new user instance
+        $user = new User([
+            // Assign other user details
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'nip' => $validatedData['nip'],
@@ -81,23 +77,57 @@ class UserController extends Controller
             'password' => bcrypt($validatedData['password']),
             'agama' => $validatedData['agama'],
             'jenis_kelamin' => $validatedData['jenis_kelamin'],
-            // Assign the agama field
-            // Assign other fields accordingly
+            'kota' => $validatedData['kota'],
+            'id_positions' => $validatedData['id_positions'],
+            'role_id' => $validatedData['role_id'],
+            'gaji_posisi' => $validatedData['gaji_posisi'], // Assign the gaji_posisi
+            'tanggal_mulai' => $validatedData['tanggal_mulai'], // Assign the tanggal_mulai
+            'tanggal_selesai' => $validatedData['tanggal_selesai'], // Assign the tanggal_selesai
         ]);
+
+        // Save the user to the database
+        $user->save();
+
         // Optionally, you can redirect somewhere after creating the user
         return redirect()->route('admin.user.index')->with('success', 'User created successfully');
     }
+
+
+
+    public function getGajiPosisiById($id)
+    {
+        // Find the position by ID
+        $position = Position::find($id);
+        // Retrieve the gaji posisi value for the position
+        $gajiPosisi = $position->gaji_posisi;
+    }
+
+    public function getRole($id)
+    {
+        // Find the role by ID
+        $role = Role::find($id);
+
+        // Check if the role exists
+        if ($role) {
+            // Retrieve the role name
+            $roleName = $role->name;
+
+            // Return the role name
+            return $roleName;
+        }
+        // If role doesn't exist or ID is invalid, return null or handle accordingly
+        return null; // or any other action based on your application logic
+    }
+
+
     public function edit($id)
     {
         $item = User::findOrFail($id);
         $cities = Regency::orderBy('name', 'asc')->get();
-        $position = Position::all();
+        $positions = Position::all();
+        $roles = Role::all(); // Fetch all roles from the database
 
-        return view('admin.user.edit', [
-            'item' => $item,
-            'position' => $position,
-            'cities' => $cities
-        ]);
+        return view('admin.user.edit', compact('item', 'positions','roles', 'cities'));
     }
     public function update(Request $request, $id)
     {
@@ -115,7 +145,10 @@ class UserController extends Controller
             'tanggal_lahir' => 'required|date',
             'agama' => 'nullable|string',
             'jenis_kelamin' => 'nullable|string',
-            'kota' => 'required|string'
+            'kota' => 'required|string',
+            'id_positions' => 'nullable|string',
+            'gaji_posisi' => 'nullable|string',
+            'role_id' => 'nullable|integer',
             // Add validation rules for other fields as necessary
         ]);
 
@@ -132,6 +165,7 @@ class UserController extends Controller
             return redirect()->back()->withInput()->withErrors(['no_hp' => 'The phone number has already been taken.']);
             // Redirect back to the form with an error message for 'no_hp'
         }
+        
 
         // Update the user data with the validated data
         $user->name = $validatedData['name'];
@@ -142,7 +176,11 @@ class UserController extends Controller
         $user->tanggal_lahir = $validatedData['tanggal_lahir'];
         $user->agama = $validatedData['agama'];
         $user->jenis_kelamin = $validatedData['jenis_kelamin'];
-        $user->kota = $validatedData['kota'];
+        $user->kota = $validatedData['kota'];   
+        $user->id_positions = $validatedData['id_positions'];
+        $user->gaji_posisi = $validatedData['gaji_posisi'];
+        $user->role_id = $validatedData['role_id'];
+        
         // Update other fields accordingly
 
         // Save the updated user data

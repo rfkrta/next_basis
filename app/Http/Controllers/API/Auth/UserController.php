@@ -14,7 +14,6 @@ class UserController extends Controller
     {
         // Fetch all users
         $users = User::all();
-
         // Filter User
         $filter = $request->input('filter');
         if ($filter === 'Aktif') {

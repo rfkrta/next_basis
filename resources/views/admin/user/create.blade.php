@@ -17,11 +17,7 @@
     </div>
     @endif
 
-<<<<<<< Updated upstream
-    <div class="cong-box1">
-=======
     <div class="cong-box4">
->>>>>>> Stashed changes
         <form action="{{ route('admin.user.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="content">
@@ -30,7 +26,6 @@
                         <h5>Nama</h5>
                         <input type="text" name="name" id="name" class="date" placeholder="Tuliskan nama, di sini" value="">
                     </div>
-                    <!-- <div id="gaji"></div> -->
                     <div class="tgl1">
                         <h5>Email</h5>
                         <input type="email" name="email" id="email" class="date" placeholder="Tuliskan Email, di sini" value="">
@@ -41,7 +36,6 @@
                         <h5>Password</h5>
                         <input type="password" name="password" id="password" class="date" placeholder="Tuliskan password, di sini" value="">
                     </div>
-                    <!-- <div id="gaji"></div> -->
                     <div class="tgl1">
                         <h5>NIP</h5>
                         <input type="nip" name="nip" id="nip" class="date" placeholder="Tuliskan NIP, di sini" value="{{ old('nip') }}">
@@ -50,14 +44,13 @@
                 <div class="tgl">
                     <div class="tgl1">
                         <h5>Kota</h5>
-                        <select name="kota" id="kota" required class="form-control1">
+                        <select name="kota" id="kota" required class="date">
                             <option>Pilih Kota...</option>
                             @foreach ($cities as $kota) <!-- Ganti $kotas sesuai dengan variabel yang berisi data kota -->
-                            <option value="{{ $kota->id }}" id="option-{{ $kota->id }}">{{ $kota->name }}</option>
+                            <option value="{{ $kota->name }}" id="option-{{ $kota->id }}">{{ $kota->name }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <!-- <div id="gaji"></div> -->
                     <div class="tgl1">
                         <h5>Alamat</h5>
                         <input type="text" name="alamat" id="alamat " class="date" placeholder="Tuliskan alamat, di sini" value="{{ old('alamat') }}">
@@ -68,7 +61,12 @@
                         <h5>No Telepon</h5>
                         <input type="text" name="no_hp" id="no_hp" class="date" placeholder="Tuliskan no telp, di sini" value="{{ old('no_hp') }}">
                     </div>
-                    <!-- <div id="gaji"></div> -->
+                    <div class="tgl1">
+                        <h5>Tanggal Lahir</h5>
+                        <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="date" placeholder="Tuliskan no telp, di sini" value="{{ old('tanggal_lahir') }}">
+                    </div>
+                </div>
+                <div class="tgl">
                     <div class="tgl1">
                         <h5>Jenis Kelamin</h5>
                         <select name="jenis_kelamin" id="jenis_kelamin" class="date">
@@ -77,17 +75,6 @@
                             <option value="Wanita">Wanita</option>
                         </select>
                     </div>
-                </div>
-                <div class="tgl">
-                    <div class="tgl1">
-                        <h5>Tanggal Lahir</h5>
-                        <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="date" placeholder="Tuliskan no telp, di sini" value="{{ old('tanggal_lahir') }}">
-                    </div>
-                    <!-- <div id="gaji"></div>
-                    <div class="tgl1">
-                        <h5>Status</h5>
-                        <input type="status" name="status" id="status" class="date" placeholder="Pilih Status, di sini">
-                    </div> -->
                     <div class="tgl1">
                         <h5>Agama</h5>
                         <select name="agama" id="agama" class="date">
@@ -100,17 +87,54 @@
                             <option value="Konghucu">Konghucu</option>
                         </select>
                     </div>
-
-
+                </div>
+                <div class="tgl">
+                    <div class="tgl1">
+                        <h5>Posisi</h5>
+                        <select name="id_positions" id="id_positions" required class="date">
+                            <option value="">
+                                Pilih Posisi Karyawan
+                            </option>
+                            @foreach ($position as $position)
+                            <option value="{{ $position->id }}">{{ $position->nama_posisi }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="tgl1">
+                        <h5>Gaji</h5>
+                        <input type="text" name="gaji_posisi" id="gaji_posisi" class="date gaji_posisi" readonly>
+                    </div>
+                </div>
+                <div class="tgl">
+                    <div class="tgl1">
+                        <h5>Tanggal Mulai Kontrak Kerja</h5>
+                        <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="date" value="{{ old('tanggal_mulai') }}">
+                    </div>
+                    <div class="tgl1">
+                        <h5>Tanggal Selesai Kontrak Kerja</h5>
+                        <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="date" value="{{ old('tanggal_selesai') }}">
+                    </div>
+                </div>
+                <div class="tgl">
+                    <div class="tgl1">
+                        <h5>Role</h5>
+                        <select name="role_id" class="date">
+                            <option value="">Select Role</option>
+                            @foreach($roles as $role)
+                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="button">
-                    <button type="button" class="btnc btn-primary btn-block">
+                    <button type="submit" class="btnc btn-primary btn-block">
                         Tambah Karyawan
                     </button>
                 </div>
             </div>
-        </form>
     </div>
+    </form>
+</div>
 </div>
 @endsection
 

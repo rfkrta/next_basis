@@ -11,6 +11,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class PengajuancutiController extends Controller
 {
@@ -29,15 +32,18 @@ class PengajuancutiController extends Controller
             ->select('cutis.*', 'kategoris.nama_kategori')
             ->get();
 
+<<<<<<< Updated upstream
         $user = User::all();
         $kategori = Kategori::all();
         //Logika untuk menampilkan halaman dashboard
         return view('admin.pengajuancuti.index', compact('kategori', 'user', 'cuti_baru'));
         // $items = Cuti::all();
+=======
+        $users = User::all();
+        $kategori = Kategori::all();
+>>>>>>> Stashed changes
 
-        // return view('admin.pengajuancuti.index', [
-        //     'items' => $items
-        // ]);
+        return view('admin.pengajuancuti.index', compact('kategori', 'users', 'cuti_baru'));
     }
     public function updateToDiterima($id)
     {
@@ -48,14 +54,33 @@ class PengajuancutiController extends Controller
             'status' => 'diterima',
         ]);
 
+<<<<<<< Updated upstream
         // Kurangi jumlah cuti pada pengguna terkait
         $user = User::find($pengajuanCuti->id_nama);
         $user->jmlCuti -= 1;
         $user->save();
+=======
+        // Calculate the number of days for the cuti
+        $startDate = $pengajuanCuti->tanggal_mulai;
+        $endDate = $pengajuanCuti->tanggal_selesai;
+>>>>>>> Stashed changes
 
-        // Redirect to a specific route or return a response
+        // Calculate the difference in days between the start and end dates
+        $diffInDays = strtotime($endDate) - strtotime($startDate);
+        $numDays = round($diffInDays / (60 * 60 * 24)); // Convert seconds to days and round
+
+        $user = $pengajuanCuti->user;
+        if ($user) {
+            // Deduct the number of days for cuti from jmlCuti
+            $user->jmlCuti -= $numDays;
+            $user->save();
+        } else {
+            // Handle the case where the associated user is not found
+            // This could be a scenario that needs further investigation or error handling
+        }
         return redirect()->route('admin.pengajuancuti.index')->with('success', 'Pengajuan cuti diterima');
     }
+    
     public function updateToDitolak($id)
     {
         $pengajuanCuti = Cuti::findOrFail($id);
@@ -67,8 +92,6 @@ class PengajuancutiController extends Controller
 
         return redirect()->route('admin.pengajuancuti.index');
     }
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -88,6 +111,7 @@ class PengajuancutiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+<<<<<<< Updated upstream
     public function store(CutiRequest $request)
     {
         // // Validate the request
@@ -116,10 +140,62 @@ class PengajuancutiController extends Controller
         $data = $request->all();
         // dd($data);
         Cuti::create($data);
+=======
 
-        // Redirect to the index page after successful creation
-        return redirect()->route('admin.pengajuancuti.index');
+
+    public function store(Request $request)
+    {
+        // Validasi request
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+            'id_kategori' => 'required',
+            'keterangan' => 'required',
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => 'required|date',
+            'file_surat' => 'nullable|mimes:pdf|max:2048',
+        ]);
+
+        // Jika validasi gagal, kembalikan respons JSON dengan pesan error
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        // Temukan user
+        $user = User::find($request->user_id);
+
+        // Periksa apakah user ditemukan
+        if (!$user) {
+            return response()->json(['error' => 'User tidak ditemukan'], 404);
+        }
+
+        // Periksa apakah user memiliki cukup cuti
+        if ($user->jmlCuti <= 0) {
+            return response()->json(['error' => 'Jumlah cuti tidak mencukupi'], 422);
+        }
+
+        // Inisialisasi $fileName
+        $fileName = null;
+
+        // Simpan file di folder storage/app/public/surat
+        if ($request->hasFile('file_surat')) {
+            $file = $request->file('file_surat');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('public/surat', $fileName);
+        }
+        $user->save();
+
+        // Buat instance Cuti
+        $cuti = Cuti::create(array_merge(
+            $validator->validated(),
+            ['file_surat' => $fileName]
+        ));
+>>>>>>> Stashed changes
+
+        // Kembalikan respons JSON berhasil
+        return response()->json(['message' => 'Pengajuan cuti berhasil diajukan'], 201);
     }
+
+
 
 
     /**

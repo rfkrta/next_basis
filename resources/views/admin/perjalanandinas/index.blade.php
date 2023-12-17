@@ -73,12 +73,21 @@
                                         <a href="#" class="btn btn-danger">
                                             <i class="btn2 fa fa-print"></i>
                                         </a>
-                                        <a href="#" class="btn btn-danger">
-                                            <i class="btn1 fa fa-check"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-danger">
-                                            <i class="btn2 fa fa-times"></i>
-                                        </a>
+                                        <form id="formDiterima" method="POST" action="{{ route('admin.perjalanandinas.updateToDiterima', $item->id) }}" onsubmit="return confirm('Anda yakin ingin menerima pengajuan ini?');">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-dangger" id="btnDiterima">
+                                                <i class="btn1 fa fa-check"></i>
+                                            </button>
+                                        </form>
+                                        <!-- Form to update status to Ditolak -->
+                                        <form id="formDitolak" method="POST" action="{{ route('admin.perjalanandinas.updateToDitolak', $item->id) }}" onsubmit="return confirm('Anda yakin ingin menolak pengajuan ini?');">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-danger" id="btnDitolak">
+                                                <i class="btn2 fa fa-times"></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>

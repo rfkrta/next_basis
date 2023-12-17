@@ -73,7 +73,7 @@
                                     Pilih anggota 1
                                 </option>
                             @foreach ($user as $users)
-                                <option value="{{ $users->name }}">{{ $users->name }}</option>
+                                <option value="{{ $users->id }}">{{ $users->name }}</option>
                             @endforeach
                             </select>
                         </div>
@@ -84,7 +84,7 @@
                                     Pilih anggota 2
                                 </option>
                             @foreach ($user as $users)
-                                <option value="{{ $users->name }}">{{ $users->name }}</option>
+                                <option value="{{ $users->id }}">{{ $users->name }}</option>
                             @endforeach
                             </select>
                         </div>
@@ -107,7 +107,7 @@
                         </div>
                     </div>
                     <div class="button">
-                        <button type="button" class="btny1 btn-primary btn-block" onclick="openConfirmationAddModal()">
+                        <button type="submit" class="btny1 btn-primary btn-block" >
                             Ajukan Dinas
                         </button>
                     </div>

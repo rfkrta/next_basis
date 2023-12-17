@@ -147,6 +147,32 @@ class PerjalanandinasController extends Controller
         return response()->json(['jabatan_PIC' => $jabatanPic]);
     }
 
+    public function updateToDiterima($id)
+    {
+        $perjalananDinas = Dinas::findOrFail($id);
+
+        // Update the status to 'diterima'
+        $perjalananDinas->update([
+            'status' => 'Diterima',
+        ]);
+
+        $perjalananDinas->updateStatus(); // Panggil metode untuk memperbarui status
+
+        return redirect()->route('admin.perjalanandinas.index')->with('success', 'Perjalanan Dinas diterima');
+    }
+
+    public function updateToDitolak($id)
+    {
+        $perjalananDinas = Dinas::findOrFail($id);
+
+        // Update the status to 'ditolak'
+        $perjalananDinas->update([
+            'status' => 'Ditolak',
+        ]);
+
+        return redirect()->route('admin.perjalanandinas.index');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -173,7 +199,9 @@ class PerjalanandinasController extends Controller
             'mitra', 'regency', 'user', 'user1', 'user2', 'user3', 'biayaDinas'
         ])->findOrFail($id);
 
-        return view('admin.perjalanandinas.detail', compact('item'));
+        $biayaDinas = BiayaDinas::all();
+
+        return view('admin.perjalanandinas.detail', compact('item', 'biayaDinas'));
     }
 
     /**

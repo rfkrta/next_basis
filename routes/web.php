@@ -53,7 +53,9 @@ Route::middleware('laravel10')->group(function () {
     Route::get('/getPosisiById1/{id}', [PerjalanandinasController::class, 'getPosisiById1'])->name('getPosisiById1');
     Route::get('/getPosisiById2/{id}', [PerjalanandinasController::class, 'getPosisiById2'])->name('getPosisiById2');
     Route::get('/getKaryawanOptions', [PerjalanandinasController::class, 'getKaryawanOptions'])->name('getKaryawanOptions');
-    Route::put('/admin/perjalanandinas/{id}/biaya', [PerjalanandinasController::class, 'updateBiaya'])->name('admin.perjalanandinas.updateBiaya');     
+    Route::put('/admin/perjalanandinas/{id}/biaya', [PerjalanandinasController::class, 'updateBiaya'])->name('admin.perjalanandinas.updateBiaya');
+    Route::put('/admin/perjalanandinas/{id}/updateToDiterima', [PerjalanandinasController::class, 'updateToDiterima'])->name('admin.perjalanandinas.updateToDiterima');
+    Route::put('/admin/perjalanandinas/{id}/updateToDitolak', [PerjalanandinasController::class, 'updateToDitolak'])->name('admin.perjalanandinas.updateToDitolak');  
 
     // absensi
     Route::get('/admin/absensi', [AbsensiController::class, 'index'])->name('admin.absensi.index');

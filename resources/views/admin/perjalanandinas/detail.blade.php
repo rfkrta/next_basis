@@ -49,21 +49,27 @@
                     <div class="tglx1">
                         <div class="tgl1">
                             <h5>Anggota 1</h5>
-                            <input type="text" name="id_anggota1" id="id_anggota1" class="date" value="{{ $item->id_anggota1 }}" readonly>
+                            <input type="text" name="id_anggota1" id="id_anggota1" class="date" value="{{ $item->user->name }}" readonly>
                         </div>
                         <div class="tgl1">
                             <h5>Anggota 2</h5>
-                            <input type="text" name="id_anggota2" id="id_anggota2" class="date" value="{{ $item->id_anggota2 }}" readonly>
+                            <input type="text" name="id_anggota2" id="id_anggota2" class="date" value="{{ $item->user1->name }}" readonly>
                         </div>
                     </div>
                     <div class="tglx1">
                         <div class="tgl1">
                             <h5>Anggota 3</h5>
-                            <input type="text" name="id_anggota3" id="id_anggota3" class="date" value="{{ $item->id_anggota3 }}" readonly>
+                            <input type="text" name="id_anggota3" id="id_anggota3" class="date" value="{{ $item->user2->name ?: 'Belum diisi' }}" readonly>
+                            @if ($item->user2->wasRecentlyCreated)
+                                <p>Anggota 3 belum diisi.</p>
+                            @endif
                         </div>
                         <div class="tgl1">
                             <h5>Anggota 4</h5>
-                            <input type="text" name="id_anggota4" id="id_anggota4" class="date" value="{{ $item->id_anggota4 }}" readonly>
+                            <input type="text" name="id_anggota4" id="id_anggota4" class="date" value="{{ $item->user3->name ?: 'Belum diisi' }}" readonly>
+                            @if ($item->user3->wasRecentlyCreated)
+                                <p>Anggota 4 belum diisi.</p>
+                            @endif
                         </div>
                     </div>
                     <div class="tglx1">

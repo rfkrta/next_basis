@@ -50,6 +50,7 @@ class PengajuancutiController extends Controller
 
         return view('admin.pengajuancuti.index', compact('kategori', 'users', 'cuti_baru','cutis'));
     }
+    
     public function updateToDiterima($id)
     {
         $pengajuanCuti = Cuti::findOrFail($id);

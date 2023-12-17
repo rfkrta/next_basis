@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -14,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        $roles = [
-            ['name' => 'Admin'],
-            ['name' => 'Supervisor'],
-            ['name' => 'Pegawai'],
-            ['name' => 'Inactive']
-        ];
-
-        DB::table('roles')->insert($roles);
+        Schema::create('gaji_kategori', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_kategori');
+            $table->integer('komisi_dinas');
+            $table->integer('potongan_absen');
+        });
     }
 
     /**
@@ -31,7 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
-        DB::table('roles')->whereIn('name', ['Admin', 'Supervisor', 'Pegawai', 'Inactive'])->delete();
+        Schema::dropIfExists('gaji_kategori');
     }
 };

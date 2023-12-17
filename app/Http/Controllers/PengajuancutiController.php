@@ -47,6 +47,7 @@ class PengajuancutiController extends Controller
     
         $users = User::all();
         $kategori = Kategori::all();
+
         return view('admin.pengajuancuti.index', compact('kategori', 'users', 'cuti_baru','cutis'));
     }
     public function updateToDiterima($id)

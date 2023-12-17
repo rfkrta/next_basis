@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\Admin\KaryawanController as AdminKaryawanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventarisController;
 use App\Http\Controllers\KaryawanController;
@@ -9,6 +11,7 @@ use App\Http\Controllers\PengajuancutiController;
 use App\Http\Controllers\PerjalanandinasController;
 use App\Http\Controllers\RouterController;
 use App\Http\Controllers\UserController;
+use App\Models\Absensi;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -52,17 +55,17 @@ Route::middleware('laravel10')->group(function () {
     Route::get('/getKaryawanOptions', [PerjalanandinasController::class, 'getKaryawanOptions'])->name('getKaryawanOptions');
     Route::put('/admin/perjalanandinas/{id}/biaya', [PerjalanandinasController::class, 'updateBiaya'])->name('admin.perjalanandinas.updateBiaya');     
 
-    // Karyawan
-    Route::get('/admin/karyawan', [KaryawanController::class, 'index'])->name('admin.karyawan.index');
-    Route::get('/admin/karyawan/create', [KaryawanController::class, 'create', 'user'])->name('admin.karyawan.create');
-    Route::post('/admin/karyawan/store', [KaryawanController::class, 'store', 'user'])->name('admin.karyawan.store');
-    Route::get('/admin/karyawan/show/{id}', [KaryawanController::class, 'show'])->name('admin.karyawan.show');
-    Route::get('/admin/karyawan/edit/{id}', [KaryawanController::class, 'edit'])->name('admin.karyawan.edit');
-    Route::put('/admin/karyawan/{id}', [KaryawanController::class, 'update'])->name('admin.karyawan.update');
-    Route::get('/admin/karyawan/ajax', [KaryawanController::class, 'ajax'])->name('admin.karyawan.ajax');
-    Route::get('/getGajiPosisiById/{id}', [KaryawanController::class, 'getGajiPosisiById'])->name('getGajiPosisiById');
-    Route::get('/admin/karyawan/filter', [KaryawanController::class, 'filterKaryawan'])->name('admin.karyawan.filter');
-    Route::get('/get-nip-by-name/{name}', [KaryawanController::class, 'getNIPByName'])->name('getNIPByName');
+    // absensi
+    Route::get('/admin/absensi', [AbsensiController::class, 'index'])->name('admin.absensi.index');
+    Route::get('/admin/absensi/create', [AbsensiController::class, 'create', 'user'])->name('admin.absensi.create');
+    Route::post('/admin/absensi/store', [AbsensiController::class, 'store', 'user'])->name('admin.absensi.store');
+    Route::get('/admin/absensi/show/{id}', [AbsensiController::class, 'show'])->name('admin.absensi.show');
+    Route::get('/admin/absensi/edit/{id}', [AbsensiController::class, 'edit'])->name('admin.absensi.edit');
+    Route::put('/admin/absensi/{id}', [AbsensiController::class, 'update'])->name('admin.absensi.update');
+    Route::get('/admin/absensi/ajax', [AbsensiController::class, 'ajax'])->name('admin.absensi.ajax');
+    Route::get('/getGajiPosisiById/{id}', [AbsensiController::class, 'getGajiPosisiById'])->name('getGajiPosisiById');
+    Route::get('/admin/absensi/filter', [AbsensiController::class, 'filterabsensi'])->name('admin.absensi.filter');
+    Route::get('/get-nip-by-name/{name}', [AbsensiController::class, 'getNIPByName'])->name('getNIPByName');
 
     // Mitra
     Route::get('/admin/mitra', [MitraController::class, 'index'])->name('admin.mitra.index');

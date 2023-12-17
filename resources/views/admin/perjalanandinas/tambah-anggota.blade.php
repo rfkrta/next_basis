@@ -5,7 +5,7 @@
                 Pilih anggota 3
             </option>
         @foreach ($user2 as $users)
-            <option value="{{ $users->name }}">{{ $users->name }}</option>
+            <option value="{{ $users->id }}">{{ $users->name }}</option>
         @endforeach
         </select>
     </div>
@@ -16,7 +16,7 @@
                 Pilih anggota 4
             </option>
         @foreach ($user3 as $users)
-            <option value="{{ $users->name }}">{{ $users->name }}</option>
+            <option value="{{ $users->id }}">{{ $users->name }}</option>
         @endforeach
         </select>
     </div>

@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('id_anggota2');
             $table->string('id_anggota3')->nullable();
             $table->string('id_anggota4')->nullable();
-            $table->string('pic_perusahaan')->nullable();
-            $table->string('jabatan_pic')->nullable();
+            $table->string('nama_PIC_perusahaan')->nullable();
+            $table->string('jabatan_PIC')->nullable();
             $table->string('kota_keberangkatan')->nullable();
             $table->string('komisi_dinas')->nullable();
             $table->timestamp('created_at')->nullable();

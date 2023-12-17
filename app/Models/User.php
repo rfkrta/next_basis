@@ -30,7 +30,7 @@ class User extends Authenticatable
         'jenis_kelamin',
         'jmlCuti',
         'role_id',
-        'tanggal_mulai', 'tanggal_selesai', 'status', 'id_positions', 'gaji_posisi'
+        'tanggal_mulai', 'tanggal_selesai', 'status', 'id_positions', 'gaji_posisi', 'mitra_tertuju', 'komisi_terkumpul'
     ];
 
     /**
@@ -74,5 +74,10 @@ class User extends Authenticatable
     public function getFormattedGajiAttribute()
     {
         return $this->position->formatted_gaji_posisi ?? '';
+    }
+
+    public function komisiDinas()
+    {
+        return $this->hasMany(KomisiDinas::class);
     }
 }

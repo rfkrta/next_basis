@@ -41,6 +41,8 @@ class CreateUsersTable extends Migration
                 $table->integer('jmlCuti')->default(12);
                 $table->rememberToken();
                 $table->string('foto_profil')->nullable();
+                $table->integer('mitra_tertuju')->nullable();
+                $table->integer('komisi_terkumpul')->default(0);
                 // $table->string('fotoKTP')->nullable();
                 // $table->string('nomorRekening')->nullable();
                 // $table->text('blacklistReason')->nullable();

@@ -58,7 +58,7 @@
                     <tr>
                         <td>{{ $cuti->id }}</td>
                         <td>{{ $cuti->user->name }}</td>
-                        <td>{{ $cuti->kategori->nama_kategori }}</td>
+                        <td>{{ $cuti->kategori->id }}</td>
                         <td>{{ \Carbon\Carbon::parse($cuti->tanggal_mulai)->format('d-m-Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($cuti->tanggal_selesai)->format('d-m-Y') }}</td>
                         <td>{{ $cuti->status }}</td>

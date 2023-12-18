@@ -26,13 +26,6 @@ class MitraController extends Controller
             ->get();
             $items = Mitra::with('regency.province')->get();
             
-        // $items = Mitra::with([
-        //     'province', 'regency', 'district', 'village'
-        // ])->get();
-        // $item = Mitra::all();
-        // $regencies = Regency::all();
-
-        // Logika untuk menampilkan halaman dashboard
         return view('admin.mitra.index', compact('items'));
     }
 
@@ -45,9 +38,9 @@ class MitraController extends Controller
     {
         // Get semua data
         $provinces = Province::all();
-        $regencies = Regency::all();
-        $districts = District::all();
-        $villages = Village::all();
+        // $regencies = Regency::all();
+        // $districts = District::all();
+        // $villages = Village::all();
 
         // Cari berdasarkan nama
         // $provinces = Province::where('name', 'JAWA BARAT')->first();

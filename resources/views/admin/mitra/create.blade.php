@@ -36,91 +36,91 @@
                                 <option>
                                     Pilih Provinsi...
                                 </option>
-                                @foreach ($provinces->sortBy('name')  as $provinsi)
+                                @foreach ($provinces->sortBy('name') as $provinsi)
                                 <option value="{{ $provinsi->id }}">{{ $provinsi->name }}</option>
                                 @endforeach
-                                </select>
-                            </div>
-                            <!-- <input type="text" name="provinsi" id="provinsi" class="date" placeholder="Tuliskan nama provinsi, di sini" value="{{ old('provinsi') }}"> -->
+                            </select>
                         </div>
-                    </div>
-                    <div class="tglx1">
-                        <div class="tgl1">
-                            <h5>Kabupaten / Kota</h5>
-                            <div class="form-group1">
-                                <select name="kota" id="kota" required class="form-control1">
-                                    <option>
-                                        Pilih Kabupaten / Kota...
-                                    </option>
-                                
-                                </select>
-                            </div>
-                            <!-- <input type="text" name="kota" id="kota" class="date" placeholder="Tuliskan nama kabupaten atau kota, di sini" value="{{ old('kota') }}"> -->
-                        </div>
-                        <div class="tgl1">
-                            <h5>Kecamatan</h5>
-                            <div class="form-group1">
-                                <select name="kecamatan" id="kecamatan" required class="form-control1">
-                                    <option>
-                                        Pilih Kecamatan...
-                                    </option>
-                                
-                                </select>
-                            </div>
-                            <!-- <input type="text" name="kecamatan" id="kecamatan" class="date" placeholder="Tuliskan nama kecamatan, di sini" value="{{ old('kecamatan') }}"> -->
-                        </div>
-                    </div>
-                    <div class="tglx1">
-                        <div class="tgl1">
-                            <h5>Kelurahan</h5>
-                            <div class="form-group1">
-                                <select name="kelurahan" id="kelurahan" required class="form-control1">
-                                    <option> 
-                                        Pilih Kelurahan / Desa...
-                                    </option>
-                                
-                                </select>
-                            </div>
-                            <!-- <input type="text" name="kelurahan" id="kelurahan" class="date" placeholder="Tuliskan nama kelurahan, di sini" value="{{ old('kelurahan') }}"> -->
-                        </div>
-                        <div class="tgl1">
-                            <h5>Kode Pos</h5>
-                            <input type="text" name="kode_pos" id="kode_pos" class="date" placeholder="Tuliskan kode pos, di sini" value="{{ old('kode_pos') }}">
-                        </div>
-                    </div>
-                    <div class="keter">
-                        <h5>Alamat Lengkap</h5>
-                        <textarea name="alamat_lengkap" id="alamat_lengkap" cols="122" rows="5" placeholder="Tuliskan alamat lengkap, di sini">{{ old('alamat_lengkap') }}</textarea>
-                    </div>
-                    <div class="tglx1">
-                        <div class="tgl1">
-                            <h5>PIC Perusahaan</h5>
-                            <input type="text" name="nama_PIC_perusahaan" id="nama_PIC_perusahaan" class="date" placeholder="Tuliskan PIC perusahaan, di sini" value="{{ old('nama_PIC_perusahaan') }}">
-                        </div>
-                        <div class="tgl1">
-                            <h5>Jabatan PIC</h5>
-                            <input type="text" name="jabatan_PIC" id="jabatan_PIC" class="date" placeholder="Tuliskan jabatan PIC, di sini" value="{{ old('jabatan_PIC') }}">
-                        </div>
-                    </div>
-                    <div class="tglx1">
-                        <div class="tgl1">
-                            <h5>Nomor PIC</h5>
-                            <input type="text" name="nomer_telepon_PIC" id="nomer_telepon_PIC" class="date" placeholder="Tuliskan nomor PIC, di sini" value="{{ old('nomer_telepon_PIC') }}">
-                        </div>
-                        <div class="tgl1">
-                            <h5>Komisi Perjalanan Dinas</h5>
-                            <input type="text" name="komisi_dinas" id="komisi_dinas" class="date" placeholder="Tuliskan komisi perjalanan dinas, di sini" value="{{ old('komisi_dinas') }}">
-                        </div>
-                    </div>
-                    <div class="button">
-                        <button type="submit" class="btny1x btn-primary btn-block" onclick="openConfirmationAddModal()">
-                            Tambah Mitra
-                        </button>
+                        <!-- <input type="text" name="provinsi" id="provinsi" class="date" placeholder="Tuliskan nama provinsi, di sini" value="{{ old('provinsi') }}"> -->
                     </div>
                 </div>
-            </form>
-        </div>
+                <div class="tglx1">
+                    <div class="tgl1">
+                        <h5>Kabupaten / Kota</h5>
+                        <div class="form-group1">
+                            <select name="kota" id="kota" required class="form-control1">
+                                <option>
+                                    Pilih Kabupaten / Kota...
+                                </option>
+
+                            </select>
+                        </div>
+                        <!-- <input type="text" name="kota" id="kota" class="date" placeholder="Tuliskan nama kabupaten atau kota, di sini" value="{{ old('kota') }}"> -->
+                    </div>
+                    <div class="tgl1">
+                        <h5>Kecamatan</h5>
+                        <div class="form-group1">
+                            <select name="kecamatan" id="kecamatan" required class="form-control1">
+                                <option>
+                                    Pilih Kecamatan...
+                                </option>
+
+                            </select>
+                        </div>
+                        <!-- <input type="text" name="kecamatan" id="kecamatan" class="date" placeholder="Tuliskan nama kecamatan, di sini" value="{{ old('kecamatan') }}"> -->
+                    </div>
+                </div>
+                <div class="tglx1">
+                    <div class="tgl1">
+                        <h5>Kelurahan</h5>
+                        <div class="form-group1">
+                            <select name="kelurahan" id="kelurahan" required class="form-control1">
+                                <option>
+                                    Pilih Kelurahan / Desa...
+                                </option>
+
+                            </select>
+                        </div>
+                        <!-- <input type="text" name="kelurahan" id="kelurahan" class="date" placeholder="Tuliskan nama kelurahan, di sini" value="{{ old('kelurahan') }}"> -->
+                    </div>
+                    <div class="tgl1">
+                        <h5>Kode Pos</h5>
+                        <input type="text" name="kode_pos" id="kode_pos" class="date" placeholder="Tuliskan kode pos, di sini" value="{{ old('kode_pos') }}">
+                    </div>
+                </div>
+                <div class="keter">
+                    <h5>Alamat Lengkap</h5>
+                    <textarea name="alamat_lengkap" id="alamat_lengkap" cols="122" rows="5" placeholder="Tuliskan alamat lengkap, di sini">{{ old('alamat_lengkap') }}</textarea>
+                </div>
+                <div class="tglx1">
+                    <div class="tgl1">
+                        <h5>PIC Perusahaan</h5>
+                        <input type="text" name="nama_PIC_perusahaan" id="nama_PIC_perusahaan" class="date" placeholder="Tuliskan PIC perusahaan, di sini" value="{{ old('nama_PIC_perusahaan') }}">
+                    </div>
+                    <div class="tgl1">
+                        <h5>Jabatan PIC</h5>
+                        <input type="text" name="jabatan_PIC" id="jabatan_PIC" class="date" placeholder="Tuliskan jabatan PIC, di sini" value="{{ old('jabatan_PIC') }}">
+                    </div>
+                </div>
+                <div class="tglx1">
+                    <div class="tgl1">
+                        <h5>Nomor PIC</h5>
+                        <input type="text" name="nomer_telepon_PIC" id="nomer_telepon_PIC" class="date" placeholder="Tuliskan nomor PIC, di sini" value="{{ old('nomer_telepon_PIC') }}">
+                    </div>
+                    <div class="tgl1">
+                        <h5>Komisi Perjalanan Dinas</h5>
+                        <input type="text" name="komisi_dinas" id="komisi_dinas" class="date" placeholder="Tuliskan komisi perjalanan dinas, di sini" value="{{ old('komisi_dinas') }}">
+                    </div>
+                </div>
+                <div class="button">
+                    <button type="submit" class="btny1x btn-primary btn-block" onclick="openConfirmationAddModal()">
+                        Tambah Mitra
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
+</div>
 
 <!-- resources/views/confirmation-modal.blade.php -->
 <div id="confirmationModal" class="modal-container" style="display:none;">
@@ -200,7 +200,7 @@
 
         $(function() {
             $('#kota').on('change', function() {
-                let id_kota = $('#kota').val();
+                let id_kota = $(this).val();
 
                 $.ajax({
                     type: 'POST',
@@ -211,39 +211,16 @@
                     cache: false,
 
                     success: function(msg) {
-                        // Get options, sort them, and re-add in ascending order
-                        var kotaSelect = $('#kota');
-                        var options = kotaSelect.find('option');
-                        var arr = options.map(function(_, option) {
-                            return {
-                                value: option.value,
-                                text: option.text
-                            };
-                        }).get();
-
-                        arr.sort(function(a, b) {
-                            return a.text.localeCompare(b.text);
-                        });
-
-                        kotaSelect.empty(); // Clear existing options
-
-                        $.each(arr, function(_, sortedOption) {
-                            kotaSelect.append($('<option>', {
-                                value: sortedOption.value,
-                                text: sortedOption.text
-                            }));
-                        });
-
-                        // Perform further actions as needed
+                        // Update #kecamatan without modifying #kota options
                         $('#kecamatan').html(msg);
                         $('#kelurahan').html('');
                     },
                     error: function(data) {
                         console.log('error:', data)
                     },
-                })
-            })
-        })
+                });
+            });
+        });
 
 
         $(function() {

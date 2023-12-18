@@ -18,4 +18,8 @@ class Kategori extends Model
     protected $hidden = [
         //
     ];
+    public function cutis()
+    {
+        return $this->hasMany(Cuti::class);
+    }
 }

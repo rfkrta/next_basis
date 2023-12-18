@@ -20,14 +20,7 @@ return new class extends Migration
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->integer('komisi_dinas');
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
             $table->integer('dinas_id');
->>>>>>> Stashed changes
-=======
-            $table->integer('dinas_id');
->>>>>>> Stashed changes
             $table->SoftDeletes();
             $table->timestamps();
         });

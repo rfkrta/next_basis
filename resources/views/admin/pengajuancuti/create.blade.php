@@ -110,7 +110,7 @@
 <script>
     function openConfirmationModal() {
         // Ambil nilai dari setiap input
-        var nama = document.getElementById('id_nama').value;
+        var nama = document.getElementById('user_id').value;
         var kategori = document.getElementById('id_kategori').value;
         var keterangan = document.getElementById('keterangan').value;
         var mulai = document.getElementById('tanggal_mulai').value;
@@ -129,7 +129,7 @@
 
     function openConfirmationAddModal() {
         // Ambil nilai dari setiap input
-        var nama = document.getElementById('id_nama').value;
+        var nama = document.getElementById('user_id').value;
         var kategori = document.getElementById('id_kategori').value;
         var keterangan = document.getElementById('keterangan').value;
         var mulai = document.getElementById('tanggal_mulai').value;

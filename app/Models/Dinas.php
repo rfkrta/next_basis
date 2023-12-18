@@ -91,6 +91,7 @@ class Dinas extends Model
 
         // Periksa apakah mitra tersebut sudah pernah dituju sebelumnya
         if ($user->mitra_tertuju !== $mitraTujuan) {
+<<<<<<< Updated upstream
             $komisi = $this->komisi_dinas;
             $biayaPerAnggota = $this->komisi_dinas / $this->hitungJumlahAnggota();
             // Logika penghitungan komisi sesuai kebutuhan
@@ -165,6 +166,89 @@ class Dinas extends Model
                 'komisi_terkumpul' => $user->komisi_terkumpul + $biayaPerAnggota,
                 'mitra_tertuju' => $mitraTujuan, // Simpan mitra yang ditujuan oleh user
             ]);
+=======
+            // Periksa apakah mitra sudah pernah dikunjungi
+            if (!$this->mitraSudahDikunjungi($mitraTujuan)) {
+                $komisi = $this->komisi_dinas;
+                $biayaPerAnggota = $this->komisi_dinas;
+                // Logika penghitungan komisi sesuai kebutuhan
+                
+                // $totalBiaya = $this->komisi_dinas; 
+                // $persentaseKomisi = 0.1; 
+                // $komisi = $totalBiaya * $persentaseKomisi;
+
+                // Simpan informasi komisi dalam tabel komisi_dinas
+                // $komisiDinas = new KomisiDinas([
+                //     'users_id' => $user->id,
+                //     'id_mitras' => $mitraTujuan,
+                //     'tanggal_mulai' => $this->tanggal_mulai,
+                //     'tanggal_selesai' => $this->tanggal_selesai,
+                //     'komisi_dinas' => $komisi,
+                // ]);
+
+                // $komisiDinas->save();
+
+                // $this->komisiDinas()->create([
+                //     'users_id' => $this->id_anggota1,
+                //     'id_mitras' => $mitraTujuan,
+                //     'tanggal_mulai' => $this->tanggal_mulai,
+                //     'tanggal_selesai' => $this->tanggal_selesai,
+                //     'komisi_dinas' => $biayaPerAnggota,
+                // ]);
+
+                // $this->komisiDinas()->create([
+                //     'users_id' => $this->id_anggota2,
+                //     'id_mitras' => $mitraTujuan,
+                //     'tanggal_mulai' => $this->tanggal_mulai,
+                //     'tanggal_selesai' => $this->tanggal_selesai,
+                //     'komisi_dinas' => $biayaPerAnggota,
+                // ]);
+
+                // $this->komisiDinas()->create([
+                //     'users_id' => $this->id_anggota3,
+                //     'id_mitras' => $mitraTujuan,
+                //     'tanggal_mulai' => $this->tanggal_mulai,
+                //     'tanggal_selesai' => $this->tanggal_selesai,
+                //     'komisi_dinas' => $biayaPerAnggota,
+                // ]);
+
+                // $this->komisiDinas()->create([
+                //     'users_id' => $this->id_anggota4,
+                //     'id_mitras' => $mitraTujuan,
+                //     'tanggal_mulai' => $this->tanggal_mulai,
+                //     'tanggal_selesai' => $this->tanggal_selesai,
+                //     'komisi_dinas' => $biayaPerAnggota,
+                // ]);
+
+                // Ambil anggota yang terlibat
+                $anggotaTim = [
+                    $this->id_anggota1,
+                    $this->id_anggota2,
+                    $this->id_anggota3,
+                    $this->id_anggota4,
+                ];
+
+                // Filter anggota yang memiliki nilai (tidak NULL)
+                $anggotaTim = array_filter($anggotaTim, function ($anggota) {
+                    return !is_null($anggota);
+                });
+
+                // Simpan informasi komisi untuk setiap anggota tim
+                foreach ($anggotaTim as $userId) {
+                    $this->simpanKomisiAnggota($userId, $biayaPerAnggota, $komisi);
+                }
+
+                // foreach ($anggotaTim as $user) {
+                //     $this->simpanKomisiUser($user, $biayaPerAnggota, $mitraTujuan);
+                // }
+
+                // Setelah menyimpan komisi, masukkan komisi ke tabel user
+                // $user->update([
+                //     'komisi_terkumpul' => $user->komisi_terkumpul + $biayaPerAnggota,
+                //     'mitra_tertuju' => $mitraTujuan, // Simpan mitra yang ditujuan oleh user
+                // ]);
+            }
+>>>>>>> Stashed changes
         }
     }
 
@@ -178,8 +262,33 @@ class Dinas extends Model
             'tanggal_selesai' => $this->tanggal_selesai,
             'komisi_dinas' => $komisi,
         ]);
+<<<<<<< Updated upstream
     }
 
+=======
+
+        // Dapatkan komisi yang sudah ada pada tabel users
+        $komisiSudahAda = User::where('id', $userId)->value('komisi_terkumpul');
+
+        // Jumlahkan komisi yang sudah ada dengan komisi baru
+        $komisiBaru = $komisiSudahAda + $komisi;
+
+        User::where('id', $userId)->update([
+            'komisi_terkumpul' => $komisiBaru,
+            'mitra_tertuju' => $this->id_mitras, // Simpan mitra yang ditujuan oleh user
+        ]);
+    }
+
+    // protected function simpanKomisiUser($user, $biayaPerAnggota, $mitraTujuan)
+    // {
+    //     $this->User()->update([
+    //         'komisi_terkumpul' => $user->komisi_terkumpul + $biayaPerAnggota,
+    //         'mitra_tertuju' => $mitraTujuan, // Simpan mitra yang ditujuan oleh user
+    //     ]);
+    // }
+
+
+>>>>>>> Stashed changes
     public function hitungJumlahAnggota()
     {
         return (int)($this->id_anggota1 ? 1 : 0) +
@@ -188,6 +297,16 @@ class Dinas extends Model
                (int)($this->id_anggota4 ? 1 : 0);
     }
 
+<<<<<<< Updated upstream
+=======
+    protected function mitraSudahDikunjungi($mitraTujuan)
+    {
+        // Misalkan ada kolom 'mitra_terkunjungi' pada tabel pengguna (users)
+        // return User::where('mitra_tertuju', $mitraTujuan)->exists();
+        return KomisiDinas::where('id_mitras', $mitraTujuan)->exists();
+    }
+
+>>>>>>> Stashed changes
     public function komisiDinas()
     {
         return $this->hasMany(KomisiDinas::class);

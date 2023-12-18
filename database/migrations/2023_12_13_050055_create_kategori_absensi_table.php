@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('biaya_dinas', function (Blueprint $table) {
+        Schema::create('kategori_absensis', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_kategori');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('biaya_dinas');
+        Schema::dropIfExists('kategori_absensis');
     }
 };

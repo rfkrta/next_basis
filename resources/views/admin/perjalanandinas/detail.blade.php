@@ -98,11 +98,26 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ $item->biayaDinas->id }}</td>
-                        <td>{{ $item->biayaDinas->biaya_hotel }}</td>
-                        <td>{{ $item->biayaDinas->biaya_transportasi }}</td>
-                        <td>{{ $item->biayaDinas->biaya_konsumsi }}</td>
-                        <td>{{ $item->biayaDinas->biaya_lain }}</td>
+                        <td>{{ $item->biayaDinas->id ?: 'Belum diisi' }}</td>
+                            @if ($item->biayaDinas->wasRecentlyCreated)
+                                <p>ID belum ada.</p>
+                            @endif
+                        <td>{{ $item->biayaDinas->biaya_hotel ?: 'Belum diisi' }}</td>
+                            @if ($item->biayaDinas->wasRecentlyCreated)
+                                <p>Biaya Hotel belum diisi.</p>
+                            @endif
+                        <td>{{ $item->biayaDinas->biaya_transportasi ?: 'Belum diisi' }}</td>
+                            @if ($item->biayaDinas->wasRecentlyCreated)
+                                <p>Biaya Transportasi belum diisi.</p>
+                            @endif
+                        <td>{{ $item->biayaDinas->biaya_konsumsi ?: 'Belum diisi' }}</td>
+                            @if ($item->biayaDinas->wasRecentlyCreated)
+                                <p>Biaya Konsumsi belum diisi.</p>
+                            @endif
+                        <td>{{ $item->biayaDinas->biaya_lain ?: 'Belum diisi' }}</td>
+                            @if ($item->biayaDinas->wasRecentlyCreated)
+                                <p>Biaya Lainnya belum diisi.</p>
+                            @endif
                     </tr>
                 </tbody>
             </table>

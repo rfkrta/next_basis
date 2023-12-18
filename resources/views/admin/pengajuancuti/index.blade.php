@@ -169,11 +169,16 @@
     document.getElementById('formDiterima').addEventListener('submit', function() {
         // Disable the "Terima" button after it's clicked
         document.getElementById('btnDiterima').disabled = true;
+        document.getElementById('btnDitolak').disabled = true;
+        // document.getElementById('btnDiterima').style.display = 'none';
+        // document.getElementById('btnDitolak').style.display = 'none';
     });
 
     document.getElementById('formDitolak').addEventListener('submit', function() {
         // Disable the "Tolak" button after it's clicked
         document.getElementById('btnDitolak').disabled = true;
+        document.getElementById('btnDiterima').disabled = true;
+        // document.getElementById('btnDitolak').style.display = 'none';
     });
 
     function closeAlertBox() {

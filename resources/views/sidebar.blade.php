@@ -19,7 +19,7 @@
         </li>
         <li>
             <i class="fa fa-folder-open"></i>
-            <a href="#"> Data Perusahaan</a>
+            <a href="#">Data Perusahaan</a>
             <span class="span4"><i class="fa fa-angle-right"></i></span>
         </li>
         <ul class="dropdown3">

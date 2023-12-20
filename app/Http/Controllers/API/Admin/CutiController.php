@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CutiRequest;
 use App\Models\Cuti;
+use App\Models\Kategori;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -67,41 +68,6 @@ class CutiController extends Controller
         return response()->json(['message' => 'Cuti updated successfully', 'data' => $cuti]);
     }
 
-    // public function updateToDiterima($id)
-    // {
-    //     $pengajuanCuti = Cuti::findOrFail($id);
-
-    //     $pengajuanCuti->update([
-    //         'status' => 'diterima',
-    //     ]);
-
-    //     return response()->json(['message' => 'Pengajuan cuti diterima.']);
-    // }
-
-    // public function updateToDitolak($id)
-    // {
-    //     $pengajuanCuti = Cuti::findOrFail($id);
-
-    //     $pengajuanCuti->update([
-    //         'status' => 'ditolak',
-    //     ]);
-
-    //     return response()->json(['message' => 'Pengajuan cuti ditolak.']);
-    // }
-
-    // public function create()
-    // {
-    //     $user = User::all();
-    //     $kategori = Kategori::all();
-
-    //     return response()->json([
-    //         'user' => $user,
-    //         'kategori' => $kategori
-    //     ]);
-    // }
-
-
-
     public function store(Request $request, $user_id)
     {
         // Validasi request
@@ -155,7 +121,7 @@ class CutiController extends Controller
             ));
 
             // Kembalikan respons JSON berhasil
-            return response()->json(['message' => 'Pengajuan cuti berhasil diajukan'], 201);
+            return response()->json(['message' => 'Pengajuan cuti berhasil diajukan'], 200);
 
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'User atau Kategori tidak ditemukan'], 404);

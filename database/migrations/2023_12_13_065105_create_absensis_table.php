@@ -24,6 +24,11 @@ return new class extends Migration
             $table->time('waktu_mulai')->nullable();
             $table->string('file_img')->nullable();
             $table->point('lokasi')->nullable();
+<<<<<<< Updated upstream
+=======
+            $table->string('status')->nullable();
+            $table->SoftDeletes();
+>>>>>>> Stashed changes
             // Tambahkan kolom lain jika diperlukan
             $table->timestamps();
         });

@@ -17,18 +17,18 @@
     </div>
     <div class="filter">
         <ul class="filterx">
-            <li class="{{ request()->input('filter') === null ? 'activev' : '' }}">
+            <li class="{{ request()->input('status') === null ? 'activev' : '' }}">
                 <a href="{{ route('admin.user.index') }}">Semua</a>
             </li>
         </ul>
         <ul class="filterx">
-            <li class="{{ request()->input('filter') === 'Aktif' ? 'activev' : '' }}">
-                <a href="{{ route('admin.user.index', ['filter' => 'Aktif']) }}">Aktif</a>
+            <li class="{{ request()->input('status') === 'Aktif' ? 'activev' : '' }}">
+                <a href="{{ route('admin.user.index', ['status' => 'Aktif']) }}">Aktif</a>
             </li>
         </ul>
         <ul class="filterx">
-            <li class="{{ request()->input('filter') === 'Tidak Aktif' ? 'activev' : '' }}">
-                <a href="{{ route('admin.user.index', ['filter' => 'Tidak Aktif']) }}">Tidak Aktif</a>
+            <li class="{{ request()->input('status') === 'Tidak Aktif' ? 'activev' : '' }}">
+                <a href="{{ route('admin.user.index', ['status' => 'Tidak Aktif']) }}">Tidak Aktif</a>
             </li>
         </ul>
     </div>
@@ -49,45 +49,55 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($users as $index => $user)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->status }}</td>
-                        <td>
-                            <!-- Display the user's profile image -->
-                            @if($user->foto_profil)
-                            <img src="{{ asset($user->foto_profil) }}" alt="Profile Image" style="width: 32px; height: 32px;">
-                            @else
-                            No Image
-                            @endif
-                        </td>
-                        <td>
-                            <a href="{{ route('admin.user.edit', ['id' => $user->id]) }}" class="btn btn-danger">
-                                <i class="btn3 fa fa-pencil"></i>
-                            </a>
-                        </td>
-                    </tr>
-
-                    @endforeach
-                    @if($users->isEmpty() && $filter === 'Aktif')
-                    <tr>
-                        <td colspan="6" class="text-center">
-                            <img src="{{ asset('img/1.png') }}" alt="none">
-                            <p>Tidak ada user yang active</p>
-                        </td>
-                    </tr>
-                    @elseif($users->isEmpty() && $filter === 'Tidak Aktif')
-                    <tr>
-                        <td colspan="6" class="text-center">
-                            <img src="{{ asset('img/1.png') }}" alt="none">
-                            <p>Tidak ada user</p>
-                        </td>
-                    </tr>
-                    @else
-                    {{-- Your table rows for displaying users --}}
-                    @endif
+                    @forelse($users as $index => $user)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->status }}</td>
+                            <td>
+                                <!-- Display the user's profile image -->
+                                @if($user->foto_profil)
+                                    <img src="{{ asset($user->foto_profil) }}" alt="Profile Image" style="width: 32px; height: 32px;">
+                                @else
+                                    No Image
+                                @endif
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{{ route('admin.user.edit', ['id' => $user->id]) }}" class="btn btn-danger">
+                                        <i class="btn3 fa fa-pencil"></i>
+                                    </a>
+                                    <a href="{{ route('admin.user.show', ['id' => $user->id]) }}" class="btn btn-danger">
+                                        <i class="btn1 fa fa-eye"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        @if($users->isEmpty() && $status === null)
+                        <tr>
+                            <td colspan="6" class="text-center">
+                                <img src="{{ asset('img/1.png') }}" alt="none">
+                                <p>Tidak ada data user</p>
+                            </td>
+                        </tr>
+                        @elseif($users->isEmpty() && $status === 'Aktif')
+                        <tr>
+                            <td colspan="6" class="text-center">
+                                <img src="{{ asset('img/1.png') }}" alt="none">
+                                <p>Tidak ada data user Aktif</p>
+                            </td>
+                        </tr>
+                        @elseif($users->isEmpty() && $status === 'Tidak Aktif')
+                        <tr>
+                            <td colspan="6" class="text-center">
+                                <img src="{{ asset('img/1.png') }}" alt="none">
+                                <p>Tidak ada data user Tidak Aktif</p>
+                            </td>
+                        </tr>
+                        @endif
+                    @endforelse
                 </tbody>
             </table>
         </div>

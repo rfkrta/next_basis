@@ -12,33 +12,28 @@
             </div>
             <div class="plus">
                 <i class="fa fa-plus"></i>
-                <a href="TambahInventaris.html">Tambah Inventaris</a>
+                <a href="{{ route('admin.dataperusahaan.inventaris.create') }}">Tambah Inventaris</a>
             </div>
         </div>
 
         <div class="filter">
             <ul class="filterx">
-                <li class="activev">
-                    <a href="#" data-kategori="semua">Semua</a>
+                <li class="{{ request()->input('Kategori') === null ? 'activev' : '' }}">
+                    <a href="{{ route('admin.dataperusahaan.inventaris.index') }}">Semua</a>
                 </li>
             </ul>
             <ul class="filterx">
-                <li>
-                    <a href="#" data-kategori="inventaris">Inventaris</a>
+                <li class="{{ request()->input('Kategori') === 'Gedung' ? 'activev' : '' }}">
+                    <a href="{{ route('admin.dataperusahaan.inventaris.index', ['Kategori' => 'Gedung']) }}">Gedung</a>
                 </li>
             </ul>
             <ul class="filterx">
-                <li>
-                    <a href="#" data-kategori="gedung">Gedung</a>
-                </li>
-            </ul>
-            <ul class="filterx">
-                <li>
-                    <a href="#" data-kategori="kendaraan">Kendaraan</a>
+                <li class="{{ request()->input('Kategori') === 'Kendaraan' ? 'activev' : '' }}">
+                    <a href="{{ route('admin.dataperusahaan.inventaris.index', ['Kategori' => 'Kendaraan']) }}">Kendaraan</a>
                 </li>
             </ul>
         </div>
-        <div class="line3"></div>
+        <div class="line6"></div>
         <div class="cong-box">
             <div>
                 <table class="box" cellspacing="0">
@@ -54,31 +49,56 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($inventaris as $item)
-                        @php
-                        $kategori = strtolower(str_replace(' ', '', $item['Kategori']));
-                        @endphp
-
-                        <tr data-kategori="{{ $kategori }}">
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item['Kode'] }}</td>
-                            <td>{{ $item['Nama_Barang'] }}</td>
-                            <td>{{ $item['Jumlah'] }}</td>
-                            <td>{{ $item['Kategori'] }}</td>
-                            <td>{{ $item['Tanggal_Diperoleh'] }}</td>
+                        @forelse ($inventarisWith as $item)
+                        <tr>
+                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->Kode }}</td>
+                            <td>{{ $item->Nama_Barang }}</td>
+                            <td>{{ $item->Jumlah }}</td>
+                            <td>{{ $item->Kategori }}</td>
+                            <td>{{ $item->Tanggal_Diperoleh }}</td>
                             <td>
-                                <a href="DetailInventaris.html" class="btn btn-danger">
+                                <a href="{{ route('admin.dataperusahaan.inventaris.show', $item->id) }}" class="btn btn-danger">
                                     <i class="btn1 fa fa-eye"></i>
                                 </a>
-                                <a href="UbahInventaris.html" class="btn btn-danger">
+                                <a href="{{ route('admin.dataperusahaan.inventaris.edit', $item->id) }}" class="btn btn-danger">
                                     <i class="btn3 fa fa-pencil"></i>
                                 </a>
-                                <a href="#" class="btn btn-danger">
+                                <!-- <a href="#" class="btn btn-danger">
                                     <i class="btn2 fa fa-trash"></i>
-                                </a>
+                                </a> -->
                             </td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <!-- <tr>
+                            <td colspan="7" class="text-center">
+                                <img src="{{ asset('img/1.png') }}" alt="none">
+                                <p>Tidak ada data Inventaris</p>
+                            </td>
+                        </tr> -->
+                        @if($inventarisWith->isEmpty() && $kategori === null)
+                        <tr>
+                            <td colspan="7" class="text-center">
+                                <img src="{{ asset('img/1.png') }}" alt="none">
+                                <p>Tidak ada data Inventaris</p>
+                            </td>
+                        </tr>
+                        @elseif($inventarisWith->isEmpty() && $kategori === 'Gedung')
+                        <tr>
+                            <td colspan="7" class="text-center">
+                                <img src="{{ asset('img/1.png') }}" alt="none">
+                                <p>Tidak ada data Inventaris Gedung</p>
+                            </td>
+                        </tr>
+                        @elseif($inventarisWith->isEmpty() && $kategori === 'Kendaraan')
+                        <tr>
+                            <td colspan="7" class="text-center">
+                                <img src="{{ asset('img/1.png') }}" alt="none">
+                                <p>Tidak ada data Inventaris Kendaraan</p>
+                            </td>
+                        </tr>
+                        @endif
+                        @endforelse
 
                     </tbody>
                 </table>

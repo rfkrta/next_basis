@@ -92,6 +92,7 @@ class Dinas extends Model
         // Periksa apakah mitra tersebut sudah pernah dituju sebelumnya
         if ($user->mitra_tertuju !== $mitraTujuan) {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             $komisi = $this->komisi_dinas;
             $biayaPerAnggota = $this->komisi_dinas / $this->hitungJumlahAnggota();
             // Logika penghitungan komisi sesuai kebutuhan
@@ -167,6 +168,8 @@ class Dinas extends Model
                 'mitra_tertuju' => $mitraTujuan, // Simpan mitra yang ditujuan oleh user
             ]);
 =======
+=======
+>>>>>>> Stashed changes
             // Periksa apakah mitra sudah pernah dikunjungi
             if (!$this->mitraSudahDikunjungi($mitraTujuan)) {
                 $komisi = $this->komisi_dinas;
@@ -248,6 +251,9 @@ class Dinas extends Model
                 //     'mitra_tertuju' => $mitraTujuan, // Simpan mitra yang ditujuan oleh user
                 // ]);
             }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         }
     }
@@ -263,9 +269,12 @@ class Dinas extends Model
             'komisi_dinas' => $komisi,
         ]);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     }
 
 =======
+=======
+>>>>>>> Stashed changes
 
         // Dapatkan komisi yang sudah ada pada tabel users
         $komisiSudahAda = User::where('id', $userId)->value('komisi_terkumpul');
@@ -288,6 +297,9 @@ class Dinas extends Model
     // }
 
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     public function hitungJumlahAnggota()
     {
@@ -298,7 +310,10 @@ class Dinas extends Model
     }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
     protected function mitraSudahDikunjungi($mitraTujuan)
     {
         // Misalkan ada kolom 'mitra_terkunjungi' pada tabel pengguna (users)
@@ -306,6 +321,9 @@ class Dinas extends Model
         return KomisiDinas::where('id_mitras', $mitraTujuan)->exists();
     }
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     public function komisiDinas()
     {

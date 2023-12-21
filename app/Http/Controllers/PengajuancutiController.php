@@ -45,10 +45,7 @@ class PengajuancutiController extends Controller
     
         $cutis = $cutis->get(); // Retrieve filtered cutis
     
-        $users = User::all();
-        $kategori = Kategori::all();
-
-        return view('admin.pengajuancuti.index', compact('kategori', 'users', 'cuti_baru','cutis'));
+        return view('admin.pengajuancuti.index', compact('kategori', 'users', 'cuti_baru','cutis','status'));
     }
     
     public function updateToDiterima($id)

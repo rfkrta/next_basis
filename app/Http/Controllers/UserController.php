@@ -22,16 +22,27 @@ class UserController extends Controller
         // Fetch all users
         $users = User::all();
         // Filter User
-        $filter = $request->input('filter');
-        if ($filter === 'Aktif') {
-            $users = User::where('status', 'Aktif')->get();
-        } elseif ($filter === 'Tidak Aktif') {
-            $users = User::where('status', 'Tidak Aktif')->get();
-        } else {
-            $users = User::all();
+        // $filter = $request->input('filter');
+        // if ($filter === 'Aktif') {
+        //     $users = User::where('status', 'Aktif')->get();
+        // } elseif ($filter === 'Tidak Aktif') {
+        //     $users = User::where('status', 'Tidak Aktif')->get();
+        // } else {
+        //     $users = User::all();
+        // }
+
+        $status = $request->input('status'); // Get the 'status' parameter from the request
+
+        $user = User::with('role', 'position', 'gaji'); // Eager load relationships 'user' and 'kategori'
+    
+        // Filter user based on 'status' parameter
+        if ($status === 'Aktif' || $status === 'Tidak Aktif') {
+            $user->where('status', $status);
         }
+    
+        $user = $user->get();
         // Pass the user data to the view
-        return view('admin.user.index', compact('users', 'filter'));
+        return view('admin.user.index', compact('users', 'status', 'user'));
     }
 
     public function create()
@@ -131,6 +142,15 @@ class UserController extends Controller
         return view('admin.user.edit', compact('item', 'positions', 'roles', 'cities'));
     }
 
+    public function show($id)
+    {
+        $item = User::findOrFail($id);
+        $cities = Regency::orderBy('name', 'asc')->get();
+        $positions = Position::all();
+        $roles = Role::all(); // Fetch all roles from the database
+
+        return view('admin.user.detail', compact('item', 'positions', 'roles', 'cities'));
+    }
 
 
     public function update(Request $request, $id)
@@ -192,5 +212,21 @@ class UserController extends Controller
 
         // Optionally, you can redirect somewhere after updating the user
         return redirect()->route('admin.user.index')->with('success', 'User updated successfully');
+    }
+
+    public function hitungGaji(Request $request)
+    {
+        // Mendapatkan user berdasarkan ID yang ada di request
+        $user = User::find($request->id);
+
+        // Pastikan user ditemukan sebelum melanjutkan perhitungan gaji
+        if ($user) {
+            // Panggil metode hitungGajiBulanSebelumnya pada model User
+            $user->hitungGajiBulanSebelumnya();
+
+            return redirect()->back()->with('success', 'Gaji berhasil dihitung.');
+        } else {
+            return redirect()->back()->with('error', 'User tidak ditemukan.');
+        }
     }
 }

@@ -17,7 +17,7 @@
     </div>
     @endif
 
-    <div class="cong-box4">
+    <div class="cong-box">
         <form action="" method="post" enctype="multipart/form-data" id="ubah">
             @method('PUT')
             @csrf

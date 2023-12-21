@@ -107,7 +107,11 @@
                         </div>
                     </div>
                     <div class="button">
+<<<<<<< Updated upstream
                         <button type="submit" class="btny1 btn-primary btn-block" >
+=======
+                        <button type="submit" class="btny1 btn-primary btn-block" onclick="openConfirmationAddModal()">
+>>>>>>> Stashed changes
                             Ajukan Dinas
                         </button>
                     </div>
@@ -292,7 +296,7 @@
         // Periksa apakah semua field tidak kosong
         if (mitras.trim() !== '' && kota.trim() !== '' && komisi.trim() !== '' && mulai.trim() !== '' && selesai.trim() !== '' && anggota1.trim() !== '' && anggota2.trim() !== '' && pic.trim() !== '' && jabatan.trim() !== '') {
             //  Jika semua field tidak kosong, buka modal konfirmasi
-            document.getElementById('confirmationAddModal').style.display = 'block';
+            // document.getElementById('confirmationAddModal').style.display = 'block';
         } else {
             // Jika ada field yang kosong, berikan pesan peringatan atau tindakan lain
             // alert('Mohon isi semua field sebelum menambah data.');

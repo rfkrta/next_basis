@@ -18,27 +18,27 @@
 
         <div class="filter">
             <ul class="filterx">
-                <li class="activev">
-                    <a href="#">Semua</a>
+                <li class="{{ request()->input('status') === null ? 'activev' : '' }}">
+                    <a href="{{ route('admin.perjalanandinas.index') }}">Semua</a>
                 </li>
             </ul>
             <ul class="filterx">
-                <li>
-                    <a href="#">Selesai</a>
+                <li class="{{ request()->input('status') === 'Selesai' ? 'activev' : '' }}">
+                    <a href="{{ route('admin.perjalanandinas.index', ['status' => 'Selesai']) }}">Selesai</a>
                 </li>
             </ul>
             <ul class="filterx">
-                <li>
-                    <a href="#">Berjalan</a>
+                <li class="{{ request()->input('status') === 'Berjalan' ? 'activev' : '' }}">
+                    <a href="{{ route('admin.perjalanandinas.index', ['status' => 'Berjalan']) }}">Berjalan</a>
                 </li>
             </ul>
             <ul class="filterx">
-                <li>
-                    <a href="#">Ditolak</a>
+                <li class="{{ request()->input('status') === 'Tertunda' ? 'activev' : '' }}">
+                    <a href="{{ route('admin.perjalanandinas.index', ['status' => 'Tertunda']) }}">Tertunda</a>
                 </li>
             </ul>
         </div>
-        <div class="line1"></div>
+        <div class="line7"></div>
         <div class="cong-box">
             <div>
                 <table class="box" cellspacing="0">
@@ -54,7 +54,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($dinas_mitra as $item)
+                        @forelse ($dinas as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->mitra->nama_mitra }}</td>
@@ -92,12 +92,35 @@
                                 </td>
                             </tr>
                         @empty
+                            @if($dinas->isEmpty() && $status === null)
                             <tr>
                                 <td colspan="7" class="text-center">
                                     <img src="{{ asset('img/1.png') }}" alt="none">
                                     <p>Tidak ada perjalanan dinas</p>
                                 </td>
                             </tr>
+                            @elseif($dinas->isEmpty() && $status === 'Selesai')
+                            <tr>
+                                <td colspan="7" class="text-center">
+                                    <img src="{{ asset('img/1.png') }}" alt="none">
+                                    <p>Tidak ada perjalanan dinas Selesai</p>
+                                </td>
+                            </tr>
+                            @elseif($dinas->isEmpty() && $status === 'Berjalan')
+                            <tr>
+                                <td colspan="7" class="text-center">
+                                    <img src="{{ asset('img/1.png') }}" alt="none">
+                                    <p>Tidak ada perjalanan dinas Berjalan</p>
+                                </td>
+                            </tr>
+                            @elseif($dinas->isEmpty() && $status === 'Tertunda')
+                            <tr>
+                                <td colspan="7" class="text-center">
+                                    <img src="{{ asset('img/1.png') }}" alt="none">
+                                    <p>Tidak ada perjalanan dinas Tertunda</p>
+                                </td>
+                            </tr>
+                            @endif
                         @endforelse
                     </tbody>
                 </table>

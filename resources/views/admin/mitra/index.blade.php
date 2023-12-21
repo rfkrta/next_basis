@@ -17,18 +17,18 @@
         </div>
         <div class="filter">
             <ul class="filterx">
-                <li class="activev">
-                    <a href="#">Semua</a>
+                <li class="{{ request()->input('status') === null ? 'activev' : '' }}">
+                    <a href="{{ route('admin.mitra.index') }}">Semua</a>
                 </li>
             </ul>
             <ul class="filterx">
-                <li>
-                    <a href="#">Aktif</a>
+                <li class="{{ request()->input('status') === 'Aktif' ? 'activev' : '' }}">
+                    <a href="{{ route('admin.mitra.index', ['status' => 'Aktif']) }}">Aktif</a>
                 </li>
             </ul>
             <ul class="filterx">
-                <li>
-                    <a href="#">Tidak Aktif</a>
+                <li class="{{ request()->input('status') === 'Tidak Aktif' ? 'activev' : '' }}">
+                    <a href="{{ route('admin.mitra.index', ['status' => 'Tidak Aktif']) }}">Tidak Aktif</a>
                 </li>
             </ul>
         </div>
@@ -47,7 +47,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($items as $item)
+                        @forelse ($mitra as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->nama_mitra }}</td>
@@ -64,12 +64,28 @@
                                 </td>
                             </tr>
                         @empty
+                            @if($mitra->isEmpty() && $status === null)
                             <tr>
                                 <td colspan="6" class="text-center">
                                     <img src="{{ asset('img/1.png') }}" alt="none">
-                                    <p>Tidak ada mitra perusahaan</p>
+                                    <p>Tidak ada data mitra perusahaan</p>
                                 </td>
                             </tr>
+                            @elseif($mitra->isEmpty() && $status === 'Aktif')
+                            <tr>
+                                <td colspan="6" class="text-center">
+                                    <img src="{{ asset('img/1.png') }}" alt="none">
+                                    <p>Tidak ada data mitra perusahaan Aktif</p>
+                                </td>
+                            </tr>
+                            @elseif($mitra->isEmpty() && $status === 'Tidak Aktif')
+                            <tr>
+                                <td colspan="6" class="text-center">
+                                    <img src="{{ asset('img/1.png') }}" alt="none">
+                                    <p>Tidak ada data mitra perusahaan Tidak Aktif</p>
+                                </td>
+                            </tr>
+                            @endif
                         @endforelse
                     </tbody>
                 </table>

@@ -82,7 +82,15 @@ Route::middleware('laravel10')->group(function () {
 
     // Inventaris
     Route::get('/admin/dataperusahaan/inventaris', [InventarisController::class, 'index'])->name('admin.dataperusahaan.inventaris.index');
+    Route::get('/admin/dataperusahaan/inventaris/create', [InventarisController::class, 'create'])->name('admin.dataperusahaan.inventaris.create');
+    Route::post('/admin/dataperusahaan/inventaris/store', [InventarisController::class, 'store'])->name('admin.dataperusahaan.inventaris.store');
+    Route::get('/admin/dataperusahaan/inventaris/{id}/detail', [InventarisController::class, 'show'])->name('admin.dataperusahaan.inventaris.show');
+    Route::get('/admin/dataperusahaan/inventaris/{id}/edit', [InventarisController::class, 'edit'])->name('admin.dataperusahaan.inventaris.edit');
+    Route::put('/admin/dataperusahaan/inventaris/{id}/update', [InventarisController::class, 'update'])->name('admin.dataperusahaan.inventaris.update');
+
+    // Router
     Route::get('/admin/dataperusahaan/router', [RouterController::class, 'index'])->name('admin.dataperusahaan.router.index');
+    Route::post('/admin/dataperusahaan/router/store', [RouterController::class, 'store'])->name('admin.dataperusahaan.router.store');
 
     // User
     Route::get('/admin/user/', [UserController::class, 'index'])->name('admin.user.index');
@@ -91,4 +99,7 @@ Route::middleware('laravel10')->group(function () {
     Route::post('/admin/user/store', [UserController::class, 'store'])->name('admin.user.store');
     Route::get('/admin/user/{id}', [UserController::class, 'edit'])->name('admin.user.edit');
     Route::put('/admin/user/{id}', [UserController::class, 'update'])->name('admin.user.edit');
+    Route::get('/admin/user/detail/{id}', [UserController::class, 'show'])->name('admin.user.show');
+    // Route::post('/admin/user/{id}/hitung-gaji', [GajiController::class, 'hitungGaji'])->name('user.hitungGaji');
+    Route::post('/admin/user/{id}/hitung-gaji', [UserController::class, 'hitungGaji'])->name('admin.user.hitungGaji');
 });

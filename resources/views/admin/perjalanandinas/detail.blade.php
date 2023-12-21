@@ -97,6 +97,7 @@
                     </tr>
                 </thead>
                 <tbody>
+<<<<<<< Updated upstream
                     <tr>
                         <td>{{ $item->biayaDinas->id ?: 'Belum diisi' }}</td>
                             @if ($item->biayaDinas->wasRecentlyCreated)
@@ -119,6 +120,25 @@
                                 <p>Biaya Lainnya belum diisi.</p>
                             @endif
                     </tr>
+=======
+                    @if ($item->biayaDinas)
+                        <tr>
+                            <td>
+                                {{ $item->biayaDinas->id }}
+                            </td>
+                            <td>{{ $item->biayaDinas->biaya_hotel }}</td>
+                            <td>{{ $item->biayaDinas->biaya_transportasi }}</td>
+                            <td>{{ $item->biayaDinas->biaya_konsumsi }}</td>
+                            <td>{{ $item->biayaDinas->biaya_lain }}</td>
+                        </tr>
+                    @else
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                <p>Biaya Dinas belum diisi.</p>
+                            </td>
+                        </tr>
+                    @endif
+>>>>>>> Stashed changes
                 </tbody>
             </table>
 

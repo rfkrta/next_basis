@@ -83,7 +83,7 @@
                     <input type="file" id="file_surat" name="file_surat" accept=".pdf">
                 </div> -->
                 <div class="button">
-                    <button type="submit" class="btnc btn-primary btn-block">
+                    <button type="submit" class="btnc btn-primary btn-block" onclick="openConfirmationAddModal()">
                         Ajukan Cuti
                     </button>
                 </div>
@@ -138,7 +138,7 @@
         // Periksa apakah semua field tidak kosong
         if (nama.trim() !== '' && kategori.trim() !== '' && keterangan.trim() !== '' && mulai.trim() !== '' && selesai.trim() !== '') {
             // Jika semua field tidak kosong, buka modal konfirmasi
-            document.getElementById('confirmationAddModal').style.display = 'block';
+            // document.getElementById('confirmationAddModal').style.display = 'block';
         } else {
             // Jika ada field yang kosong, berikan pesan peringatan atau tindakan lain
             // alert('Mohon isi semua field sebelum menambah data.');

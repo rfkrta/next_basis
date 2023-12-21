@@ -20,4 +20,9 @@ class Position extends Model
         //
     ];
 
+    public function getGajiPosisiAttribute($value)
+    {
+        return (int) str_replace(['Rp.', '.', ','], '', $value);
+    }
+
 }

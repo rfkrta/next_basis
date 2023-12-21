@@ -5,84 +5,69 @@ namespace App\Http\Controllers\API\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DinasRequest;
 use App\Models\Dinas;
-use App\Models\Karyawan;
 use App\Models\Mitra;
+use App\Models\Regency;
+use App\Models\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DinasController extends Controller
 {
     public function index()
     {
-        $dinas_baru = Dinas::join('mitras', 'mitras.id', '=', 'dinas.id_mitras')
+        $dinas_mitra = Dinas::join('mitras', 'mitras.id', '=', 'dinas.id_mitras')
             ->select('dinas.*', 'mitras.nama_mitra', 'mitras.komisi_dinas')
             ->get();
 
-        $dinas_baru = Dinas::join('karyawans', 'karyawans.id', '=', 'dinas.id_anggota1')
-            ->select('dinas.*', 'karyawans.nama')
+        $dinas_user = Dinas::join('users', 'users.id', '=', 'dinas.id_anggota1')
+            ->select('dinas.*', 'users.name')
+            ->get();
+
+        $dinas_regency = Dinas::join('regencies', 'regencies.id', '=', 'dinas.kota_keberangkatan')
+            ->select('dinas.*', 'regencies.name')
             ->get();
 
         $mitra = Mitra::all();
-        $karyawan = Karyawan::all();
+        $user = User::all();
+        $regency = Regency::all();
 
         return response()->json([
-            'karyawan' => $karyawan,
+            'dinas_mitra' => $dinas_mitra,
+            'dinas_user' => $dinas_user,
+            'dinas_regency' => $dinas_regency,
             'mitra' => $mitra,
-            'dinas_baru' => $dinas_baru
+            'user' => $user,
+            'regency' => $regency,
         ]);
-    }
-
-    public function create()
-    {
-        $mitra = Mitra::all();
-        $karyawan = Karyawan::all();
-
-        return response()->json([
-            'mitra' => $mitra,
-            'karyawan' => $karyawan
-        ]);
-    }
-
-    public function store(DinasRequest $request)
-    {
-        $data = $request->all();
-        Dinas::create($data);
-
-        return response()->json(['message' => 'Dinas created successfully'], 201);
     }
 
     public function show($id)
     {
-        $dinas = Dinas::find($id);
+        $item = Dinas::with([
+            'mitra', 'regency', 'user', 'user1', 'user2', 'user3'
+        ])->findOrFail($id);
 
-        if (!$dinas) {
-            return response()->json(['message' => 'Dinas not found'], 404);
-        }
+        return response()->json(['item' => $item]);
+    }
 
-        return response()->json(['dinas' => $dinas]);
+    public function store(Request $request, $user_id)
+    {
     }
 
     public function update(Request $request, $id)
     {
-        $dinas = Dinas::find($id);
-
-        if (!$dinas) {
-            return response()->json(['message' => 'Dinas not found'], 404);
-        }
-
-        $dinas->update($request->all());
+        $data = $request->all();
+        $item = Dinas::findOrFail($id);
+        $item->update($data);
 
         return response()->json(['message' => 'Dinas updated successfully']);
     }
 
     public function destroy($id)
     {
-        $dinas = Dinas::find($id);
-
-        if (!$dinas) {
-            return response()->json(['message' => 'Dinas not found'], 404);
-        }
-
-        $dinas->delete();
+        $item = Dinas::findOrFail($id);
+        $item->delete();
 
         return response()->json(['message' => 'Dinas deleted successfully']);
     }

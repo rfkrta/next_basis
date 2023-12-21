@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Cuti;
+use App\Models\Cuti as ModelsCuti;
 use Illuminate\Http\Request;
 
 class CutiController extends Controller
@@ -15,7 +16,7 @@ class CutiController extends Controller
      */
     public function index()
     {
-        $items = Cuti::all();
+        $items = ModelsCuti::all();
 
         return view('admin.pengajuancuti.index', [
             'items' => $items

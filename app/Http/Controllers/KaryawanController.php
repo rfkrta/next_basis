@@ -23,7 +23,7 @@ class KaryawanController extends Controller
 
 
         // Return the view with the filtered employees and positions
-        return view('admin.karyawan.index');
+        return view('admin.absensi.index');
     }
 
 
@@ -36,7 +36,7 @@ class KaryawanController extends Controller
     {
         $position = Position::all();
         $users = User::all();
-        return view('admin.karyawan.create', compact('position', 'users'));
+        return view('admin.absensi.create', compact('position', 'users'));
     }
 
     public function getGajiPosisiById($id)

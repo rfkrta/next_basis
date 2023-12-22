@@ -18,7 +18,7 @@
     @endif
 
     <div class="cong-box">
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data" id="ubah">
             @method('PUT')
             @csrf
             <div class="content">
@@ -93,7 +93,7 @@
                 <div class="tgl">
                     <div>
                         <h5>Posisi</h5>
-                        <select name="id_positions" id="id_positions" class = "date">
+                        <select name="id_positions" id="id_positions" class="date">
                             @foreach ($positions as $position)
                             <option value="{{ $position->id }}" data-gaji="{{ $position->gaji_posisi }}" {{ $item->id_positions == $position->id ? 'selected' : '' }}>
                                 {{ $position->nama_posisi }}
@@ -106,6 +106,7 @@
                         <input type="text" name="gaji_posisi" id="gaji_posisi" class="date gaji_posisi" value="{{ $item->gaji_posisi }}" readonly>
                     </div>
                 </div>
+
                 <div class="tgl">
                     <div class="tgl1">
                         <h5>Tanggal Mulai Kontrak Kerja</h5>
@@ -151,23 +152,40 @@
                 });
 
                 $(document).ready(function() {
+                    // Function to format number as Indonesian Rupiah
+                    function formatRupiah(angka) {
+                        var reverse = angka.toString().split('').reverse().join('');
+                        var ribuan = reverse.match(/\d{1,3}/g);
+                        ribuan = ribuan.join('.').split('').reverse().join('');
+                        return 'Rp.' + ribuan;
+                    }
+
+                    // Initial formatting of gaji_posisi input
+                    $('#gaji_posisi').val(formatRupiah($('#gaji_posisi').val()));
+
+                    // Event listener for change in id_positions dropdown
                     $('#id_positions').on('change', function() {
                         var selectedGaji = $(this).find(':selected').data('gaji');
 
                         // Format the salary as Indonesian Rupiah
-                        var formattedSalary = 'Rp.' + selectedGaji.toLocaleString('id-ID');
+                        var formattedSalary = formatRupiah(selectedGaji);
 
                         // Update the salary value in the input field
                         $('#gaji_posisi').val(formattedSalary);
+                    });
 
-                        // Additionally, update a hidden field with the selected ID if required
-                        var selectedID = $(this).val();
-                        $('#hidden_position_id').val(selectedID);
+                    // Event listener for form submission
+                    $('#ubah').on('submit', function() {
+                        // Get the current value in Rupiah format
+                        var currentVal = $('#gaji_posisi').val();
+
+                        // Remove 'Rp.' and thousands separators before submitting
+                        var originalVal = parseInt(currentVal.replace(/Rp\.|(\.)/g, ''));
+
+                        // Update the input field with the original value
+                        $('#gaji_posisi').val(originalVal);
                     });
                 });
-
-
-
 
                 $(function() {
                     $('#provinsi').on('change', function() {

@@ -76,7 +76,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class, 'role_id');
     }
-
+    public function absensis()
+    {
+        return $this->hasMany(Absensi::class);
+    }
     public function position()
     {
         return $this->belongsTo(Position::class, 'id_positions');

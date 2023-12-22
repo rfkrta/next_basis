@@ -32,17 +32,11 @@ Route::middleware('auth:sanctum')->prefix('user')->group(function () {
     Route::get('/cuti/{userId}', [CutiController::class, 'getCutiByUserId']);
     Route::post('/cuti/{user_id}', [CutiController::class, 'store']);
     Route::put('/cuti/{user_id}/{cuti_id}', [CutiController::class, 'updateByUserIdAndCutiId']);
-
 });
 
 //Dinas
 Route::middleware('auth:sanctum')->prefix('user')->group(function () {
-    // Route::get('/perjalanandinas', [DinasController::class, 'index'])->name('admin.perjalanandinas.index');
-    // Route::get('/perjalanandinas/create', [DinasController::class, 'create'])->name('admin.perjalanandinas.create');
-    // Route::post('/perjalanandinas', [DinasController::class, 'store'])->name('admin.perjalanandinas.store');
-    // Route::get('/perjalanandinas/{id}', [DinasController::class, 'show'])->name('admin.perjalanandinas.show');
-    // Route::put('/perjalanandinas/{id}', [DinasController::class, 'update'])->name('admin.perjalanandinas.update');
-    // Route::delete('/perjalanandinas/{id}', [DinasController::class, 'destroy'])->name('admin.perjalanandinas.destroy');
+
 });
 //Karyawan
 Route::middleware('auth:sanctum')->prefix('admin')->group(function () {

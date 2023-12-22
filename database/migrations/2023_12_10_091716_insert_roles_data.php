@@ -15,10 +15,10 @@ return new class extends Migration
     public function up()
     {
         $roles = [
-            ['name' => 'admin'],
-            ['name' => 'supervisor'],
-            ['name' => 'pegawai'],
-            ['name' => 'inactive']
+            ['name' => 'Admin'],
+            ['name' => 'Supervisor'],
+            ['name' => 'Pegawai'],
+            ['name' => 'Inactive']
         ];
 
         DB::table('roles')->insert($roles);
@@ -32,6 +32,6 @@ return new class extends Migration
     public function down()
     {
         //
-        DB::table('roles')->whereIn('name', ['admin', 'supervisor', 'pegawai', 'inactive'])->delete();
+        DB::table('roles')->whereIn('name', ['Admin', 'Supervisor', 'Pegawai', 'Inactive'])->delete();
     }
 };

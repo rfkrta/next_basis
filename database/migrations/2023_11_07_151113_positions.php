@@ -22,10 +22,10 @@ return new class extends Migration
             $table->timestamps();
         });
         DB::table('positions')->insert([
-            ['nama_posisi' => 'Admin', 'gaji_posisi' => 1000000],
-            ['nama_posisi' => 'Super Admin', 'gaji_posisi' => 500000],
-            ['nama_posisi' => 'Normal User', 'gaji_posisi' => 250000],
-            ['nama_posisi' => 'Employee', 'gaji_posisi' => 200000],
+            ['nama_posisi' => '	Manager Information Technology', 'gaji_posisi' => 1000000],
+            ['nama_posisi' => 'Manager Human Resource', 'gaji_posisi' => 500000],
+            // ['nama_posisi' => 'Normal User', 'gaji_posisi' => 250000],
+            ['nama_posisi' => 'Employee', 'gaji_posisi' => 5000000],
         ]);  
     }
 

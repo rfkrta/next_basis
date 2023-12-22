@@ -28,22 +28,31 @@ class DummyUsersSeeder extends Seeder
             'tanggal_lahir' => '1998-06-07',
             'no_hp' => '08510472380',
             'jenis_kelamin' => 'Pria',
-            // 'role_id' => 1,
+            'gaji_posisi' => 5000000,
+            'role_id' => 1,
             // 'idMaritalStatus' => 1,
             // 'idTaxStatus' => 1,
             // 'idEmployeeGroup' => 1,
             // 'status' => 'Active',
         ]);
-
-        // DB::table('karyawans')->insert([
-        //     'user_id' => 1,
-        //     'nama' => 'rafi',
-        //     'id_positions' => 1,
-        //     'nip' => 1235555123123,
-        //     'gaji_posisi' => 1000000000,
-        //     'tanggal_mulai' => '1998-06-07',
-        //     'tanggal_selesai' => '1998-06-09',
-        // ]);
+        DB::table('users')->insert([
+            'name' => 'John Doe',
+            'email' => 'john@next.com',
+            'nip' => '1234567890',
+            'kota' => 'Jakarta',
+            'alamat' => 'Jl. Contoh No. 123',
+            // Tambahkan atribut lainnya sesuai kebutuhan
+            'role_id' => 3,
+            'id_positions' => 3,
+            'gaji_posisi' => 5000000,
+            'tanggal_mulai' => '2023-01-01',
+            'tanggal_selesai' => '2023-12-31',
+            'status' => 'Aktif',
+            'jmlCuti' => 12,
+            'foto_profil' => 'default.jpg',
+            'password' => bcrypt('admin'), // Ganti 'password' dengan kata sandi yang diinginkan
+            'remember_token' => null,
+        ]);
 
         // DB::table('cutis')->insert([
 

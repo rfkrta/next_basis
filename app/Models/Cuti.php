@@ -21,18 +21,17 @@ class Cuti extends Model
         //
     ];
 
-    // public function karyawan()
-    // {
-    //     return $this->belongsTo(Karyawan::class, 'id_nama', 'id');
-    // }
-
     public function kategori()
     {
-        return $this->belongsTo(Kategori::class, 'id_kategori', 'id');
+        return $this->belongsTo(Kategori::class, 'id_kategori', 'id','nama_kategori');
     }
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id', 'name');
     }
+
+
+
+    
 
 }

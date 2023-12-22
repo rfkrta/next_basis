@@ -93,6 +93,7 @@ class Dinas extends Model
         if ($user->mitra_tertuju !== $mitraTujuan) {
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             $komisi = $this->komisi_dinas;
             $biayaPerAnggota = $this->komisi_dinas / $this->hitungJumlahAnggota();
             // Logika penghitungan komisi sesuai kebutuhan
@@ -168,6 +169,8 @@ class Dinas extends Model
                 'mitra_tertuju' => $mitraTujuan, // Simpan mitra yang ditujuan oleh user
             ]);
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
             // Periksa apakah mitra sudah pernah dikunjungi
@@ -252,6 +255,9 @@ class Dinas extends Model
                 // ]);
             }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -270,9 +276,12 @@ class Dinas extends Model
         ]);
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     }
 
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 
@@ -298,6 +307,9 @@ class Dinas extends Model
 
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -311,7 +323,10 @@ class Dinas extends Model
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     protected function mitraSudahDikunjungi($mitraTujuan)
@@ -322,6 +337,9 @@ class Dinas extends Model
     }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes

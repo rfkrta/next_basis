@@ -108,7 +108,11 @@
                     </div>
                     <div class="button">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                         <button type="submit" class="btny1 btn-primary btn-block" >
+=======
+                        <button type="submit" class="btny1 btn-primary btn-block" onclick="openConfirmationAddModal()">
+>>>>>>> Stashed changes
 =======
                         <button type="submit" class="btny1 btn-primary btn-block" onclick="openConfirmationAddModal()">
 >>>>>>> Stashed changes

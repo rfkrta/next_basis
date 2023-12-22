@@ -118,8 +118,8 @@
                         </button>
                     </div>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 
 <!-- resources/views/confirmation-modal.blade.php -->

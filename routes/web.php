@@ -91,6 +91,13 @@ Route::middleware('laravel10')->group(function () {
     // Router
     Route::get('/admin/dataperusahaan/router', [RouterController::class, 'index'])->name('admin.dataperusahaan.router.index');
     Route::post('/admin/dataperusahaan/router/store', [RouterController::class, 'store'])->name('admin.dataperusahaan.router.store');
+<<<<<<< Updated upstream
+=======
+    Route::get('/load-router-data', [RouterController::class, 'loadRouterData']);
+    Route::get('/get-router/{id}', [RouterController::class, 'getRouter']);
+    Route::put('/update-router/{id}', [RouterController::class, 'update'])->name('update-router');
+    Route::delete('/delete-router/{id}', [RouterController::class, 'destroy'])->name('delete-router');
+>>>>>>> Stashed changes
 
     // User
     Route::get('/admin/user/', [UserController::class, 'index'])->name('admin.user.index');

@@ -20,8 +20,13 @@
         <li style="cursor: pointer;" onclick="window.location='{{ route('admin.dataperusahaan.inventaris.index') }}';">
             <i class="fa fa-folder-open"></i>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             <a href="#">Data Perusahaan</a>
             <span class="span4"><i class="fa fa-angle-right"></i></span>
+=======
+            <a>Inventaris</a>
+            <!-- <span class="span4"><i class="fa fa-angle-right"></i></span> -->
+>>>>>>> Stashed changes
 =======
             <a>Inventaris</a>
             <!-- <span class="span4"><i class="fa fa-angle-right"></i></span> -->

@@ -35,6 +35,7 @@
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->nama_router }}</td>
                                 <td>
+<<<<<<< Updated upstream
                                     <div class="btn-group">
                                         <a href="TambahKontrak.html" class="btn btn-danger">
                                             <i class="btn1 fa fa-eye"></i>
@@ -46,6 +47,16 @@
                                             <i class="btn2 fa fa-trash"></i>
                                         </a>
                                     </div>
+=======
+                                    <!-- <div class="btn-group"> -->
+                                        <a class="btn btn-danger btn-edit" data-id="{{ $item->id }}">
+                                            <i class="btn3 fa fa-pencil"></i>
+                                        </a>
+                                        <a class="btn btn-danger btn-delete" data-id="{{ $item->id }}">
+                                            <i class="btn2 fa fa-trash"></i>
+                                        </a>
+                                    <!-- </div> -->
+>>>>>>> Stashed changes
                                 </td>
                             </tr>
                         @empty
@@ -61,12 +72,20 @@
             </div>
         </div>
     </div>
+<<<<<<< Updated upstream
     <!-- Modal -->
+=======
+    <!-- Modal Tambah -->
+>>>>>>> Stashed changes
     <div id="tambahRouterModal" class="modal1">
         <div class="modal-content1">
             <h2>Tambah Router</h2>
             <div class="linex"></div>
+<<<<<<< Updated upstream
             <form id="formTambahRouter" action="{{ route('admin.dataperusahaan.router.store') }}" method="post" enctype="multipart/form-data">
+=======
+            <form id="formTambahRouter">
+>>>>>>> Stashed changes
                 @csrf
                 <label for="nama_router">Nama Router :</label>
                 <input type="text" id="nama_router" name="nama_router" placeholder="Masukkan Router" required>
@@ -77,10 +96,40 @@
             </form>
         </div>
     </div>
+<<<<<<< Updated upstream
 @endsection
 
 @push('addon-script')
 <script type="text/javascript" src="{{ url('admin/js/jquery-1.10.2.js') }}"></script>
+=======
+
+    <!-- Modal Edit -->
+    <div id="editRouterModal" class="modal1">
+        <div class="modal-content1">
+            <h2>Edit Router</h2>
+            <!-- Menampilkan ID dan Nama Router -->
+            <p>ID Router: <span id="displayRouterId"></span></p>
+            <p>Nama Router: <span id="displayNamaRouter"></span></p>
+            <div class="linex"></div>
+            <form id="formEditRouter" action="{{ route('update-router', ['id' => '__router_id__']) }}" method="post">
+                @csrf
+                @method('PUT')
+                <label for="nama_router">Nama Router :</label>
+                <input type="text" id="nama_router" name="nama_router" placeholder="Masukkan Router" required>
+                <div class="btn-groupx">
+                    <input type="hidden" id="editRouterId" name="editRouterId">
+                    <button type="button" class="cancelbtn1" id="closeModalEdit">Batal</button>
+                    <button type="submit" class="addbtn1">Ubah</button>
+                </div>
+            </form>
+        </div>
+    </div>
+@endsection
+
+@push('addon-script')
+<!-- <script type="text/javascript" src="{{ url('admin/js/jquery-1.10.2.js') }}"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+>>>>>>> Stashed changes
 <script type="text/javascript">
     $(function() {
         $.ajaxSetup({
@@ -120,9 +169,130 @@
         // Menangani submit form di dalam modal
         document.getElementById('formTambahRouter').onsubmit = function (event) {
         event.preventDefault();
+<<<<<<< Updated upstream
         // Lakukan sesuatu dengan data yang diinput
         closeModal();
         };
+=======
+
+            // Mengambil data dari formulir
+            var nama_router = document.getElementById('nama_router').value;
+
+            // Validasi data, misalnya memastikan nama router tidak kosong
+            if (!nama_router.trim()) {
+                alert('Nama router tidak boleh kosong!');
+                return;
+            }
+
+            // Kirim data ke server menggunakan AJAX
+            $.ajax({
+                    type: 'POST',
+                    url: "{{ route('admin.dataperusahaan.router.store') }}", // Sesuaikan dengan rute simpan data di server
+                    data: {
+                    nama_router: nama_router,
+                },
+                success: function (response) {
+                    // Sukses, lakukan sesuatu jika diperlukan
+                    // loadRouterData();
+                    closeModal();
+                },
+                error: function (error) {
+                    // Kesalahan, lakukan sesuatu jika diperlukan
+                    console.error('Terjadi kesalahan:', error);
+                },
+            });
+        // Lakukan sesuatu dengan data yang diinput
+        // closeModal();
+        };
+
+        // Fungsi untuk memuat data router dan memperbarui tampilan
+        function loadRouterData() {
+            // Anda perlu menyesuaikan rute berikut sesuai dengan kebutuhan proyek Anda
+            $.ajax({
+                type: 'GET',
+                url: '/load-router-data',
+                success: function (data) {
+                // Sukses, perbarui tampilan dengan data baru
+                updateViewWithData(data);
+                },
+                error: function (error) {
+                console.error('Terjadi kesalahan saat memuat data router:', error);
+                },
+            });
+        }
+
+        // Fungsi untuk memperbarui tampilan dengan data baru
+        function updateViewWithData(data) {
+        // Lakukan sesuatu dengan data, misalnya mengganti isi tabel dengan data baru
+        console.log('Data router baru:', data);
+        }
+
+        // Menangani klik tombol edit
+        $(document).on('click', '.btn-edit', function () {
+            var routerId = $(this).data('id');
+
+            // Mengambil data router berdasarkan ID
+            $.ajax({
+                type: 'GET',
+                url: '/get-router/' + routerId, // Sesuaikan dengan rute untuk mendapatkan data router
+                success: function (data) {
+                    // Mengisi data pada modal edit
+                    $('#nama_router').val(data.nama_router);
+                    $('#editRouterId').val(data.id);
+
+                    // Menetapkan nilai ID dan Nama Router pada elemen span di modal
+                    $('#displayRouterId').text(data.id);
+                    $('#displayNamaRouter').text(data.nama_router);
+
+                    // Mengubah action pada form untuk menyertakan ID router yang sedang diedit
+                    var formAction = $('#formEditRouter').attr('action');
+                    formAction = formAction.replace('__router_id__', data.id);
+                    $('#formEditRouter').attr('action', formAction);
+
+                    // Menampilkan modal edit
+                    $('#editRouterModal').show();
+                },
+                error: function (error) {
+                    console.error('Terjadi kesalahan:', error);
+                },
+            });
+        });
+
+        // Menangani tombol close pada modal
+        $(document).on('click', '#closeModalEdit', function () {
+            // Menutup modal edit
+            $('#editRouterModal').hide();
+        });
+
+        // Menangani klik di luar modal untuk menutup modal
+        window.onclick = function (event) {
+            var modal = document.getElementById('editRouterModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+
+        // Menangani klik tombol hapus
+        $(document).on('click', '.btn-delete', function () {
+            var routerId = $(this).data('id');
+
+            // Minta konfirmasi pengguna sebelum menghapus
+            if (confirm('Apakah Anda yakin ingin menghapus router ini?')) {
+                // Kirim permintaan DELETE ke rute delete-router
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/delete-router/' + routerId,
+                    success: function () {
+                        // Refresh halaman setelah penghapusan berhasil
+                        location.reload();
+                    },
+                    error: function (error) {
+                        console.error('Terjadi kesalahan:', error);
+                    },
+                });
+            }
+        });
+>>>>>>> Stashed changes
     });
 </script>
 @endpush

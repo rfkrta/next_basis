@@ -98,6 +98,7 @@
                 </thead>
                 <tbody>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     <tr>
                         <td>{{ $item->biayaDinas->id ?: 'Belum diisi' }}</td>
                             @if ($item->biayaDinas->wasRecentlyCreated)
@@ -121,6 +122,8 @@
                             @endif
                     </tr>
 =======
+=======
+>>>>>>> Stashed changes
                     @if ($item->biayaDinas)
                         <tr>
                             <td>
@@ -138,6 +141,9 @@
                             </td>
                         </tr>
                     @endif
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 </tbody>
             </table>

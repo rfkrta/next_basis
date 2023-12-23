@@ -19,14 +19,33 @@ class MitraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $items = Mitra::join('regencies', 'regencies.id', '=', 'mitras.kota')
             ->select('mitras.*', 'regencies.province_id', 'regencies.name')
             ->get();
-            $items = Mitra::with('regency.province')->get();
+        
+        $items = Mitra::with('regency.province')->get();
             
-        return view('admin.mitra.index', compact('items'));
+        // $items = Mitra::with([
+        //     'province', 'regency', 'district', 'village'
+        // ])->get();
+        // $item = Mitra::all();
+        // $regencies = Regency::all();
+
+        $status = $request->input('status'); // Get the 'status' parameter from the request
+
+        $mitra = Mitra::with('regency', 'province', 'district', 'village'); // Eager load relationships 'user' and 'kategori'
+    
+        // Filter mitra based on 'status' parameter
+        if ($status === 'Aktif' || $status === 'Tidak Aktif') {
+            $mitra->where('status', $status);
+        }
+    
+        $mitra = $mitra->get();
+
+        // Logika untuk menampilkan halaman dashboard
+        return view('admin.mitra.index', compact('items', 'mitra', 'status'));
     }
 
     /**

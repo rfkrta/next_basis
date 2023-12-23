@@ -206,7 +206,6 @@ class Dinas extends Model
     //     ]);
     // }
 
-
     public function hitungJumlahAnggota()
     {
         return (int)($this->id_anggota1 ? 1 : 0) +

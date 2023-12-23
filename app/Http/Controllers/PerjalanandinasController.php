@@ -21,7 +21,7 @@ class PerjalanandinasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // $dinas_baru = Dinas::join('mitras', 'mitras.id', '=', 'dinas.id_mitras')
         //     ->select('dinas.*', 'mitras.nama_mitra', 'mitras.komisi_dinas')
@@ -57,7 +57,18 @@ class PerjalanandinasController extends Controller
         $user = User::all();
         $regency = Regency::all();
 
-        return view('admin.perjalanandinas.index', compact('regency', 'user', 'mitra', 'dinas_mitra', 'dinas_user', 'dinas_regency'));
+        $status = $request->input('status'); // Get the 'status' parameter from the request
+
+        $dinas = Dinas::with('mitra', 'user', 'user1', 'user2', 'user3','regency', 'biayaDinas', 'komisiDinas'); // Eager load relationships 'user' and 'kategori'
+    
+        // Filter Dinas based on 'status' parameter
+        if ($status === 'Selesai' || $status === 'Berjalan' || $status === 'Tertunda') {
+            $dinas->where('status', $status);
+        }
+    
+        $dinas = $dinas->get();
+
+        return view('admin.perjalanandinas.index', compact('regency', 'user', 'mitra', 'dinas_mitra', 'dinas_user', 'dinas_regency', 'dinas', 'status'));
     }
 
     /**

@@ -87,12 +87,35 @@
                         </td>
                     </tr>
                     @empty
-                    <tr>
-                        <td colspan="7" class="text-center">
-                            <img src="{{ asset('img/1.png') }}" alt="none">
-                            <p>Tidak ada data pengajuan cuti</p>
-                        </td>
-                    </tr>
+                        @if($cutis->isEmpty() && $status === null)
+                        <tr>
+                            <td colspan="7" class="text-center">
+                                <img src="{{ asset('img/1.png') }}" alt="none">
+                                <p>Tidak ada data pengajuan cuti</p>
+                            </td>
+                        </tr>
+                        @elseif($cutis->isEmpty() && $status === 'ditolak')
+                        <tr>
+                            <td colspan="7" class="text-center">
+                                <img src="{{ asset('img/1.png') }}" alt="none">
+                                <p>Tidak ada data pengajuan cuti ditolak</p>
+                            </td>
+                        </tr>
+                        @elseif($cutis->isEmpty() && $status === 'tertunda')
+                        <tr>
+                            <td colspan="7" class="text-center">
+                                <img src="{{ asset('img/1.png') }}" alt="none">
+                                <p>Tidak ada data pengajuan cuti tertunda</p>
+                            </td>
+                        </tr>
+                        @elseif($cutis->isEmpty() && $status === 'diterima')
+                        <tr>
+                            <td colspan="7" class="text-center">
+                                <img src="{{ asset('img/1.png') }}" alt="none">
+                                <p>Tidak ada data pengajuan cuti diterima</p>
+                            </td>
+                        </tr>
+                        @endif
                     @endforelse
                 </tbody>
             </table>

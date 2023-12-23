@@ -56,8 +56,8 @@
                         <td>{{ $absen->id }}</td>
                         <td>{{ $absen->user->name }}</td>
                         <td>{{ \Carbon\Carbon::parse($absen->tanggal_mulai)->format('d-m-Y') }}</td>
-                        <td>{{ \Carbon\Carbon::parse($absen->tanggal_mulai)->format('H:i') }}</td>
-                        <td>{{ \Carbon\Carbon::parse($absen->tanggal_selesai)->format('H:i') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($absen->waktu_mulai)->format('H:i') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($absen->waktu_selesai)->format('H:i') }}</td>
                         <td>{{ $absen->kategoriAbsensi->nama_kategori }}</td>
                         <td>
                             <a href="{{ route('admin.absensi.show', ['id' => $absen->id]) }}" class="btn btn-danger">

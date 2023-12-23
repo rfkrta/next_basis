@@ -57,15 +57,17 @@
                         </div>
                     </div>
                 </div>
-                <!-- Waktu Mulai -->
-                <div class="tgl1">
-                    <h5>Waktu Mulai</h5>
-                    <input type="time" name="waktu_mulai" id="waktu_mulai" class="date" value="{{ \Carbon\Carbon::parse($absen->waktu_mulai)->format('H:i') }}">
-                </div>
-                <!-- Waktu Selesai -->
-                <div class="tgl1">
-                    <h5>Waktu Selesai</h5>
-                    <input type="time" name="waktu_selesai" id="waktu_selesai" class="date" value="{{ \Carbon\Carbon::parse($absen->waktu_selesai)->format('H:i') }}">
+                <div class="tgl">
+                    <!-- Waktu Mulai -->
+                    <div class="tgl1">
+                        <h5>Waktu Mulai</h5>
+                        <input type="time" name="waktu_mulai" id="waktu_mulai" class="date" value="{{ isset($absen) ? \Carbon\Carbon::parse($absen->waktu_mulai)->format('H:i') : '' }}">
+                    </div>
+                    <!-- Waktu Selesai -->
+                    <div class="tgl1">
+                        <h5>Waktu Selesai</h5>
+                        <input type="time" name="waktu_selesai" id="waktu_selesai" class="date" value="{{ isset($absen) ? \Carbon\Carbon::parse($absen->waktu_selesai)->format('H:i') : '' }}">
+                    </div>
                 </div>
                 <div class="button">
                     <button type="submit" class="btnc btn-primary btn-block">

@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\API\Admin\AbsenController;
+use App\Http\Controllers\API\Admin\AbsensiController;
 use App\Http\Controllers\API\Admin\CutiController;
 use App\Http\Controllers\API\Admin\DinasController;
 use App\Http\Controllers\API\Admin\KaryawanController;
+use App\Http\Controllers\API\Admin\MitraController;
 use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\Auth\UserController;
 use Illuminate\Http\Request;
@@ -20,22 +23,30 @@ use Illuminate\Support\Facades\Route;
 */
 // Endpoint untuk registrasi pengguna baru
 Route::post('/register', [AuthController::class, 'register']);
-
 // Endpoint untuk login pengguna
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-
 // Endpoint untuk logout pengguna
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
-
 // Pengajuan Cuti
 Route::middleware('auth:sanctum')->prefix('user')->group(function () {
     Route::get('/cuti/{userId}', [CutiController::class, 'getCutiByUserId']);
     Route::post('/cuti/{user_id}', [CutiController::class, 'store']);
     Route::put('/cuti/{user_id}/{cuti_id}', [CutiController::class, 'updateByUserIdAndCutiId']);
 });
-
 //Dinas
 Route::middleware('auth:sanctum')->prefix('user')->group(function () {
+    Route::get('/perjalanandinas', [DinasController::class, 'index'])->name('dinas.index');
+    Route::post('/perjalanandinas/{user_id}', [DinasController::class, 'store'])->name('dinas.store');
+    Route::get('/perjalanandinas/{user_id}', [DinasController::class, 'getDinasByUserId']);
+});
+//Mitra
+Route::middleware('auth:sanctum')->prefix('user')->group(function () {
+    Route::get('/mitra', [MitraController::class, 'getMitra']);
+});
+// Absensi
+Route::middleware('auth:sanctum')->prefix('user')->group(function () {
+    Route::post('absensi/{user_id}', [AbsenController::class,'store']);
+    Route::get('/absensi/{user_id}', [AbsenController::class,'getAbsensiByUserId']);
 
 });
 //Karyawan
@@ -53,11 +64,4 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
     // Route::get('/karyawan/status-filter', [KaryawanController::class, 'StatusFilter'])->name('karyawan.status.filter');
     // Route::get('/karyawan/status-filter', [KaryawanController::class, 'StatusFilter'])->name('karyawan.status.filter');
 });
-Route::middleware('auth:sanctum')->prefix('user')->group(function () {
-    // Route::get('/pengajuancuti', [CutiController::class, 'index'])->name('user.pengajuancuti.index');
-    // Route::get('/pengajuancuti/create', [CutiController::class, 'create'])->name('user.pengajuancuti.create');
-    // Route::post('/pengajuancuti/store', [CutiController::class, 'store'])->name('user.pengajuancuti.store');
-    // Route::get('/pengajuancuti/{id}', [CutiController::class, 'show'])->name('user.pengajuancuti.show');
-    // Route::put('/pengajuancuti/{id}/updateToDiterima', [CutiController::class, 'updateToDiterima'])->name('user.pengajuancuti.updateToDiterima');
-    // Route::put('/pengajuancuti/{id}/updateToDitolak', [CutiController::class, 'updateToDitolak'])->name('user.pengajuancuti.updateToDitolak');
-});
+

@@ -26,10 +26,10 @@ class AbsensiController extends Controller
     public function create()
     {
         $users = User::all();
-        $absen = Absensi::all();
+        $absen = Absensi::first();
         $kategori = KategoriAbsensi::all();
 
-        return view('admin.absensi.create', compact('kategori', 'users'));
+        return view('admin.absensi.create', compact('kategori', 'users','absen'));
     }
 
     public function store(Request $request)

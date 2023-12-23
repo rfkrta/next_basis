@@ -68,8 +68,9 @@ class CutiController extends Controller
         return response()->json(['message' => 'Cuti updated successfully', 'data' => $cuti]);
     }
 
-    public function store(Request $request, $user_id)
-    {
+public function store(Request $request, $user_id)
+{
+    try {
         // Validasi request
         $validator = Validator::make($request->all(), [
             'id_kategori' => 'required',
@@ -83,52 +84,59 @@ class CutiController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        try {
-            // Temukan user
-            $user = User::findOrFail($user_id);
+        // Temukan user
+        $user = User::findOrFail($user_id);
 
-            // Periksa apakah user memiliki cukup cuti
-            if ($user->jmlCuti <= 0) {
-                return response()->json(['error' => 'Jumlah cuti tidak mencukupi'], 422);
-            }
-
-            // Inisialisasi $fileName
-            $fileName = null;
-
-            // Simpan file di folder storage/app/public/surat
-            if ($request->hasFile('file_surat')) {
-                $file = $request->file('file_surat');
-                $fileName = time() . '_' . $file->getClientOriginalName();
-                $filePath = $file->storeAs('public/surat', $fileName);
-            }
-
-            // Ambil nama kategori dari ID kategori yang diterima melalui request
-            $kategori = Kategori::findOrFail($request->id_kategori);
-
-            // Kurangi jumlah cuti user dan periksa apakah tidak kurang dari 0
-            $user->jmlCuti -= 1;
-            if ($user->jmlCuti < 0) {
-                return response()->json(['error' => 'Jumlah cuti tidak mencukupi'], 422);
-            }
-            $user->save();
-
-            // Buat instance Cuti dengan tambahan data nama_kategori
-            $cuti = Cuti::create(array_merge(
-                $validator->validated(),
-                ['file_surat' => $fileName],
-                ['user_id' => $user_id], // Masukkan user_id ke dalam data yang akan disimpan
-                ['nama_kategori' => $kategori->nama_kategori] // Masukkan nama_kategori ke dalam data yang akan disimpan
-            ));
-
-            // Kembalikan respons JSON berhasil
-            return response()->json(['message' => 'Pengajuan cuti berhasil diajukan'], 200);
-
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'User atau Kategori tidak ditemukan'], 404);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Terjadi kesalahan saat memproses permintaan cuti'], 500);
+        // Periksa apakah user memiliki cukup cuti
+        if ($user->jmlCuti <= 0) {
+            return response()->json(['error' => 'Jumlah cuti tidak mencukupi'], 422);
         }
+
+        // Inisialisasi $fileName
+        $fileName = null;
+
+        // Simpan file di folder storage/app/public/surat
+        if ($request->hasFile('file_surat')) {
+            $file = $request->file('file_surat');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('public/surat', $fileName);
+        }
+
+        // Ambil nama kategori dari ID kategori yang diterima melalui request
+        $kategori = Kategori::findOrFail($request->id_kategori);
+
+        // Kurangi jumlah cuti user dan periksa apakah tidak kurang dari 0
+        $user->save();
+
+        // Buat instance Cuti dengan tambahan data nama_kategori
+        $cuti = Cuti::create(array_merge(
+            $validator->validated(),
+            ['file_surat' => $fileName],
+            ['user_id' => $user_id], // Masukkan user_id ke dalam data yang akan disimpan
+            ['nama_kategori' => $kategori->nama_kategori] // Masukkan nama_kategori ke dalam data yang akan disimpan
+        ));
+
+        // Data yang diposting
+        $postData = [
+            'id_kategori' => $cuti->id_kategori,
+            'keterangan' => $cuti->keterangan,
+            'tanggal_mulai' => $cuti->tanggal_mulai,
+            'tanggal_selesai' => $cuti->tanggal_selesai,
+            'file_surat' => $cuti->file_surat,
+            'user_id' => $cuti->user_id,
+            'nama_kategori' => $cuti->nama_kategori,
+        ];
+
+        // Kembalikan respons JSON berhasil beserta data yang diposting
+        return response()->json(['message' => 'Pengajuan cuti berhasil diajukan', 'data' => $postData], 200);
+
+    } catch (ModelNotFoundException $e) {
+        return response()->json(['error' => 'User atau Kategori tidak ditemukan'], 404);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Terjadi kesalahan saat memproses permintaan cuti'], 500);
     }
+}
+
 
 
     public function getCutiByUserId($userId)

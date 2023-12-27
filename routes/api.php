@@ -11,6 +11,7 @@ use App\Http\Controllers\API\Admin\MitraController;
 use App\Http\Controllers\API\Admin\RegencyController;
 use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\Auth\UserController;
+use App\Models\BiayaRealisasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -55,6 +56,7 @@ Route::middleware('auth:sanctum')->prefix('user')->group(function () {
     Route::post('/biayaperbandingan/{perjalananDinasId}', [BiayaPerbandinganController::class, 'storePerbandinganDifferences']);
     Route::get('/biayaperbandingan/{perjalananDinasId}', [BiayaPerbandinganController::class, 'getBiayaPerbandingan']);
     Route::get('biayadinas/{perjalanan_dinas_id}', [BiayaDinasController::class, 'getBiayaDinasByPerjalananDinasId']);
+    Route::get('/biayarealisasi/{perjalanan_dinas_id}', [BiayaRealisasiDinasController::class, 'getBiayaRealisasi']);
 });
 //Mitra
 Route::middleware('auth:sanctum')->prefix('user')->group(function () {

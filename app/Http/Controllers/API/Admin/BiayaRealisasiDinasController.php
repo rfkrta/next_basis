@@ -81,6 +81,13 @@ class BiayaRealisasiDinasController extends Controller
         return response()->json(['data' => $biayaRealisasi], 200);
     }
 
+    public function getBiayaRealisasi($perjalanan_dinas_id)
+    {
+        $biayaRealisasi = BiayaRealisasi::where('perjalanan_dinas_id', $perjalanan_dinas_id)->get();
+
+        return response()->json(['data' => $biayaRealisasi], 200);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

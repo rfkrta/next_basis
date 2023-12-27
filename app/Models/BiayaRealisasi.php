@@ -26,6 +26,7 @@ class BiayaRealisasi extends Model
         'keterangan_lain',
     ];
     protected $dates = ['deleted_at'];
+
     public function perjalananDinas()
     {
         return $this->belongsTo(Dinas::class, 'perjalanan_dinas_id');
@@ -39,4 +40,5 @@ class BiayaRealisasi extends Model
     {
         return $this->belongsTo(BiayaDinas::class, 'perjalanan_dinas_id');
     }
+    
 }

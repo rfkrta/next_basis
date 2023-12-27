@@ -72,58 +72,73 @@ class UserController extends Controller
     }
     public function update(Request $request, $user_id)
     {
-        // Validate the incoming request data for updating user
-        $validatedData = $request->validate([
-            'name' => 'required|string',
-            'nip' => [
-                'nullable',
-                Rule::unique('users', 'nip')->ignore($user_id),
-            ],
-            'kota' => 'nullable|string',
-            'alamat' => 'nullable|string',
-            'agama' => 'nullable|string',
-            'tanggal_lahir' => 'nullable|date',
-            'no_hp' => [
-                'nullable',
-                Rule::unique('users', 'no_hp')->ignore($user_id),
-            ],
-            'email' => [
-                'nullable',
-                'email',
-                Rule::unique('users', 'email')->ignore($user_id),
-            ],
-            'password' => 'nullable|string',
-            'jenis_kelamin' => 'nullable|string',
-            'role_id' => 'nullable|exists:roles,id',
-            'id_positions' => 'nullable|string',
-            'gaji_posisi' => 'nullable|string',
-            'tanggal_mulai' => 'nullable|date',
-            'tanggal_selesai' => 'nullable|date',
-            'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            // Add validation rules for other fields if needed
-        ]);
+        try {
+            // Validate the incoming request data for updating user
+            $validatedData = $request->validate([
+                'name' => 'nullable|string',
+                'nip' => [
+                    'nullable',
+                    Rule::unique('users', 'nip')->ignore($user_id),
+                ],
+                'kota' => 'nullable|string',
+                'alamat' => 'nullable|string',
+                'agama' => 'nullable|string',
+                'tanggal_lahir' => 'nullable|date',
+                'no_hp' => [
+                    'nullable',
+                    Rule::unique('users', 'no_hp')->ignore($user_id),
+                ],
+                'email' => [
+                    'nullable',
+                    'email',
+                    Rule::unique('users', 'email')->ignore($user_id),
+                ],
+                'password' => 'nullable|string',
+                'jenis_kelamin' => 'nullable|string',
+                'role_id' => 'nullable|exists:roles,id',
+                'id_positions' => 'nullable|string',
+                'gaji_posisi' => 'nullable|string',
+                'tanggal_mulai' => 'nullable|date',
+                'tanggal_selesai' => 'nullable|date',
+                'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                // Add validation rules for other fields if needed
+            ]);
 
-        // Retrieve the user based on ID
-        $user = User::findOrFail($user_id);
+            // Retrieve the user based on ID
+            $user = User::findOrFail($user_id);
 
-        // Handle the update for the profile image if provided
-        if ($request->hasFile('foto_profil')) {
-            // Delete the existing profile image (if any)
-            if ($user->foto_profil) {
-                Storage::disk('public')->delete('uploads/foto_profil/' . basename($user->foto_profil));
+            // Handle the update for the profile image if provided
+            if ($request->hasFile('foto_profil')) {
+                // Delete the existing profile image (if any)
+                if ($user->foto_profil) {
+                    Storage::disk('public')->delete($user->foto_profil);
+                }
+
+                // Upload and store the new profile image with a custom name
+                $uploadedFile = $request->file('foto_profil');
+                $extension = $uploadedFile->getClientOriginalExtension();
+
+                // Generate a unique filename based on the current timestamp
+                $imageName = 'foto_profil_' . now()->timestamp . '.' . $extension;
+
+                // Store the file using Storage
+                $imagePath = $uploadedFile->storeAs('public/uploads/foto_profil', $imageName);
+
+                // Save only the relative path to the user's foto_profil field in the database
+                $validatedData['foto_profil'] = 'uploads/foto_profil/' . $imageName;
             }
 
-            // Upload and store the new profile image with a custom name
-            $imagePath = $request->file('foto_profil')->storeAs('uploads/foto_profil', 'foto_profil' . $user_id . '.' . $request->file('foto_profil')->getClientOriginalExtension(), 'public');
-            $validatedData['foto_profil'] = $imagePath;
+            // Update the user using the validated data
+            $user->update($validatedData);
+
+            // Return a success JSON response
+            return response()->json(['message' => 'User updated successfully', 'user' => $user]);
+        } catch (\Exception $e) {
+            // Handle any exceptions that may occur during the update process
+            return response()->json(['message' => 'Error updating user', 'error' => $e->getMessage()], 500);
         }
-
-        // Update the user using the validated data
-        $user->update($validatedData);
-
-        // Return a success JSON response
-        return response()->json(['message' => 'User updated successfully', 'user' => $user]);
     }
+
 
 
     public function getUserById($user_id)

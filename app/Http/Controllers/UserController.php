@@ -20,18 +20,34 @@ class UserController extends Controller
             ->get();
 
         // Fetch all users
-        $users = User::all();
+        // $users = User::all();
         // Filter User
-        $filter = $request->input('filter');
-        if ($filter === 'Aktif') {
-            $users = User::where('status', 'Aktif')->get();
-        } elseif ($filter === 'Tidak Aktif') {
-            $users = User::where('status', 'Tidak Aktif')->get();
-        } else {
-            $users = User::all();
+        // $filter = $request->input('filter');
+        // if ($filter === 'Aktif') {
+        //     $users = User::where('status', 'Aktif')->get();
+        // } elseif ($filter === 'Tidak Aktif') {
+        //     $users = User::where('status', 'Tidak Aktif')->get();
+        // } else {
+        //     $users = User::all();
+        // }
+
+        $status = $request->input('status'); // Get the 'status' parameter from the request
+
+        $users = User::with('role', 'position', 'gaji'); // Eager load relationships 'user' and 'kategori'
+    
+        // Filter user based on 'status' parameter
+        if ($status === 'Aktif' || $status === 'Tidak Aktif') {
+            $users->where('status', $status);
         }
+    
+        $user = $users->paginate(10);
+
+        $search = strtolower($request->input('search', ''));
+
+        // Gunakan query builder atau model sesuai dengan kebutuhan Anda
+        $users1 = User::whereRaw('LOWER(name) LIKE ?', ["%$search%"])->paginate(10);
         // Pass the user data to the view
-        return view('admin.user.index', compact('users', 'filter'));
+        return view('admin.user.index', compact('status', 'user', 'search', 'users1'));
     }
 
     public function create()
@@ -131,6 +147,15 @@ class UserController extends Controller
         return view('admin.user.edit', compact('item', 'positions', 'roles', 'cities'));
     }
 
+    public function show($id)
+    {
+        $item = User::findOrFail($id);
+        $cities = Regency::orderBy('name', 'asc')->get();
+        $positions = Position::all();
+        $roles = Role::all(); // Fetch all roles from the database
+
+        return view('admin.user.detail', compact('item', 'positions', 'roles', 'cities'));
+    }
 
 
     public function update(Request $request, $id)
@@ -192,5 +217,42 @@ class UserController extends Controller
 
         // Optionally, you can redirect somewhere after updating the user
         return redirect()->route('admin.user.index')->with('success', 'User updated successfully');
+    }
+
+    public function hitungGaji(Request $request)
+    {
+        // Mendapatkan user berdasarkan ID yang ada di request
+        $user = User::find($request->id);
+
+        // Pastikan user ditemukan sebelum melanjutkan perhitungan gaji
+        if ($user) {
+            // Panggil metode hitungGajiBulanSebelumnya pada model User
+            $user->hitungGajiBulanSebelumnya();
+
+            return redirect()->back()->with('success', 'Gaji berhasil dihitung.');
+        } else {
+            return redirect()->back()->with('error', 'User tidak ditemukan.');
+        }
+    }
+
+    public function searchByName(Request $request)
+    {
+        $status = $request->input('status'); // Get the 'status' parameter from the request
+
+        $users = User::with('role', 'position', 'gaji'); // Eager load relationships 'user' and 'kategori'
+    
+        // Filter user based on 'status' parameter
+        if ($status === 'Aktif' || $status === 'Tidak Aktif') {
+            $users->where('status', $status);
+        }
+    
+        $users = $users->paginate(10);
+        $search = strtolower($request->input('search', ''));
+
+        // Gunakan query builder atau model sesuai dengan kebutuhan Anda
+        $user = User::whereRaw('LOWER(name) LIKE ?', ["%$search%"])->paginate(10);
+
+        return view('admin.user.index', compact('user', 'search', 'status'))
+                ->with('noData', $user->isEmpty());
     }
 }

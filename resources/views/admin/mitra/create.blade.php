@@ -195,7 +195,7 @@
 
         $(function() {
             $('#kota').on('change', function() {
-                let id_kota = $('#kota').val();
+                let id_kota = $(this).val();
 
                 $.ajax({
                     type: 'POST',
@@ -206,39 +206,16 @@
                     cache: false,
 
                     success: function(msg) {
-                        // Get options, sort them, and re-add in ascending order
-                        var kotaSelect = $('#kota');
-                        var options = kotaSelect.find('option');
-                        var arr = options.map(function(_, option) {
-                            return {
-                                value: option.value,
-                                text: option.text
-                            };
-                        }).get();
-
-                        arr.sort(function(a, b) {
-                            return a.text.localeCompare(b.text);
-                        });
-
-                        kotaSelect.empty(); // Clear existing options
-
-                        $.each(arr, function(_, sortedOption) {
-                            kotaSelect.append($('<option>', {
-                                value: sortedOption.value,
-                                text: sortedOption.text
-                            }));
-                        });
-
-                        // Perform further actions as needed
+                        // Update #kecamatan without modifying #kota options
                         $('#kecamatan').html(msg);
                         $('#kelurahan').html('');
                     },
                     error: function(data) {
                         console.log('error:', data)
                     },
-                })
-            })
-        })
+                });
+            });
+        });
 
 
         $(function() {

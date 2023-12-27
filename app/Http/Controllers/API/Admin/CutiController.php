@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CutiRequest;
 use App\Models\Cuti;
+use App\Models\Kategori;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -15,8 +16,8 @@ class CutiController extends Controller
 {
     public function index(Request $request)
     {
-        $cuti_baru = Cuti::where('cutis.user_id', $request->id_user)->get();
-
+        $cuti_baru = Cuti::with('kategori')->where('user_id', $request->id_user)->get();
+    
         if ($cuti_baru->isEmpty()) {
             return response()->json([
                 'message' => 'Tidak ada data cuti untuk pengguna ini.',
@@ -28,6 +29,7 @@ class CutiController extends Controller
             ]);
         }
     }
+    
 
     public function updateByUserIdAndCutiId(Request $request, $user_id, $cuti_id)
     {
@@ -66,43 +68,9 @@ class CutiController extends Controller
         return response()->json(['message' => 'Cuti updated successfully', 'data' => $cuti]);
     }
 
-    // public function updateToDiterima($id)
-    // {
-    //     $pengajuanCuti = Cuti::findOrFail($id);
-
-    //     $pengajuanCuti->update([
-    //         'status' => 'diterima',
-    //     ]);
-
-    //     return response()->json(['message' => 'Pengajuan cuti diterima.']);
-    // }
-
-    // public function updateToDitolak($id)
-    // {
-    //     $pengajuanCuti = Cuti::findOrFail($id);
-
-    //     $pengajuanCuti->update([
-    //         'status' => 'ditolak',
-    //     ]);
-
-    //     return response()->json(['message' => 'Pengajuan cuti ditolak.']);
-    // }
-
-    // public function create()
-    // {
-    //     $user = User::all();
-    //     $kategori = Kategori::all();
-
-    //     return response()->json([
-    //         'user' => $user,
-    //         'kategori' => $kategori
-    //     ]);
-    // }
-
-
-
-    public function store(Request $request, $user_id)
-    {
+public function store(Request $request, $user_id)
+{
+    try {
         // Validasi request
         $validator = Validator::make($request->all(), [
             'id_kategori' => 'required',
@@ -112,18 +80,12 @@ class CutiController extends Controller
             'file_surat' => 'nullable|max:2048',
         ]);
 
-        // Jika validasi gagal, kembalikan respons JSON dengan pesan error
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
         // Temukan user
-        $user = User::find($user_id);
-
-        // Periksa apakah user ditemukan
-        if (!$user) {
-            return response()->json(['error' => 'User tidak ditemukan'], 404);
-        }
+        $user = User::findOrFail($user_id);
 
         // Periksa apakah user memiliki cukup cuti
         if ($user->jmlCuti <= 0) {
@@ -140,45 +102,79 @@ class CutiController extends Controller
             $filePath = $file->storeAs('public/surat', $fileName);
         }
 
+        // Ambil nama kategori dari ID kategori yang diterima melalui request
+        $kategori = Kategori::findOrFail($request->id_kategori);
+
         // Kurangi jumlah cuti user dan periksa apakah tidak kurang dari 0
-        $user->jmlCuti -= 1;
-        if ($user->jmlCuti < 0) {
-            return response()->json(['error' => 'Jumlah cuti tidak mencukupi'], 422);
-        }
         $user->save();
 
-        // Buat instance Cuti
+        // Buat instance Cuti dengan tambahan data nama_kategori
         $cuti = Cuti::create(array_merge(
             $validator->validated(),
             ['file_surat' => $fileName],
-            ['user_id' => $user_id] // Masukkan user_id ke dalam data yang akan disimpan
+            ['user_id' => $user_id], // Masukkan user_id ke dalam data yang akan disimpan
+            ['nama_kategori' => $kategori->nama_kategori] // Masukkan nama_kategori ke dalam data yang akan disimpan
         ));
 
-        // Kembalikan respons JSON berhasil
-        return response()->json(['message' => 'Pengajuan cuti berhasil diajukan'], 201);
+        // Data yang diposting
+        $postData = [
+            'id_kategori' => $cuti->id_kategori,
+            'keterangan' => $cuti->keterangan,
+            'tanggal_mulai' => $cuti->tanggal_mulai,
+            'tanggal_selesai' => $cuti->tanggal_selesai,
+            'file_surat' => $cuti->file_surat,
+            'user_id' => $cuti->user_id,
+            'nama_kategori' => $cuti->nama_kategori,
+        ];
+
+        // Kembalikan respons JSON berhasil beserta data yang diposting
+        return response()->json(['message' => 'Pengajuan cuti berhasil diajukan', 'data' => $postData], 200);
+
+    } catch (ModelNotFoundException $e) {
+        return response()->json(['error' => 'User atau Kategori tidak ditemukan'], 404);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Terjadi kesalahan saat memproses permintaan cuti'], 500);
     }
+}
+
 
 
     public function getCutiByUserId($userId)
     {
         try {
-            $cutiUser = Cuti::where('user_id', $userId)->get();
-
+            $cutiUser = Cuti::with('kategori:id,nama_kategori') // Load the 'kategori' relationship with specific columns
+                            ->where('user_id', $userId)
+                            ->get();
+    
             if ($cutiUser->isEmpty()) {
                 return response()->json([
                     'message' => 'Tidak ada data cuti untuk pengguna ini.',
                     'data' => null,
                 ]);
             } else {
+                // Manually include the 'nama_kategori' field from the 'kategori' relationship in the response
+                $cutiWithKategori = $cutiUser->map(function ($cuti) {
+                    return [
+                        'id' => $cuti->id,
+                        'user_id' => $cuti->user_id,
+                        'id_kategori' => $cuti->kategori -> id,
+                        'nama_kategori' => $cuti -> kategori-> nama_kategori,
+                        'keterangan' => $cuti->keterangan,
+                        'tanggal_mulai' => $cuti->tanggal_mulai,
+                        'tanggal_selesai' => $cuti->tanggal_selesai,
+                        'file_surat' => $cuti->file_surat,
+                        'created_at' => $cuti->created_at,
+                        'deleted_at' => $cuti->deleted_at,
+                        'updated_at' => $cuti->updated_at,
+                        'status' => $cuti->status,
+                    ];
+                });
                 return response()->json([
-                    'data' => $cutiUser
+                    'data' => $cutiWithKategori,
                 ]);
             }
         } catch (ModelNotFoundException $e) {
             return response()->json(['message' => 'User tidak ditemukan'], 404);
         }
-    }
-
-    // Other methods like edit, update, destroy can be implemented as needed for your API requirements
-    // ...
+}
 }

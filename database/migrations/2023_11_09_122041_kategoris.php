@@ -24,7 +24,8 @@ return new class extends Migration
             $table->timestamp('updated_at')->nullable();
         });
         DB::table('kategoris')->insert([
-            ['nama_kategori' => 'Cuti Tahunan' ],
+            ['nama_kategori' => 'Cuti Tahunan'],
+            ['nama_kategori' => 'Cuti Hamil']
         ]);
     }
 

@@ -16,6 +16,9 @@ class DinasRequest extends FormRequest
         return true;
     }
 
+
+    
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -35,7 +38,9 @@ class DinasRequest extends FormRequest
             'id_anggota4' => 'max:255',
             'nama_PIC_perusahaan' => 'required|max:255',
             'jabatan_PIC' => 'required|max:255',
-            'status' => 'max:255'
+            'status' => 'max:255',
+            'berita_acara' => 'file|max:10240', // Adjust max file size as needed
+            'bukti_surat' => 'file|max:10240',
         ];
     }
 }

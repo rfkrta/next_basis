@@ -9,7 +9,7 @@
             <i class="fa fa-file-text"></i> <a>Cuti</a>
         </li>
         <li style="cursor: pointer;" onclick="window.location='{{ route('admin.perjalanandinas.index') }}';">
-            <i class="fa fa-plane"></i> <a >Perjalanan Dinas</a>
+            <i class="fa fa-plane"></i> <a>Perjalanan Dinas</a>
         </li>
         <li style="cursor: pointer;" onclick="window.location='{{ route('admin.absensi.index') }}';">
             <i class="fa fa-users"></i> <a >Absensi</a>

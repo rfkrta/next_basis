@@ -63,9 +63,9 @@ class MitraController extends Controller
     {
         // Get semua data
         $provinces = Province::all();
-        $regencies = Regency::all();
-        $districts = District::all();
-        $villages = Village::all();
+        // $regencies = Regency::all();
+        // $districts = District::all();
+        // $villages = Village::all();
 
         // Cari berdasarkan nama
         // $provinces = Province::where('name', 'JAWA BARAT')->first();

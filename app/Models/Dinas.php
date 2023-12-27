@@ -14,7 +14,7 @@ class Dinas extends Model
     protected $fillable = [
         'id_mitras', 'kota_keberangkatan', 'komisi_dinas',
         'tanggal_mulai', 'tanggal_selesai', 'id_anggota1',
-        'id_anggota2', 'id_anggota3', 'id_anggota4', 'nama_PIC_perusahaan', 'jabatan_PIC', 'status', 'jumlah_anggota'
+        'id_anggota2', 'id_anggota3', 'id_anggota4', 'nama_PIC_perusahaan', 'jabatan_PIC', 'status', 'jumlah_anggota','berita_acara','bukti_surat'
     ];
 
     protected $hidden = [
@@ -51,7 +51,8 @@ class Dinas extends Model
         return $this->belongsTo(Regency::class, 'kota_keberangkatan', 'id', 'name'); // Adjust 'kota' with your foreign key column name
     }
 
-    public function biayaDinas() {
+    public function biayaDinas()
+    {
         return $this->belongsTo(BiayaDinas::class, 'id', 'perjalanan_dinas_id');
     }
 
@@ -79,7 +80,6 @@ class Dinas extends Model
         static::saving(function ($perjalananDinas) {
             $perjalananDinas->jumlah_anggota = $perjalananDinas->hitungJumlahAnggota();
         });
-
     }
 
     // Metode untuk menghitung komisi

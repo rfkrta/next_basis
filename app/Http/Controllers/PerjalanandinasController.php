@@ -11,7 +11,9 @@ use App\Models\Regency;
 use App\Models\User;
 use App\Models\BiayaDinas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 
 class PerjalanandinasController extends Controller
@@ -198,10 +200,39 @@ class PerjalanandinasController extends Controller
     public function store(DinasRequest $request)
     {
         $data = $request->all();
-        // dd($data);
+
+        // Handle file uploads for Berita Acara
+        if ($request->hasFile('berita_acara')) {
+            $beritaAcara = $request->file('berita_acara');
+            $dateNow = now()->format('dmY');
+            $beritaAcaraPath = $beritaAcara->storeAs('public/uploads/berita_acara', 'berita_acara_' . $dateNow . '.' . $beritaAcara->getClientOriginalExtension());
+
+            if ($beritaAcaraPath) {
+                $data['berita_acara'] = $beritaAcaraPath;
+            } else {
+                return redirect()->back()->withErrors(['error' => 'Failed to upload Berita Acara file'])->withInput();
+            }
+        }
+
+        // Handle file uploads for Surat
+        if ($request->hasFile('bukti_surat')) {
+            $buktiSurat = $request->file('bukti_surat');
+            $dateNow = now()->format('dmY');
+            $buktiSuratPath = $buktiSurat->storeAs('public/uploads/bukti_surat', 'bukti_surat_' . $dateNow . '.' . $buktiSurat->getClientOriginalExtension());
+
+            if ($buktiSuratPath) {
+                $data['bukti_surat'] = $buktiSuratPath;
+            } else {
+                return redirect()->back()->withErrors(['error' => 'Failed to upload Surat file'])->withInput();
+            }
+        }
+
+        // Save other form data
         Dinas::create($data);
+
         return redirect()->route('admin.perjalanandinas.index');
     }
+
 
     /**
      * Display the specified resource.

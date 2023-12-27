@@ -27,10 +27,14 @@ return new class extends Migration
             $table->string('jabatan_PIC')->nullable();
             $table->string('kota_keberangkatan')->nullable();
             $table->string('komisi_dinas')->nullable();
+            $table->integer('jumlah_anggota')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamp('updated_at')->nullable();
-
+            // Menambahkan kolom untuk upload berita acara
+            $table->string('berita_acara')->nullable();
+            // Menambahkan kolom untuk upload bukti surat
+            $table->string('bukti_surat')->nullable();
         });
     }
 
@@ -43,6 +47,9 @@ return new class extends Migration
     {
         //
         Schema::dropIfExists('dinas');
-
+        Schema::table('dinas', function (Blueprint $table) {
+            // Menghapus kolom berita acara dan bukti surat jika diperlukan
+            $table->dropColumn(['berita_acara', 'bukti_surat']);
+        });
     }
 };

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\Admin\KaryawanController as AdminKaryawanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventarisController;
 use App\Http\Controllers\KaryawanController;
@@ -9,6 +11,7 @@ use App\Http\Controllers\PengajuancutiController;
 use App\Http\Controllers\PerjalanandinasController;
 use App\Http\Controllers\RouterController;
 use App\Http\Controllers\UserController;
+use App\Models\Absensi;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {

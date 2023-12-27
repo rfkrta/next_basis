@@ -125,6 +125,11 @@
                             @endforeach
                         </select>
                     </div>
+                    <!-- Profile Image -->
+                        <div class="tgl1">
+                            <h5>Foto Profil</h5>
+                            <input type="file" name="foto_profil" id="foto_profil" class="date">
+                        </div>
                 </div>
                 <div class="button">
                     <button type="submit" class="button-cong">
@@ -147,6 +152,7 @@
 <!-- <script type="text/javascript" src="{{ url('admin/js/jquery-1.10.2.js') }}"></script> -->
 <!-- <script type="text/javascript" src="{{ url('admin/js/jquery-3.7.1.min.js') }}"></script> -->
 <script type="text/javascript" src="{{ url('admin/js/jquery-3.6.0.min.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
     $(function() {
         $.ajaxSetup({
@@ -158,20 +164,32 @@
             $('#id_positions').on('change', function() {
                 var selectedValue = $(this).val();
 
-                $.ajax({
-                    url: "{{ route('getGajiPosisiById', ':id') }}".replace(':id', selectedValue),
-                    type: 'GET',
-                    success: function(data) {
-                        // Format the received salary as IDR before setting it in the input field
-                        var formattedSalary = 'Rp.' + new Intl.NumberFormat('id-ID').format(data.gaji_posisi);
+                if (selectedValue !== '') {
+                    $.ajax({
+                        url: '/getGajiPosisiById?id_positions=' + selectedValue,
+                        type: 'GET',
+                        success: function(data) {
+                            var formattedSalary = 'Rp.' + new Intl.NumberFormat('id-ID').format(data.gaji_posisi);
+                            $('#gaji_posisi').val(formattedSalary);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
+                } else {
+                    $('#gaji_posisi').val('');
+                }
+            });
+            // Event listener for form submission
+            $('#ubah').on('submit', function() {
+                var currentVal = $('#gaji_posisi').val();
+                var originalVal = parseInt(currentVal.replace(/[^\d]/g, ''));
 
-                        // Update the gaji_posisi field value here with the formatted salary
-                        $('#gaji_posisi').val(formattedSalary);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(error);
-                    }
-                });
+                // Update the input field with the original value (as integer)
+                $('#gaji_posisi').val(originalVal);
+
+                // Return true to continue form submission
+                return true;
             });
         });
 

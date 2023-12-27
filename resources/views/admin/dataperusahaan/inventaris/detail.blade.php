@@ -17,6 +17,7 @@
             </div>
         @endif
 
+<<<<<<< Updated upstream
         <div class="cong-box2">
             <form action="{{ route('admin.dataperusahaan.inventaris.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -43,6 +44,34 @@
                         <div class="tgl1">
                             <h5>Tanggal Diperoleh</h5>
                             <input type="date" name="Tanggal_Diperoleh" id="Tanggal_Diperoleh" class="date" placeholder="Pilih Tanggal Perolehan Inventaris, di sini" value="{{ $item->Tanggal_Diperoleh }}" readonly>
+=======
+        <div class="cong-box">
+            <form action="{{ route('admin.dataperusahaan.inventaris.store') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="content">
+                    <div class="form-1">
+                        <label for="Kode">Kode Inventaris</label>
+                        <input type="text" name="Kode" id="Kode" value="{{ $item->Kode }}" readonly>
+                    </div>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="Nama_Barang">Nama Inventaris</label>
+                            <input type="text" name="Nama_Barang" id="Nama_Barang" placeholder="Tuliskan Nama Inventaris, di sini" value="{{ $item->Nama_Barang }}" readonly>
+                        </div>
+                        <div class="form-1">
+                            <label for="Kategori">Kategori Inventaris</label>
+                            <input type="text" name="Kategori" id="Kategori" placeholder="Tuliskan Nama Inventaris, di sini" value="{{ $item->kategoriInventaris->nama_inv }}" readonly>
+                        </div>
+                    </div>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="Jumlah">Jumlah</label>
+                            <input type="number" name="Jumlah" id="Jumlah" placeholder="Tuliskan Jumlah Inventaris, di sini" value="{{ $item->Jumlah }}" readonly>
+                        </div>
+                        <div class="form-1">
+                            <label for="Tanggal_Diperoleh">Tanggal Diperoleh</label>
+                            <input type="date" name="Tanggal_Diperoleh" id="Tanggal_Diperoleh" placeholder="Pilih Tanggal Perolehan Inventaris, di sini" value="{{ $item->Tanggal_Diperoleh }}" readonly>
+>>>>>>> Stashed changes
                         </div>
                     </div>
                 </div>

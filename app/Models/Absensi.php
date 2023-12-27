@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+=======
+use Illuminate\Database\Eloquent\SoftDeletes;
+>>>>>>> Stashed changes
 =======
 use Illuminate\Database\Eloquent\SoftDeletes;
 >>>>>>> Stashed changes
@@ -17,6 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Absensi extends Model
 {
     use HasFactory;
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 
@@ -43,6 +48,8 @@ class Absensi extends Model
 =======
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
     use SoftDeletes;
 
     protected $fillable = [
@@ -59,6 +66,9 @@ class Absensi extends Model
         return $this->belongsTo(User::class);
     }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes

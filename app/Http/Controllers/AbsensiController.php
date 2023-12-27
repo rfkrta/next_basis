@@ -26,10 +26,17 @@ class AbsensiController extends Controller
     public function create()
     {
         $users = User::all();
+<<<<<<< Updated upstream
         $absen = Absensi::all();
         $kategori = KategoriAbsensi::all();
 
         return view('admin.absensi.create', compact('kategori', 'users'));
+=======
+        $absen = Absensi::first();
+        $kategori = KategoriAbsensi::all();
+
+        return view('admin.absensi.create', compact('kategori', 'users','absen'));
+>>>>>>> Stashed changes
     }
 
     public function store(Request $request)

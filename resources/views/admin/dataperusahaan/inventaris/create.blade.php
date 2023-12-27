@@ -20,6 +20,7 @@
             </div>
         @endif
 
+<<<<<<< Updated upstream
         <div class="cong-box2">
             <form action="{{ route('admin.dataperusahaan.inventaris.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -54,14 +55,60 @@
                         </div>
                         <div class="tgl1">
                             <h5>Tanggal Diperoleh</h5>
+=======
+        <div class="cong-box">
+            <form action="{{ route('admin.dataperusahaan.inventaris.store') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="content">
+                    <div class="form-1">
+                        <label for="Kode">Kode Inventaris</label>
+                        <input type="text" name="Kode" id="Kode" class="form-control" value="{{ $Kode }}" readonly>
+                    </div>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="Nama_Barang">Nama Inventaris</label>
+                            <input type="text" name="Nama_Barang" id="Nama_Barang" class="date" placeholder="Tuliskan Nama Inventaris, di sini" value="{{ old('Nama_Barang') }}" required>
+                        </div>
+                        <div class="form-1">
+                            <label for="Kategori">Kategori Inventaris</label>
+                            <select name="Kategori" id="Kategori" required class="form-control1" required>
+                                <option>
+                                    Pilih Kategori Inventaris
+                                </option>
+                            @foreach ($kategoriInventaris as $kategori)
+                                <option value="{{ $kategori->id }}">{{ $kategori->nama_inv }}</option>
+                            @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="Jumlah">Jumlah</label>
+                            <input type="number" name="Jumlah" id="Jumlah" class="date" placeholder="Tuliskan Jumlah Inventaris, di sini" value="{{ old('Jumlah') }}" required>
+                        </div>
+                        <div class="form-1">
+                            <label for="Tanggal_Diperoleh">Tanggal Diperoleh</label>
+>>>>>>> Stashed changes
                             <input type="date" name="Tanggal_Diperoleh" id="Tanggal_Diperoleh" class="date" placeholder="Pilih Tanggal Perolehan Inventaris, di sini" value="{{ old('Tanggal_Diperoleh') }}" required>
                         </div>
                     </div>
                     <div class="button">
+<<<<<<< Updated upstream
                         <button type="submit" class="btny1 btn-primary btn-block" onclick="openConfirmationAddModal()">
                             Tambah Inventaris
                         </button>
                     </div>
+=======
+                        <button type="submit" class="button-cong" onclick="openConfirmationAddModal()">
+                            Tambah Inventaris
+                        </button>
+                    </div>
+                    <!-- <div class="button">
+                        <button type="submit" class="btny1 btn-primary btn-block" onclick="openConfirmationAddModal()">
+                            Tambah Inventaris
+                        </button>
+                    </div> -->
+>>>>>>> Stashed changes
                 </div>
             </form>
         </div>

@@ -8,7 +8,10 @@
     <div class="view">
         <div class="search">
             <i class="fa fa-search"></i>
-            <input type="text" name="" class="input1" placeholder="Search">
+            <form id="searchForm" action="{{ route('searchByNameCuti') }}" method="GET">
+                <input type="text" class="input1" name="search" id="searchInput" placeholder="Cari berdasarkan nama" value="{{ $search }}">
+            </form>
+            <!-- <input type="text" name="" class="input1" placeholder="Search"> -->
         </div>
         <div class="plus">
             <i class="fa fa-plus"></i>
@@ -39,6 +42,7 @@
     </div>
     </table>
     <div class="line5"></div>
+<<<<<<< Updated upstream
     <div class="cong-box">
         <div>
             <table class="box" cellspacing="0">
@@ -120,6 +124,100 @@
                 </tbody>
             </table>
         </div>
+=======
+    <div id="content">
+        <!-- Content area goes here -->
+        <table class="table" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="lebarTabel">No</th>
+                    <th>Nama</th>
+                    <th>Kategori</th>
+                    <th>Tanggal Mulai</th>
+                    <th>Tanggal Berakhir</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($cutis as $cuti)
+                <tr>
+                    <td>{{ $cuti->id }}</td>
+                    <td>{{ $cuti->user->name }}</td>
+                    <td>{{ $cuti->kategori->nama_kategori }}</td>
+                    <td>{{ \Carbon\Carbon::parse($cuti->tanggal_mulai)->format('d-m-Y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($cuti->tanggal_selesai)->format('d-m-Y') }}</td>
+                    <td>{{ $cuti->status }}</td>
+                    <td>
+                        <div class="btn-group">
+                            <form id="formDiterima" method="POST" action="{{ route('admin.pengajuancuti.updateToDiterima', $cuti->id) }}" onsubmit="return confirm('Anda yakin ingin menerima pengajuan ini?');">
+                                @csrf
+                                @method('PUT')
+                                <button type="submit" class="btn btn-dangger" id="btnDiterima">
+                                    <i class="btn1 fa fa-check"></i>
+                                </button>
+                            </form>
+                            <!-- Form to update status to Ditolak -->
+                            <!-- <form id="formDitolak" method="POST" action="{{ route('admin.pengajuancuti.updateToDitolak', $cuti->id) }}" onsubmit="return showConfirmationModal('formDitolak', 'btnDitolak');"> -->
+                            <form id="formDitolak" method="POST" action="{{ route('admin.pengajuancuti.updateToDitolak', $cuti->id) }}" onsubmit="return confirm('Anda yakin ingin menolak pengajuan ini?');">
+                                @csrf
+                                @method('PUT')
+                                <button type="submit" class="btn btn-danger" id="btnDitolak">
+                                    <i class="btn2 fa fa-times"></i>
+                                </button>
+                            </form>
+                            <a href="{{ route('admin.pengajuancuti.show', $cuti->id) }}" class="btn btn-danger">
+                                <i class="btn3 fa fa-eye"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                @empty
+                    @if($cutis->isEmpty() && $status === null)
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            <img src="{{ asset('img/1.png') }}" alt="none">
+                            <p>Tidak ada data pengajuan cuti</p>
+                        </td>
+                    </tr>
+                    @elseif($cutis->isEmpty() && $status === 'ditolak')
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            <img src="{{ asset('img/1.png') }}" alt="none">
+                            <p>Tidak ada data pengajuan cuti ditolak</p>
+                        </td>
+                    </tr>
+                    @elseif($cutis->isEmpty() && $status === 'tertunda')
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            <img src="{{ asset('img/1.png') }}" alt="none">
+                            <p>Tidak ada data pengajuan cuti tertunda</p>
+                        </td>
+                    </tr>
+                    @elseif($cutis->isEmpty() && $status === 'diterima')
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            <img src="{{ asset('img/1.png') }}" alt="none">
+                            <p>Tidak ada data pengajuan cuti diterima</p>
+                        </td>
+                    </tr>
+                    @elseif($noData)
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            <img src="{{ asset('img/1.png') }}" alt="none">
+                            <p>Tidak ada data pengajuan cuti</p>
+                        </td>
+                    </tr>
+                    @endif
+                @endforelse
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <ul class="pagination">
+            {{ $cutis->links() }}
+        </ul>
+>>>>>>> Stashed changes
     </div>
 </div>
 <!-- Alert -->
@@ -162,6 +260,11 @@
                 }
             });
         });
+    });
+
+    document.getElementById('searchInput').addEventListener('input', function() {
+        // Mengirim permintaan pencarian saat input berubah
+        document.getElementById('searchForm').submit();
     });
 
     // function showConfirmationModal(formDiterima, btnDiterima) {

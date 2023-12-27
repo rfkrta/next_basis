@@ -26,6 +26,11 @@ return new class extends Migration
             $table->point('lokasi')->nullable();
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+            $table->string('status')->nullable();
+            $table->SoftDeletes();
+>>>>>>> Stashed changes
 =======
             $table->string('status')->nullable();
             $table->SoftDeletes();

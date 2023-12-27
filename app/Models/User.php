@@ -33,7 +33,12 @@ class User extends Authenticatable
         'role_id',
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         'tanggal_mulai', 'tanggal_selesai', 'status', 'id_positions', 'gaji_posisi', 'mitra_tertuju', 'komisi_terkumpul'
+=======
+        'tanggal_mulai', 'tanggal_selesai', 'status', 'id_positions', 'gaji_posisi', 'mitra_tertuju', 'komisi_terkumpul',
+        'gaji_bulanan'
+>>>>>>> Stashed changes
 =======
         'tanggal_mulai', 'tanggal_selesai', 'status', 'id_positions', 'gaji_posisi', 'mitra_tertuju', 'komisi_terkumpul',
         'gaji_bulanan'
@@ -93,7 +98,10 @@ class User extends Authenticatable
     }
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 
@@ -160,6 +168,9 @@ class User extends Authenticatable
         return $this->hasMany(Gaji::class);
     }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes

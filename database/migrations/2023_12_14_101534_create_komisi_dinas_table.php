@@ -24,6 +24,10 @@ return new class extends Migration
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+            $table->integer('dinas_id');
+>>>>>>> Stashed changes
 =======
             $table->integer('dinas_id');
 >>>>>>> Stashed changes

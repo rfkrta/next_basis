@@ -33,6 +33,7 @@ Route::middleware('laravel10')->group(function () {
     Route::put('/admin/pengajuancuti/{id}/updateToDitolak', [PengajuancutiController::class, 'updateToDitolak'])->name('admin.pengajuancuti.updateToDitolak');
     Route::get('/admin/pengajuancuti/create', [PengajuancutiController::class, 'create'])->name('admin.pengajuancuti.create');
     Route::post('/admin/pengajuancuti/store', [PengajuancutiController::class, 'store'])->name('admin.pengajuancuti.store');
+    Route::get('/search/cuti', [PengajuancutiController::class, 'searchByName'])->name('searchByNameCuti');
 
 
 
@@ -52,7 +53,12 @@ Route::middleware('laravel10')->group(function () {
     Route::get('/getKaryawanOptions', [PerjalanandinasController::class, 'getKaryawanOptions'])->name('getKaryawanOptions');
     Route::put('/admin/perjalanandinas/{id}/biaya', [PerjalanandinasController::class, 'updateBiaya'])->name('admin.perjalanandinas.updateBiaya');
     Route::put('/admin/perjalanandinas/{id}/updateToDiterima', [PerjalanandinasController::class, 'updateToDiterima'])->name('admin.perjalanandinas.updateToDiterima');
+<<<<<<< Updated upstream
     Route::put('/admin/perjalanandinas/{id}/updateToDitolak', [PerjalanandinasController::class, 'updateToDitolak'])->name('admin.perjalanandinas.updateToDitolak');  
+=======
+    Route::put('/admin/perjalanandinas/{id}/updateToDitolak', [PerjalanandinasController::class, 'updateToDitolak'])->name('admin.perjalanandinas.updateToDitolak');
+    Route::get('/search/dinas', [PerjalanandinasController::class, 'searchByName'])->name('searchByNameDinas');  
+>>>>>>> Stashed changes
 
     // Karyawan
     Route::get('/admin/karyawan', [KaryawanController::class, 'index'])->name('admin.karyawan.index');
@@ -65,6 +71,7 @@ Route::middleware('laravel10')->group(function () {
     Route::get('/getGajiPosisiById/{id}', [KaryawanController::class, 'getGajiPosisiById'])->name('getGajiPosisiById');
     Route::get('/admin/karyawan/filter', [KaryawanController::class, 'filterKaryawan'])->name('admin.karyawan.filter');
     Route::get('/get-nip-by-name/{name}', [KaryawanController::class, 'getNIPByName'])->name('getNIPByName');
+    Route::get('/search/karyawan', [KaryawanController::class, 'searchByName'])->name('searchByNameKaryawan');
 
     // Mitra
     Route::get('/admin/mitra', [MitraController::class, 'index'])->name('admin.mitra.index');
@@ -76,6 +83,7 @@ Route::middleware('laravel10')->group(function () {
     Route::get('/admin/mitra/{id}', [MitraController::class, 'edit'])->name('admin.mitra.edit');
     Route::get('/admin/mitra/detail/{id}', [MitraController::class, 'show'])->name('admin.mitra.show');
     Route::put('/admin/mitra/{id}', [MitraController::class, 'update'])->name('admin.mitra.update');
+    Route::get('/search/mitra', [MitraController::class, 'searchByName'])->name('searchByNameMitra');
 
     // Inventaris
     Route::get('/admin/dataperusahaan/inventaris', [InventarisController::class, 'index'])->name('admin.dataperusahaan.inventaris.index');
@@ -84,16 +92,27 @@ Route::middleware('laravel10')->group(function () {
     Route::get('/admin/dataperusahaan/inventaris/{id}/detail', [InventarisController::class, 'show'])->name('admin.dataperusahaan.inventaris.show');
     Route::get('/admin/dataperusahaan/inventaris/{id}/edit', [InventarisController::class, 'edit'])->name('admin.dataperusahaan.inventaris.edit');
     Route::put('/admin/dataperusahaan/inventaris/{id}/update', [InventarisController::class, 'update'])->name('admin.dataperusahaan.inventaris.update');
+<<<<<<< Updated upstream
+=======
+    Route::get('/search/inventaris', [InventarisController::class, 'searchByName'])->name('searchByNameInventaris');
+>>>>>>> Stashed changes
 
     // Router
     Route::get('/admin/dataperusahaan/router', [RouterController::class, 'index'])->name('admin.dataperusahaan.router.index');
     Route::post('/admin/dataperusahaan/router/store', [RouterController::class, 'store'])->name('admin.dataperusahaan.router.store');
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
     Route::get('/load-router-data', [RouterController::class, 'loadRouterData']);
     Route::get('/get-router/{id}', [RouterController::class, 'getRouter']);
     Route::put('/update-router/{id}', [RouterController::class, 'update'])->name('update-router');
     Route::delete('/delete-router/{id}', [RouterController::class, 'destroy'])->name('delete-router');
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+    Route::get('/search/router', [RouterController::class, 'searchByName'])->name('searchByNameRouter');
 >>>>>>> Stashed changes
 
     // User
@@ -106,4 +125,8 @@ Route::middleware('laravel10')->group(function () {
     Route::get('/admin/user/detail/{id}', [UserController::class, 'show'])->name('admin.user.show');
     // Route::post('/admin/user/{id}/hitung-gaji', [GajiController::class, 'hitungGaji'])->name('user.hitungGaji');
     Route::post('/admin/user/{id}/hitung-gaji', [UserController::class, 'hitungGaji'])->name('admin.user.hitungGaji');
+<<<<<<< Updated upstream
+=======
+    Route::get('/search/user', [UserController::class, 'searchByName'])->name('searchByNameUser');
+>>>>>>> Stashed changes
 });

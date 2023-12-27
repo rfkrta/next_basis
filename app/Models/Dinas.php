@@ -94,6 +94,7 @@ class Dinas extends Model
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             $komisi = $this->komisi_dinas;
             $biayaPerAnggota = $this->komisi_dinas / $this->hitungJumlahAnggota();
             // Logika penghitungan komisi sesuai kebutuhan
@@ -169,6 +170,8 @@ class Dinas extends Model
                 'mitra_tertuju' => $mitraTujuan, // Simpan mitra yang ditujuan oleh user
             ]);
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======
@@ -256,6 +259,9 @@ class Dinas extends Model
             }
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -277,9 +283,12 @@ class Dinas extends Model
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     }
 
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======
@@ -308,6 +317,9 @@ class Dinas extends Model
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -324,7 +336,10 @@ class Dinas extends Model
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======
@@ -338,6 +353,9 @@ class Dinas extends Model
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes

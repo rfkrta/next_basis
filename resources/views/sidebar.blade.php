@@ -21,8 +21,13 @@
             <i class="fa fa-folder-open"></i>
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             <a href="#">Data Perusahaan</a>
             <span class="span4"><i class="fa fa-angle-right"></i></span>
+=======
+            <a>Inventaris</a>
+            <!-- <span class="span4"><i class="fa fa-angle-right"></i></span> -->
+>>>>>>> Stashed changes
 =======
             <a>Inventaris</a>
             <!-- <span class="span4"><i class="fa fa-angle-right"></i></span> -->
@@ -52,7 +57,7 @@
             <img src="{{ asset('img/avatar.svg') }}" alt="">
             <div class="admin1">
             <a href="#">{{ auth()->user()->name }}</a>
-                <h6>Admin</h6>
+                <h6>{{ auth()->user()->role->name }}</h6>
             </div>
             <div class="admin2">
                 <a href="{{ route('logout') }}" class="btn-danger">

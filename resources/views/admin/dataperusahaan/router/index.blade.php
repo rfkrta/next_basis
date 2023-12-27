@@ -8,7 +8,10 @@
         <div class="view">
             <div class="search">
                 <i class="fa fa-search"></i>
-                <input type="text" name="" class="input1" placeholder="Search">
+                <form id="searchForm" action="{{ route('searchByNameRouter') }}" method="GET">
+                    <input type="text" class="input1" name="search" id="searchInput" placeholder="Cari berdasarkan nama" value="{{ $search }}">
+                </form>
+                <!-- <input type="text" name="" class="input1" placeholder="Search"> -->
             </div>
             <div class="plus">
                 <i class="fa fa-plus"></i>
@@ -18,12 +21,20 @@
                 </button>
             </div>
         </div>
-
-        <div class="cong-box">
-            <div>
-                <table  class="box" cellspacing="0">
-                    <thead>
+        <div id="content">
+        <!-- Content area goes here -->
+            <table class="table" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Kode</th>
+                        <th>MAC Address</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($router as $item)
                         <tr>
+<<<<<<< Updated upstream
                             <th>No</th>
                             <th>MAC Address</th>
                             <th>Action</th>
@@ -77,16 +88,65 @@
 =======
     <!-- Modal Tambah -->
 >>>>>>> Stashed changes
+=======
+                            <td>{{ $item->kode_router }}</td>
+                            <td>{{ $item->nama_router }}</td>
+                            <td>
+                                <!-- <div class="btn-group"> -->
+                                    <a class="btn btn-danger btn-edit" data-id="{{ $item->id }}">
+                                        <i class="btn3 fa fa-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-danger btn-delete" data-id="{{ $item->id }}">
+                                        <i class="btn2 fa fa-trash"></i>
+                                    </a>
+                                <!-- </div> -->
+                            </td>
+                        </tr>
+                    @empty
+                    @if($router->isEmpty())
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            <img src="{{ asset('img/1.png') }}" alt="none">
+                            <p>Tidak ada data Router</p>
+                        </td>
+                    </tr>
+                    @elseif($noData)
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            <img src="{{ asset('img/1.png') }}" alt="none">
+                            <p>Tidak ada data Router</p>
+                        </td>
+                    </tr>
+                    @endif
+                    @endforelse
+                </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <ul class="pagination">
+                {{ $router->links() }}
+            </ul>
+        </div>
+    </div>
+    <!-- Modal Tambah -->
+>>>>>>> Stashed changes
     <div id="tambahRouterModal" class="modal1">
         <div class="modal-content1">
             <h2>Tambah Router</h2>
             <div class="linex"></div>
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
             <form id="formTambahRouter" action="{{ route('admin.dataperusahaan.router.store') }}" method="post" enctype="multipart/form-data">
 =======
             <form id="formTambahRouter">
 >>>>>>> Stashed changes
                 @csrf
+=======
+            <form id="formTambahRouter">
+                @csrf
+                <label for="kode_router">Kode Router :</label>
+                <input type="text" id="kode_router" name="kode_router" value="{{ $kode_router }}" readonly>
+>>>>>>> Stashed changes
                 <label for="nama_router">Nama Router :</label>
                 <input type="text" id="nama_router" name="nama_router" placeholder="Masukkan Router" required>
                 <div class="btn-groupx">
@@ -97,18 +157,25 @@
         </div>
     </div>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 @endsection
 
 @push('addon-script')
 <script type="text/javascript" src="{{ url('admin/js/jquery-1.10.2.js') }}"></script>
 =======
+=======
+>>>>>>> Stashed changes
 
     <!-- Modal Edit -->
     <div id="editRouterModal" class="modal1">
         <div class="modal-content1">
             <h2>Edit Router</h2>
             <!-- Menampilkan ID dan Nama Router -->
+<<<<<<< Updated upstream
             <p>ID Router: <span id="displayRouterId"></span></p>
+=======
+            <p>Kode Router: <span id="displayRouterId"></span></p>
+>>>>>>> Stashed changes
             <p>Nama Router: <span id="displayNamaRouter"></span></p>
             <div class="linex"></div>
             <form id="formEditRouter" action="{{ route('update-router', ['id' => '__router_id__']) }}" method="post">
@@ -129,6 +196,9 @@
 @push('addon-script')
 <!-- <script type="text/javascript" src="{{ url('admin/js/jquery-1.10.2.js') }}"></script> -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 <script type="text/javascript">
     $(function() {
@@ -170,10 +240,13 @@
         document.getElementById('formTambahRouter').onsubmit = function (event) {
         event.preventDefault();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         // Lakukan sesuatu dengan data yang diinput
         closeModal();
         };
 =======
+=======
+>>>>>>> Stashed changes
 
             // Mengambil data dari formulir
             var nama_router = document.getElementById('nama_router').value;
@@ -241,7 +314,11 @@
                     $('#editRouterId').val(data.id);
 
                     // Menetapkan nilai ID dan Nama Router pada elemen span di modal
+<<<<<<< Updated upstream
                     $('#displayRouterId').text(data.id);
+=======
+                    $('#displayRouterId').text(data.kode_router);
+>>>>>>> Stashed changes
                     $('#displayNamaRouter').text(data.nama_router);
 
                     // Mengubah action pada form untuk menyertakan ID router yang sedang diedit
@@ -266,6 +343,17 @@
 
         // Menangani klik di luar modal untuk menutup modal
         window.onclick = function (event) {
+<<<<<<< Updated upstream
+=======
+            var modal = document.getElementById('tambahRouterModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+
+        // Menangani klik di luar modal untuk menutup modal
+        window.onclick = function (event) {
+>>>>>>> Stashed changes
             var modal = document.getElementById('editRouterModal');
             if (event.target === modal) {
                 modal.style.display = 'none';
@@ -291,6 +379,14 @@
                     },
                 });
             }
+        });
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            // Mengirim permintaan pencarian saat input berubah
+            document.getElementById('searchForm').submit();
         });
 >>>>>>> Stashed changes
     });

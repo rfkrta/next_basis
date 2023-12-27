@@ -17,34 +17,35 @@
             </div>
         @endif
 
-        <div class="cong-box4">
+        <div class="cong-box">
             <form action="{{ route('admin.perjalanandinas.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="content">
-                    <div class="nama">
-                        <h5>Nama Perusahaan</h5>
-                        <input type="text" name="id_mitras" id="id_mitras" class="input2" value="{{ $item->mitra->nama_mitra }}" readonly>
+                    <div class="form-1">
+                        <label for="id_mitras">Perusahaan</label>
+                        <input type="text" name="id_mitras" id="id_mitras" value="{{ $item->mitra->nama_mitra }}" readonly>
                     </div>
-                    <div class="tglx1">
-                        <div class="tgl1">
-                            <h5>Kota Keberangkatan</h5>
-                            <input type="text" name="kota_keberangkatan" id="kota_keberangkatan" class="date" value="{{ $item->regency->name }}" readonly>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="kota_keberangkatan">Kota Keberangkatan</label>
+                            <input type="text" name="kota_keberangkatan" id="kota_keberangkatan" value="{{ $item->regency->name }}" readonly>
                         </div>
-                        <div class="tgl1">
-                            <h5>Komisi</h5>
-                            <input type="number" name="komisi_dinas" id="komisi_dinas" class="date" value="{{ $item->komisi_dinas }}" readonly>
-                        </div>
-                    </div>
-                    <div class="tgl">
-                        <div class="tgl1">
-                            <h5>Tanggal Mulai</h5>
-                            <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="date" value="{{ $item->tanggal_mulai }}" readonly>
-                        </div>
-                        <div class="tgl1">
-                            <h5>Tanggal Selesai</h5>
-                            <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="date" value="{{ $item->tanggal_selesai }}" readonly>
+                        <div class="form-1">
+                            <label for="komisi_dinas">Komisi</label>
+                            <input type="number" name="komisi_dinas" id="komisi_dinas" value="{{ $item->komisi_dinas }}" readonly>
                         </div>
                     </div>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="tanggal_mulai">Tanggal Mulai</label>
+                            <input type="date" name="tanggal_mulai" id="tanggal_mulai" value="{{ $item->tanggal_mulai }}" readonly>
+                        </div>
+                        <div class="form-1">
+                            <label for="tanggal_selesai">Tanggal Selesai</label>
+                            <input type="date" name="tanggal_selesai" id="tanggal_selesai" value="{{ $item->tanggal_selesai }}" readonly>
+                        </div>
+                    </div>
+<<<<<<< Updated upstream
                     <h5 class="tim1">Tim</h5>
                     <div class="tglx1">
                         <div class="tgl1">
@@ -60,26 +61,48 @@
                         <div class="tgl1">
                             <h5>Anggota 3</h5>
                             <input type="text" name="id_anggota3" id="id_anggota3" class="date" value="{{ $item->user2->name ?: 'Belum diisi' }}" readonly>
+=======
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="id_anggota1">Anggota 1</label>
+                            <input type="text" name="id_anggota1" id="id_anggota1" value="{{ $item->user->name }}" readonly>
+                        </div>
+                        <div class="form-1">
+                            <label for="id_anggota2">Anggota 2</label>
+                            <input type="text" name="id_anggota2" id="id_anggota2" value="{{ $item->user1->name }}" readonly>
+                        </div>
+                    </div>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="id_anggota3">Anggota 3</label>
+                            <input type="text" name="id_anggota3" id="id_anggota3" value="{{ $item->user2->name ?: 'Belum diisi' }}" readonly>
+>>>>>>> Stashed changes
                             @if ($item->user2->wasRecentlyCreated)
                                 <p>Anggota 3 belum diisi.</p>
                             @endif
                         </div>
+<<<<<<< Updated upstream
                         <div class="tgl1">
                             <h5>Anggota 4</h5>
                             <input type="text" name="id_anggota4" id="id_anggota4" class="date" value="{{ $item->user3->name ?: 'Belum diisi' }}" readonly>
+=======
+                        <div class="form-1">
+                            <label for="id_anggota4">Anggota 4</label>
+                            <input type="text" name="id_anggota4" id="id_anggota4" value="{{ $item->user3->name ?: 'Belum diisi' }}" readonly>
+>>>>>>> Stashed changes
                             @if ($item->user3->wasRecentlyCreated)
                                 <p>Anggota 4 belum diisi.</p>
                             @endif
                         </div>
                     </div>
-                    <div class="tglx1">
-                        <div class="tgl1">
-                            <h5>PIC Perusahaan</h5>
-                            <input type="text" name="nama_PIC_perusahaan" id="nama_PIC_perusahaan" class="date" value="{{ $item->nama_PIC_perusahaan }}" readonly>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="nama_PIC_perusahaan">PIC Perusahaan</label>
+                            <input type="text" name="nama_PIC_perusahaan" id="nama_PIC_perusahaan" value="{{ $item->nama_PIC_perusahaan }}" readonly>
                         </div>
-                        <div class="tgl1">
-                            <h5>Jabatan PIC</h5>
-                            <input type="text" name="jabatan_PIC" id="jabatan_PIC" class="date" value="{{ $item->jabatan_PIC }}" readonly>
+                        <div class="form-1">
+                            <label for="jabatan_PIC">Jabatan PIC</label>
+                            <input type="text" name="jabatan_PIC" id="jabatan_PIC" value="{{ $item->jabatan_PIC }}" readonly>
                         </div>
                     </div>
                 </div>
@@ -97,6 +120,7 @@
                     </tr>
                 </thead>
                 <tbody>
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
                     <tr>
@@ -124,6 +148,8 @@
 =======
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
                     @if ($item->biayaDinas)
                         <tr>
                             <td>
@@ -142,6 +168,9 @@
                         </tr>
                     @endif
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes

@@ -20,7 +20,7 @@ class UserController extends Controller
             ->get();
 
         // Fetch all users
-        $users = User::all();
+        // $users = User::all();
         // Filter User
         // $filter = $request->input('filter');
         // if ($filter === 'Aktif') {
@@ -33,6 +33,7 @@ class UserController extends Controller
 
         $status = $request->input('status'); // Get the 'status' parameter from the request
 
+<<<<<<< Updated upstream
         $user = User::with('role', 'position', 'gaji'); // Eager load relationships 'user' and 'kategori'
     
         // Filter user based on 'status' parameter
@@ -43,6 +44,23 @@ class UserController extends Controller
         $user = $user->get();
         // Pass the user data to the view
         return view('admin.user.index', compact('users', 'status', 'user'));
+=======
+        $users = User::with('role', 'position', 'gaji'); // Eager load relationships 'user' and 'kategori'
+    
+        // Filter user based on 'status' parameter
+        if ($status === 'Aktif' || $status === 'Tidak Aktif') {
+            $users->where('status', $status);
+        }
+    
+        $user = $users->paginate(10);
+
+        $search = strtolower($request->input('search', ''));
+
+        // Gunakan query builder atau model sesuai dengan kebutuhan Anda
+        $users1 = User::whereRaw('LOWER(name) LIKE ?', ["%$search%"])->paginate(10);
+        // Pass the user data to the view
+        return view('admin.user.index', compact('status', 'user', 'search', 'users1'));
+>>>>>>> Stashed changes
     }
 
     public function create()
@@ -229,4 +247,28 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'User tidak ditemukan.');
         }
     }
+<<<<<<< Updated upstream
+=======
+
+    public function searchByName(Request $request)
+    {
+        $status = $request->input('status'); // Get the 'status' parameter from the request
+
+        $users = User::with('role', 'position', 'gaji'); // Eager load relationships 'user' and 'kategori'
+    
+        // Filter user based on 'status' parameter
+        if ($status === 'Aktif' || $status === 'Tidak Aktif') {
+            $users->where('status', $status);
+        }
+    
+        $users = $users->paginate(10);
+        $search = strtolower($request->input('search', ''));
+
+        // Gunakan query builder atau model sesuai dengan kebutuhan Anda
+        $user = User::whereRaw('LOWER(name) LIKE ?', ["%$search%"])->paginate(10);
+
+        return view('admin.user.index', compact('user', 'search', 'status'))
+                ->with('noData', $user->isEmpty());
+    }
+>>>>>>> Stashed changes
 }

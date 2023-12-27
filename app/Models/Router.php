@@ -11,12 +11,44 @@ class Router extends Model
     use HasFactory;
     use SoftDeletes;
 
+<<<<<<< Updated upstream
     protected $fillable = [
         'nama_router'
+=======
+    protected $table = 'routers';
+
+    protected $fillable = [
+        'kode_router', 'nama_router'
+>>>>>>> Stashed changes
     ];
 
 
     protected $hidden = [
         //
     ];
+<<<<<<< Updated upstream
+=======
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($router) {
+            // Cek apakah kode barang sudah ada
+            $latestCode = self::latest('id')->value('kode_router');
+
+            // Jika sudah ada, ambil angka, tambahkan 1, dan format ulang sebagai kode barang baru
+            if ($latestCode) {
+                $nextNumber = intval(substr($latestCode, -3)) + 1;
+                $newCode = 'RTR-' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+            } else {
+                // Jika belum ada, gunakan INV-001 sebagai kode barang awal
+                $newCode = 'RTR-001';
+            }
+
+            // Setel kode barang pada model Inventaris
+            $router->kode_router = $newCode;
+        });
+    }
+>>>>>>> Stashed changes
 }

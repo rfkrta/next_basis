@@ -56,8 +56,13 @@
                         <td>{{ $absen->id }}</td>
                         <td>{{ $absen->user->name }}</td>
                         <td>{{ \Carbon\Carbon::parse($absen->tanggal_mulai)->format('d-m-Y') }}</td>
+<<<<<<< Updated upstream
                         <td>{{ \Carbon\Carbon::parse($absen->tanggal_mulai)->format('H:i') }}</td>
                         <td>{{ \Carbon\Carbon::parse($absen->tanggal_selesai)->format('H:i') }}</td>
+=======
+                        <td>{{ \Carbon\Carbon::parse($absen->waktu_mulai)->format('H:i') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($absen->waktu_selesai)->format('H:i') }}</td>
+>>>>>>> Stashed changes
                         <td>{{ $absen->kategoriAbsensi->nama_kategori }}</td>
                         <td>
                             <a href="{{ route('admin.absensi.show', ['id' => $absen->id]) }}" class="btn btn-danger">
@@ -69,7 +74,11 @@
                     <tr>
                         <td colspan="7" class="text-center">
                             <img src="{{ asset('img/1.png') }}" alt="none">
+<<<<<<< Updated upstream
                             <p>Tidak ada data pengajuan cuti</p>
+=======
+                            <p>Tidak ada data Absensi</p>
+>>>>>>> Stashed changes
                         </td>
                     </tr>
                     @endforelse

@@ -4,7 +4,7 @@
 <div class="main">
     <div class="main-top1">
         <a href="{{ route('admin.user.index') }}"><i class="fa fa-angle-left"></i></a>
-        <h3>Ubah User {{ $item->nama }}</h3>
+        <h3>Detail User {{ $item->name }}</h3>
     </div>
 
     @if ($errors->any())
@@ -17,112 +17,142 @@
     </div>
     @endif
 
-    <div class="cong-box2">
-        <form action="" method="post" enctype="multipart/form-data">
-            @method('PUT')
-            @csrf
-            <div class="content">
-                <div class="tgl">
-                    <div class="tgl1">
-                        <h5>Nama</h5>
-                        <input type="text" name="name" id="name" class="date" placeholder="Tuliskan nama, di sini" value="{{ $item->name }}">
-                    </div>
-                    <!-- <div id="gaji"></div> -->
-                    <div class="tgl1">
-                        <h5>Email</h5>
-                        <input type="email" name="email" id="email" class="date" placeholder="Tuliskan Email, di sini" value="{{$item->email}}">
-                    </div>
-                </div>
-                <div class="tgl">
-                    <div class="tgl1">
-                        <h5>Password</h5>
-                        <input type="password" name="password" id="password" class="date" placeholder="Tuliskan password, di sini" value="">
-                    </div>
-                    <!-- <div id="gaji"></div> -->
-                    <div class="tgl1">
-                        <h5>NIP</h5>
-                        <input type="nip" name="nip" id="nip" class="date" placeholder="Tuliskan NIP, di sini" value="{{ $item->nip }}">
-                    </div>
-                </div>
-                <div class="tgl">
-                    <div class="tgl1">
-                        <h5>Kota</h5>
-                        <input type="text" name="kota" id="kota" class="date" placeholder="Tuliskan kota, di sini" value="{{$item -> kota}}">
-                    </div>
-                    <!-- <div id="gaji"></div> -->
-                    <div class="tgl1">
-                        <h5>Alamat</h5>
-                        <input type="text" name="alamat" id="alamat " class="date" placeholder="Tuliskan alamat, di sini" value="{{$item -> alamat }}">
-                    </div>
-                </div>
-                <div class="tgl">
-                    <div class="tgl1">
-                        <h5>No Telepon</h5>
-                        <input type="text" name="no_hp" id="no_hp" class="date" placeholder="Tuliskan no telp, di sini" value="{{ $item -> no_hp}}">
-                    </div>
-                    <!-- <div id="gaji"></div> -->
-                    <div class="tgl1">
-                        <h5>Jenis Kelamin</h5>
-                        <select name="jenis_kelamin" id="jenis_kelamin" class="date">
-                            <option value="{{$item -> jenis_kelamin}}">{{$item -> jenis_kelamin}}</option>
-                            <option value="Pria">Pria</option>
-                            <option value="Wanita">Wanita</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="tgl1">
-                        <div class="button">
-                            <button type="submit" class="btnc btn-primary btn-block">
-                                Ubah User
-                            </button>
+    <div class="cong-box">
+        <div class="base">
+            <form action="" method="post" enctype="multipart/form-data">
+                @method('PUT')
+                @csrf
+                <div class="content">
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="name">Nama</label>
+                            <input type="text" name="name" id="name" placeholder="Tuliskan nama, di sini" value="{{ $item->name }}" readonly>
+                        </div>
+                        <div class="form-1">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" placeholder="Tuliskan Email, di sini" value="{{$item->email}}" readonly>
                         </div>
                     </div>
-                <div class="tgl">
-                    <div class="tgl1">
-                        <h5>Tanggal Lahir</h5>
-                        <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="date" placeholder="Tuliskan no telp, di sini" value="{{ $item -> tanggal_lahir}}">
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" placeholder="Tuliskan password, di sini" value="" readonly>
+                        </div>
+                        <div class="form-1">
+                            <label for="nip">NIP</label>
+                            <input type="nip" name="nip" id="nip" placeholder="Tuliskan NIP, di sini" value="{{ $item->nip }}" readonly>
+                        </div>
                     </div>
-                    
-                    <div class="tgl1">
-                        <h5>Agama</h5>
-                        <select name="agama" id="agama" class="date">
-                            <option value="{{$item -> agama}}">{{$item -> agama}}</option>
-                            <option value="Islam">Islam</option>
-                            <option value="Kristen">Kristen</option>
-                            <option value="Katolik">Katolik</option>
-                            <option value="Hindu">Hindu</option>
-                            <option value="Buddha">Buddha</option>
-                            <option value="Konghucu">Konghucu</option>
-                        </select>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="kota">Kota</label>
+                            <input type="text" name="kota" id="kota" value="{{ $item->kota }}" readonly>
+                        </div>
+                        <div class="form-1">
+                            <label for="alamat">Alamat</label>
+                            <input type="text" name="alamat" id="alamat " placeholder="Tuliskan alamat, di sini" value="{{$item -> alamat }}" readonly>
+                        </div>
                     </div>
-
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="no_hp">No Telepon</label>
+                            <input type="text" name="no_hp" id="no_hp" placeholder="Tuliskan no telp, di sini" value="{{ $item -> no_hp}}" readonly>
+                        </div>
+                        <div class="form-1">
+                            <label for="jenis_kelamin">Jenis Kelamin</label>
+                            <input type="text" name="jenis_kelamin" id="jenis_kelamin" value="{{ $item->jenis_kelamin }}" readonly>
+                        </div>
+                    </div>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="tanggal_lahir">Tanggal Lahir</label>
+                            <input type="date" name="tanggal_lahir" id="tanggal_lahir" placeholder="Tuliskan no telp, di sini" value="{{ $item -> tanggal_lahir}}" readonly>
+                        </div>
+                        <div class="form-1">
+                            <label for="agama">Agama</label>
+                            <input type="text" name="agama" id="agama" value="{{ $item->agama }}" readonly>
+                        </div>
+                    </div>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="id_positions">Posisi</label>
+                            <select name="id_positions" id="id_positions" readonly>
+                                @foreach ($positions as $position)
+                                <option value="{{ $position->id }}" data-gaji="{{ $position->gaji_posisi }}" {{ $item->id_positions == $position->id ? 'selected' : '' }}>
+                                    {{ $position->nama_posisi }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-1">
+                            <label for="gaji_posisi">Gaji</label>
+                            <input type="text" name="gaji_posisi" id="gaji_posisi" value="{{ $item->gaji_posisi }}" readonly>
+                        </div>
+                    </div>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="tanggal_mulai">Tanggal Mulai Kontrak Kerja</label>
+                            <input type="date" name="tanggal_mulai" id="tanggal_mulai" value="{{$item->tanggal_mulai }}" readonly>
+                        </div>
+                        <div class="form-1">
+                            <label for="tanggal_selesai">Tanggal Selesai Kontrak Kerja</label>
+                            <input type="date" name="tanggal_selesai" id="tanggal_selesai" value="{{$item->tanggal_selesai }}" readonly>
+                        </div>
+                    </div>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="role_id">Role</label>
+                            <select name="role_id" readonly>
+                                @foreach($roles as $role)
+                                <option value="{{ $role->id }}" {{ $role->id == $item->role_id ? 'selected' : '' }}>
+                                    {{ $role->name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-1">
+                            <label for="jmlCuti">Jumlah Cuti tersedia</label>
+                            <input type="text" name="jmlCuti" id="jmlCuti" value="{{$item -> jmlCuti}}" readonly>
+                        </div>
+                    </div>
+                    <!-- Tambahkan field untuk menampilkan hasil gaji -->
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="gaji_bulanan">Gaji Bulanan</label>
+                            <input type="number" name="gaji_bulanan" id="gaji_bulanan" value="{{ isset($item->gaji_bulanan) ? $item->gaji_bulanan : 'Belum dihitung' }}" readonly>
+                        </div>
+                    </div>
+                    <!-- <div>
+                        <strong>Gaji Bulanan: </strong> {{ isset($item->gaji_bulanan) ? $item->gaji_bulanan : 'Belum dihitung' }}
+                    </div> -->
                 </div>
+            </form>
+            <!-- <form action="{{ route('admin.user.hitungGaji', ['id' => $item->id]) }}" method="POST" class="content1">
+                @csrf
+                <input type="hidden" name="id" value="{{ $item->id }}">
+                <div class="button2">
+                    <button type="submit" class="button-cong2">
+                        Reset Cuti
+                    </button>
+                </div>
+            </form> -->
+            <form action="{{ route('admin.user.hitungGaji', ['id' => $item->id]) }}" method="POST" class="content1">
+                @csrf
+                <input type="hidden" name="id" value="{{ $item->id }}">
+                <div class="button">
+                    <button type="submit" class="button-cong">
+                        Hitung Gaji
+                    </button>
+                </div>
+                <!-- <button type="submit" class="btnc btn-primary">
+                    Hitung Gaji
+                </button> -->
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
 
-        </form>
-
-        @endsection
-
-        @push('addon-script')
-        <script type="text/javascript" src="{{ asset('admin/js/jquery-1.10.2.js') }}"></script>
-        <!-- <script type="text/javascript">
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    </script> -->
-        <!-- <script type="text/javascript">
-        $("#id_positions").change(function() {
-            var id_positions = $("#id_positions").val();
-            $.ajax({
-                type: "GET",
-                url: "/karyawan/ajax",
-                data: "id_positions="+id_positions,
-                cache: false,
-                success: function(data){
-                    $("#position").html(data);
-                }
-            });
-        });
-    </script> -->
-        @endpush
+@push('addon-script')
+<script type="text/javascript" src="{{ asset('admin/js/jquery-1.10.2.js') }}"></script>
+@endpush

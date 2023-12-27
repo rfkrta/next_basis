@@ -48,43 +48,48 @@
             </li>
         </ul>
     </div>
-
     <div class="line2"></div>
-    <div class="cong-box">
-        <div>
-            <table class="box" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th class="lebarTabel">No</th>
-                        <th>Nama</th>
-                        <th>Posisi</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="5" class="text-center">
-                            <img src="{{ asset('img/1.png') }}" alt="none">
-                            <p>Tidak ada data karyawan</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!-- Table rows for each employee
-                        <td>
-                            <a href="" class="btn btn-danger">
-                                <i class="btn1 fa fa-eye"></i>
-                            </a>
-                            <a href="" class="btn btn-danger">
-                                <i class="btn3 fa fa-pencil"></i>
-                            </a> -->
-                        </td>
-                    </tr>
-                </tbody>
+    <div id="content">
+        <!-- Content area goes here -->
+        <table class="table" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="lebarTabel">No</th>
+                    <th>Nama</th>
+                    <th>Posisi</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="5" class="text-center">
+                        <img src="{{ asset('img/1.png') }}" alt="none">
+                        <p>Tidak ada data karyawan</p>
+                    </td>
+                </tr>
+                <tr>
+                    <!-- Table rows for each employee
+                    <td>
+                        <a href="" class="btn btn-danger">
+                            <i class="btn1 fa fa-eye"></i>
+                        </a>
+                        <a href="" class="btn btn-danger">
+                            <i class="btn3 fa fa-pencil"></i>
+                        </a> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-
-            </table>
-        </div>
+        <!-- Pagination -->
+        <ul class="pagination">
+            <!-- Add your pagination links here -->
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <!-- Add more links as needed -->
+        </ul>
     </div>
 </div>
 @endsection

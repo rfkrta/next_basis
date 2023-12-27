@@ -19,12 +19,13 @@ class MitraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $items = Mitra::join('regencies', 'regencies.id', '=', 'mitras.kota')
             ->select('mitras.*', 'regencies.province_id', 'regencies.name')
             ->get();
-            $items = Mitra::with('regency.province')->get();
+        
+        $items = Mitra::with('regency.province')->get();
             
         // $items = Mitra::with([
         //     'province', 'regency', 'district', 'village'
@@ -32,8 +33,25 @@ class MitraController extends Controller
         // $item = Mitra::all();
         // $regencies = Regency::all();
 
+        $status = $request->input('status'); // Get the 'status' parameter from the request
+
+        $mitrar = Mitra::with('regency', 'province', 'district', 'village'); // Eager load relationships 'user' and 'kategori'
+    
+        // Filter mitra based on 'status' parameter
+        if ($status === 'Aktif' || $status === 'Tidak Aktif') {
+            $mitrar->where('status', $status);
+        }
+    
+        $mitra = $mitrar->paginate(10);
+
+        $search = strtolower($request->input('search', ''));
+
+        // Gunakan query builder atau model sesuai dengan kebutuhan Anda
+        $mitras = Mitra::whereRaw('LOWER(nama_mitra) LIKE ?', ["%$search%"])->paginate(10);
+        
+
         // Logika untuk menampilkan halaman dashboard
-        return view('admin.mitra.index', compact('items'));
+        return view('admin.mitra.index', compact('items', 'mitra', 'status', 'search', 'mitras'));
     }
 
     /**
@@ -158,6 +176,27 @@ class MitraController extends Controller
         $item->update($data);
 
         return redirect()->route('admin.mitra.index');
+    }
+
+    public function searchByName(Request $request)
+    {
+        $status = $request->input('status'); // Get the 'status' parameter from the request
+
+        $mitrar = Mitra::with('regency', 'province', 'district', 'village'); // Eager load relationships 'user' and 'kategori'
+    
+        // Filter mitra based on 'status' parameter
+        if ($status === 'Aktif' || $status === 'Tidak Aktif') {
+            $mitrar->where('status', $status);
+        }
+    
+        $mitrar = $mitrar->paginate(10);
+        $search = strtolower($request->input('search', ''));
+
+        // Gunakan query builder atau model sesuai dengan kebutuhan Anda
+        $mitra = Mitra::whereRaw('LOWER(nama_mitra) LIKE ?', ["%$search%"])->paginate(10);
+
+        return view('admin.mitra.index', compact('mitra', 'search', 'status'))
+                ->with('noData', $mitra->isEmpty());
     }
 
     /**

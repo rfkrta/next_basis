@@ -36,19 +36,23 @@ class PengajuancutiController extends Controller
         $kategori = Kategori::all();
         $status = $request->input('status'); // Get the 'status' parameter from the request
 
-        $cutis = Cuti::with('user', 'kategori'); // Eager load relationships 'user' and 'kategori'
+        $cuti = Cuti::with('user', 'kategori'); // Eager load relationships 'user' and 'kategori'
     
         // Filter Cutis based on 'status' parameter
         if ($status === 'diterima' || $status === 'ditolak' || $status === 'tertunda') {
-            $cutis->where('status', $status);
+            $cuti->where('status', $status);
         }
     
-        $cutis = $cutis->get(); // Retrieve filtered cutis
+        $cutis = $cuti->paginate(10); // Retrieve filtered cutis
+
+        $search = strtolower($request->input('search', ''));
+
+        // Gunakan query builder atau model sesuai dengan kebutuhan Anda
+        $cuti1 = Cuti::whereRaw('LOWER(user_id) LIKE ?', ["%$search%"])->paginate(10);
     
-        $users = User::all();
-        $kategori = Kategori::all();
-        return view('admin.pengajuancuti.index', compact('kategori', 'users', 'cuti_baru','cutis'));
+        return view('admin.pengajuancuti.index', compact('kategori', 'users', 'cuti_baru','cutis','status', 'search', 'cuti1', 'cuti'));
     }
+    
     public function updateToDiterima($id)
     {
         $pengajuanCuti = Cuti::findOrFail($id);
@@ -179,6 +183,27 @@ class PengajuancutiController extends Controller
         return view('admin.pengajuancuti.detail', [
             'item' => $item
         ]);
+    }
+
+    public function searchByName(Request $request)
+    {
+        $status = $request->input('status'); // Get the 'status' parameter from the request
+
+        $cuti = Cuti::with('user', 'kategori'); // Eager load relationships 'user' and 'kategori'
+    
+        // Filter Cutis based on 'status' parameter
+        if ($status === 'diterima' || $status === 'ditolak' || $status === 'tertunda') {
+            $cuti->where('status', $status);
+        }
+    
+        $cuti = $cuti->paginate(10); // Retrieve filtered cutis
+        $search = strtolower($request->input('search', ''));
+
+        // Gunakan query builder atau model sesuai dengan kebutuhan Anda
+        $cutis = Cuti::whereRaw('LOWER(user_id) LIKE ?', ["%$search%"])->paginate(10);
+
+        return view('admin.pengajuancuti.index', compact('cutis', 'search', 'status'))
+                ->with('noData', $cutis->isEmpty());
     }
 
     /**

@@ -14,7 +14,7 @@ class Dinas extends Model
     protected $fillable = [
         'id_mitras', 'kota_keberangkatan', 'komisi_dinas',
         'tanggal_mulai', 'tanggal_selesai', 'id_anggota1',
-        'id_anggota2', 'id_anggota3', 'id_anggota4', 'nama_PIC_perusahaan', 'jabatan_PIC', 'status', 'jumlah_anggota'
+        'id_anggota2', 'id_anggota3', 'id_anggota4', 'nama_PIC_perusahaan', 'jabatan_PIC', 'status', 'jumlah_anggota','berita_acara','bukti_surat'
     ];
 
     protected $hidden = [

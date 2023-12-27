@@ -1,168 +1,170 @@
 @extends('head')
 
 @section('content')
-    <div class="main">
-        <div class="main-top1">
-            <button type="button" class="btnclass btn-primary" onclick="openConfirmationModal()">
-                <i class="fa fa-angle-left"></i>
-            </button>
-            <!-- <a href="{{ route('admin.perjalanandinas.index') }}"><i class="fa fa-angle-left"></i></a> -->
-            <h3>Tambah Perjalanan Dinas</h3>
-        </div>
+<div class="main">
+    <div class="main-top1">
+        <button type="button" class="btnclass btn-primary" onclick="openConfirmationModal()">
+            <i class="fa fa-angle-left"></i>
+        </button>
+        <!-- <a href="{{ route('admin.perjalanandinas.index') }}"><i class="fa fa-angle-left"></i></a> -->
+        <h3>Tambah Perjalanan Dinas</h3>
+    </div>
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 
-        <div class="cong-box4">
-            <form action="{{ route('admin.perjalanandinas.store') }}" method="post" enctype="multipart/form-data">
-                @csrf
-                <div class="content">
-                    <h5>Perusahaan</h5>
-                    <div class="form-group">
-                        <select name="id_mitras" id="id_mitras" required class="form-control">
-                            <option value="">
-                                Pilih Perusahaan
-                            </option>
+    <div class="cong-box4">
+        <form action="{{ route('admin.perjalanandinas.store') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="content">
+                <h5>Perusahaan</h5>
+                <div class="form-group">
+                    <select name="id_mitras" id="id_mitras" required class="form-control">
+                        <option value="">
+                            Pilih Perusahaan
+                        </option>
                         @foreach ($mitra as $mitra)
-                            <option value="{{ $mitra->id }}">{{ $mitra->nama_mitra }}</option>
+                        <option value="{{ $mitra->id }}">{{ $mitra->nama_mitra }}</option>
                         @endforeach
-                        </select>
-                    </div>
-                    <div class="tglx1">
-                        <div class="tgl1">
-                            <h5>Kota Keberangkatan</h5>
-                            <div class="form-group1">
-                                <select name="kota_keberangkatan" id="kota_keberangkatan" required class="form-control1">
-                                    <option>
-                                        Pilih Kabupaten / Kota...
-                                    </option>
+                    </select>
+                </div>
+                <div class="tglx1">
+                    <div class="tgl1">
+                        <h5>Kota Keberangkatan</h5>
+                        <div class="form-group1">
+                            <select name="kota_keberangkatan" id="kota_keberangkatan" required class="form-control1">
+                                <option>
+                                    Pilih Kabupaten / Kota...
+                                </option>
                                 @foreach ($regency as $kota)
-                                    <option value="{{ $kota->id }}">{{ $kota->name }}</option>
+                                <option value="{{ $kota->id }}">{{ $kota->name }}</option>
                                 @endforeach
-                                </select>
-                            </div>
-                            <!-- <input type="text" name="kota" id="kota" class="date" placeholder="Tuliskan kota keberangkatan, di sini" value="{{ old('kota') }}"> -->
-                        </div>
-                        <div class="tgl1">
-                            <h5>Komisi</h5>
-                            <input type="number" name="komisi_dinas" id="komisi_dinas" class="date" placeholder="" readonly>
-                        </div>
-                    </div>
-                    <div class="tgl">
-                        <div class="tgl1">
-                            <h5>Tanggal Mulai</h5>
-                            <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="date" value="{{ old('tanggal_mulai') }}">
-                        </div>
-                        <div class="tgl1">
-                            <h5>Tanggal Selesai</h5>
-                            <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="date" value="{{ old('tanggal_selesai') }}">
-                        </div>
-                    </div>
-                    <h5 class="tim1">Tim</h5>
-                    <div class="tim">
-                        <div class="form-group1">
-                            <select name="id_anggota1" id="id_anggota1" required class="form-control1">
-                                <option value="">
-                                    Pilih anggota 1
-                                </option>
-                            @foreach ($user as $users)
-                                <option value="{{ $users->id }}">{{ $users->name }}</option>
-                            @endforeach
                             </select>
                         </div>
-
-                        <div class="form-group1">
-                            <select name="id_anggota2" id="id_anggota2" required class="form-control1">
-                                <option value="">
-                                    Pilih anggota 2
-                                </option>
-                            @foreach ($user as $users)
-                                <option value="{{ $users->id }}">{{ $users->name }}</option>
-                            @endforeach
-                            </select>
-                        </div>
-                        
+                        <!-- <input type="text" name="kota" id="kota" class="date" placeholder="Tuliskan kota keberangkatan, di sini" value="{{ old('kota') }}"> -->
                     </div>
-                    <div class="button">
-                        <button type="button" id="tambahAnggotaBtn" onclick="openTambahAnggota()" class="btnx btn-primary">
-                            Tambah Anggota
-                        </button>
-                        @include('admin.perjalanandinas.tambah-anggota')
-                    </div>
-                    <div class="tglx1">
-                        <div class="tgl1">
-                            <h5>PIC Perusahaan</h5>
-                            <input type="text" name="nama_PIC_perusahaan" id="nama_PIC_perusahaan" class="date" readonly>
-                        </div>
-                        <div class="tgl1">
-                            <h5>Jabatan PIC</h5>
-                            <input type="text" name="jabatan_PIC" id="jabatan_PIC" class="date" readonly>
-                        </div>
-                    </div>
-                    <div class="button">
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                        <button type="submit" class="btny1 btn-primary btn-block" >
-=======
-                        <button type="submit" class="btny1 btn-primary btn-block" onclick="openConfirmationAddModal()">
->>>>>>> Stashed changes
-=======
-                        <button type="submit" class="btny1 btn-primary btn-block" onclick="openConfirmationAddModal()">
->>>>>>> Stashed changes
-                            Ajukan Dinas
-                        </button>
+                    <div class="tgl1">
+                        <h5>Komisi</h5>
+                        <input type="number" name="komisi_dinas" id="komisi_dinas" class="date" placeholder="" readonly>
                     </div>
                 </div>
-            </form>
-        </div>
-    </div>
-    <!-- resources/views/confirmation-modal.blade.php -->
-    <div id="confirmationModal" class="modal-container" style="display:none;">
-        <div class="confirmation-container">
-            <h2>Keluar Halaman ?</h2>
-            <p>Kamu akan membatalkan perubahan
-                perjalanan dinas. Semua perubahan
-                data tidak akan di simpan.</p>
-            <div class="confirmation-buttons">
-                <button class="cancel-button" onclick="cancelExit()">Batal</button>
-                <button class="confirm-button" onclick="confirmExit()">Keluar</button>
+                <div class="tgl">
+                    <div class="tgl1">
+                        <h5>Tanggal Mulai</h5>
+                        <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="date" value="{{ old('tanggal_mulai') }}">
+                    </div>
+                    <div class="tgl1">
+                        <h5>Tanggal Selesai</h5>
+                        <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="date" value="{{ old('tanggal_selesai') }}">
+                    </div>
+                </div>
+                <h5 class="tim1">Tim</h5>
+                <div class="tim">
+                    <div class="form-group1">
+                        <select name="id_anggota1" id="id_anggota1" required class="form-control1">
+                            <option value="">
+                                Pilih anggota 1
+                            </option>
+                            @foreach ($user as $users)
+                            <option value="{{ $users->id }}">{{ $users->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group1">
+                        <select name="id_anggota2" id="id_anggota2" required class="form-control1">
+                            <option value="">
+                                Pilih anggota 2
+                            </option>
+                            @foreach ($user as $users)
+                            <option value="{{ $users->id }}">{{ $users->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                </div>
+                <div class="button">
+                    <button type="button" id="tambahAnggotaBtn" onclick="openTambahAnggota()" class="btnx btn-primary">
+                        Tambah Anggota
+                    </button>
+                    @include('admin.perjalanandinas.tambah-anggota')
+                </div>
+                <div class="tglx1">
+                    <div class="tgl1">
+                        <h5>PIC Perusahaan</h5>
+                        <input type="text" name="nama_PIC_perusahaan" id="nama_PIC_perusahaan" class="date" readonly>
+                    </div>
+                    <div class="tgl1">
+                        <h5>Jabatan PIC</h5>
+                        <input type="text" name="jabatan_PIC" id="jabatan_PIC" class="date" readonly>
+                    </div>
+                </div>
+                <div class="tgl">
+                    <div class="tgl1">
+                        <h5>Berita Acara</h5>
+                        <input type="file" name="berita_acara" id="berita_acara" class="date">
+                    </div>
+                    <div class="tgl1">
+                        <h5>Bukti Surat</h5>
+                        <input type="file" name="bukti_surat" id="bukti_surat" class="date">
+                    </div>
+                </div>
+                <div class="button">
+                    <button type="submit" class="btny1 btn-primary btn-block" onclick="openConfirmationAddModal()">
+                        Ajukan Dinas
+                    </button>
+                </div>
             </div>
+        </form>
+    </div>
+</div>
+<!-- resources/views/confirmation-modal.blade.php -->
+<div id="confirmationModal" class="modal-container" style="display:none;">
+    <div class="confirmation-container">
+        <h2>Keluar Halaman ?</h2>
+        <p>Kamu akan membatalkan perubahan
+            perjalanan dinas. Semua perubahan
+            data tidak akan di simpan.</p>
+        <div class="confirmation-buttons">
+            <button class="cancel-button" onclick="cancelExit()">Batal</button>
+            <button class="confirm-button" onclick="confirmExit()">Keluar</button>
         </div>
     </div>
+</div>
 
-    <!-- resources/views/confirmation-modal.blade.php -->
-    <div id="confirmationAddModal" class="modal-container" style="display:none;">
-        <div class="confirmation-container">
-            <!-- <h2>Keluar Halaman ?</h2> -->
-            <p>Apakah permohonan cuti 
-                yang ingin diajukan
-                sudah benar ?</p>
-            <div class="confirmation-buttons">
-                <button class="cancel-button" onclick="cancelExitAdd()">Tidak</button>
-                <button type="submit" class="confirm-button" onclick="confirmExitAdd()">Iya</button>
-            </div>
+<!-- resources/views/confirmation-modal.blade.php -->
+<div id="confirmationAddModal" class="modal-container" style="display:none;">
+    <div class="confirmation-container">
+        <!-- <h2>Keluar Halaman ?</h2> -->
+        <p>Apakah permohonan cuti
+            yang ingin diajukan
+            sudah benar ?</p>
+        <div class="confirmation-buttons">
+            <button class="cancel-button" onclick="cancelExitAdd()">Tidak</button>
+            <button type="submit" class="confirm-button" onclick="confirmExitAdd()">Iya</button>
         </div>
     </div>
+</div>
 
-    <div id="successAlert" class="alert success" style="display:none;">
-        <span class="closebtn" onclick="closeAlert()">&times;</span>
-        Data berhasil ditambahkan!
-    </div>
+<div id="successAlert" class="alert success" style="display:none;">
+    <span class="closebtn" onclick="closeAlert()">&times;</span>
+    Data berhasil ditambahkan!
+</div>
 
-    <!-- Alert -->
-    <div id="alertBox" class="alert-container" style="display:none;">
-        <div class="alert-content">
-            <p>Mohon isi semua field sebelum menambah perjalanan dinas!</p>
-            <span class="close-button" onclick="closeAlertBox()">&times;</span>
-        </div>
+<!-- Alert -->
+<div id="alertBox" class="alert-container" style="display:none;">
+    <div class="alert-content">
+        <p>Mohon isi semua field sebelum menambah perjalanan dinas!</p>
+        <span class="close-button" onclick="closeAlertBox()">&times;</span>
     </div>
+</div>
 @endsection
 
 @push('addon-script')
@@ -325,9 +327,9 @@
     }
 
     function confirmAdd() {
-    // ... (skrip sebelumnya) ...
+        // ... (skrip sebelumnya) ...
 
-    // Tampilkan alert ketika data berhasil ditambahkan
+        // Tampilkan alert ketika data berhasil ditambahkan
         document.getElementById('successAlert').style.display = 'block';
     }
 

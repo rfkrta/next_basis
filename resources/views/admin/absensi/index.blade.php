@@ -69,7 +69,7 @@
                     <tr>
                         <td colspan="7" class="text-center">
                             <img src="{{ asset('img/1.png') }}" alt="none">
-                            <p>Tidak ada data pengajuan cuti</p>
+                            <p>Tidak ada data Absensi</p>
                         </td>
                     </tr>
                     @endforelse

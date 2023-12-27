@@ -35,19 +35,6 @@
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->nama_router }}</td>
                                 <td>
-<<<<<<< Updated upstream
-                                    <div class="btn-group">
-                                        <a href="TambahKontrak.html" class="btn btn-danger">
-                                            <i class="btn1 fa fa-eye"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-danger">
-                                            <i class="btn3 fa fa-pencil"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-danger">
-                                            <i class="btn2 fa fa-trash"></i>
-                                        </a>
-                                    </div>
-=======
                                     <!-- <div class="btn-group"> -->
                                         <a class="btn btn-danger btn-edit" data-id="{{ $item->id }}">
                                             <i class="btn3 fa fa-pencil"></i>
@@ -56,7 +43,6 @@
                                             <i class="btn2 fa fa-trash"></i>
                                         </a>
                                     <!-- </div> -->
->>>>>>> Stashed changes
                                 </td>
                             </tr>
                         @empty
@@ -72,20 +58,12 @@
             </div>
         </div>
     </div>
-<<<<<<< Updated upstream
-    <!-- Modal -->
-=======
     <!-- Modal Tambah -->
->>>>>>> Stashed changes
     <div id="tambahRouterModal" class="modal1">
         <div class="modal-content1">
             <h2>Tambah Router</h2>
             <div class="linex"></div>
-<<<<<<< Updated upstream
-            <form id="formTambahRouter" action="{{ route('admin.dataperusahaan.router.store') }}" method="post" enctype="multipart/form-data">
-=======
             <form id="formTambahRouter">
->>>>>>> Stashed changes
                 @csrf
                 <label for="nama_router">Nama Router :</label>
                 <input type="text" id="nama_router" name="nama_router" placeholder="Masukkan Router" required>
@@ -96,12 +74,6 @@
             </form>
         </div>
     </div>
-<<<<<<< Updated upstream
-@endsection
-
-@push('addon-script')
-<script type="text/javascript" src="{{ url('admin/js/jquery-1.10.2.js') }}"></script>
-=======
 
     <!-- Modal Edit -->
     <div id="editRouterModal" class="modal1">
@@ -129,7 +101,6 @@
 @push('addon-script')
 <!-- <script type="text/javascript" src="{{ url('admin/js/jquery-1.10.2.js') }}"></script> -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
->>>>>>> Stashed changes
 <script type="text/javascript">
     $(function() {
         $.ajaxSetup({
@@ -169,11 +140,6 @@
         // Menangani submit form di dalam modal
         document.getElementById('formTambahRouter').onsubmit = function (event) {
         event.preventDefault();
-<<<<<<< Updated upstream
-        // Lakukan sesuatu dengan data yang diinput
-        closeModal();
-        };
-=======
 
             // Mengambil data dari formulir
             var nama_router = document.getElementById('nama_router').value;
@@ -292,7 +258,6 @@
                 });
             }
         });
->>>>>>> Stashed changes
     });
 </script>
 @endpush

@@ -17,22 +17,6 @@ class RouterController extends Controller
         return view('admin.dataperusahaan.router.index', compact('item'));
     }
 
-<<<<<<< Updated upstream
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nama_router' => 'required',
-            // Tambahkan validasi sesuai kebutuhan
-        ]);
-
-        // $data = $request->all();
-
-        // Router::create($data);
-
-        Router::create($request->all());
-
-        return redirect()->route('admin.dataperusahaan.router.index')->with('success', 'Router berhasil ditambahkan');
-=======
     // public function store(Request $request)
     // {
     //     $request->validate([
@@ -113,6 +97,5 @@ class RouterController extends Controller
 
         // Redirect ke halaman yang sesuai, atau kirim respons JSON jika digunakan secara AJAX
         return redirect()->back()->with('success', 'Router berhasil dihapus.');
->>>>>>> Stashed changes
     }
 }

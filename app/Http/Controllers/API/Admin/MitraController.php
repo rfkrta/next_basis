@@ -27,6 +27,7 @@ class MitraController extends Controller
                     'nama_kota' => $item->regency->name ?? 'Unknown', // Mendapatkan nama kota
                     'kecamatan' => $item->district->name ?? 'Unknown',
                     'kelurahan' => $item->village->name ?? 'Unknown',
+                    'id_kota' => $item ->regency->id,
                     // Sisipkan kolom lain yang diperlukan di sini
                     'alamat_lengkap' => $item->alamat_lengkap,
                     'nama_PIC_perusahaan' => $item->nama_PIC_perusahaan,

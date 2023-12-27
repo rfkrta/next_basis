@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <div class="tgl">
-                    <div>
+                    <div class = "tgl1">
                         <h5>Posisi</h5>
                         <select name="id_positions" id="id_positions" class="date">
                             @foreach ($positions as $position)

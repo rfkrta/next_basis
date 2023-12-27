@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class BiayaDinas extends Model
+class BiayaRealisasi extends Model
 {
+
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'biaya_dinas';
+    protected $table = 'biaya_realisasi';
+
     protected $fillable = [
         'perjalanan_dinas_id',
         'biaya_hotel',
@@ -23,13 +25,18 @@ class BiayaDinas extends Model
         'biaya_lain',
         'keterangan_lain',
     ];
-
+    protected $dates = ['deleted_at'];
     public function perjalananDinas()
     {
         return $this->belongsTo(Dinas::class, 'perjalanan_dinas_id');
     }
-    public function realisasi()
+    // public function estimasi()
+    // {
+    //     return $this->belongsTo(BiayaDinas::class, 'perjalanan_dinas_id');
+    // }
+
+    public function biayaDinas()
     {
-        return $this->belongsTo(BiayaRealisasi::class, 'perjalanan_dinas_id');
+        return $this->belongsTo(BiayaDinas::class, 'perjalanan_dinas_id');
     }
 }

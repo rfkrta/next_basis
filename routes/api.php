@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\API\Admin\AbsenController;
-use App\Http\Controllers\API\Admin\AbsensiController;
+use App\Http\Controllers\API\Admin\BiayaDinasController;
+use App\Http\Controllers\API\Admin\BiayaPerbandinganController;
+use App\Http\Controllers\Api\Admin\BiayaRealisasiController;
+use App\Http\Controllers\API\Admin\BiayaRealisasiDinasController;
 use App\Http\Controllers\API\Admin\CutiController;
 use App\Http\Controllers\API\Admin\DinasController;
-use App\Http\Controllers\API\Admin\KaryawanController;
 use App\Http\Controllers\API\Admin\MitraController;
+use App\Http\Controllers\API\Admin\RegencyController;
 use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\Auth\UserController;
 use Illuminate\Http\Request;
@@ -27,6 +30,13 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 // Endpoint untuk logout pengguna
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+
+Route::middleware('auth:sanctum')->prefix('user')->group(function () {
+    // Rute untuk memperbarui pengguna berdasarkan ID
+    Route::put('/users/{user_id}', [UserController::class, 'update']);
+    Route::get('/getuser', [UserController::class, 'showUsersWithRoleId']);
+    Route::get('/users/{user_id}', [UserController::class, 'getUserById']);
+});
 // Pengajuan Cuti
 Route::middleware('auth:sanctum')->prefix('user')->group(function () {
     Route::get('/cuti/{userId}', [CutiController::class, 'getCutiByUserId']);
@@ -39,29 +49,23 @@ Route::middleware('auth:sanctum')->prefix('user')->group(function () {
     Route::post('/perjalanandinas/{user_id}', [DinasController::class, 'store'])->name('dinas.store');
     Route::get('/perjalanandinas/{user_id}', [DinasController::class, 'getDinasByUserId']);
 });
+//BiayaDinas
+Route::middleware('auth:sanctum')->prefix('user')->group(function () {
+    Route::post('/biayarealisasi/{userId}', [BiayaRealisasiDinasController::class, 'store']);
+    Route::post('/biayaperbandingan/{perjalananDinasId}', [BiayaPerbandinganController::class, 'storePerbandinganDifferences']);
+    Route::get('/biayaperbandingan/{perjalananDinasId}', [BiayaPerbandinganController::class, 'getBiayaPerbandingan']);
+    Route::get('biayadinas/{perjalanan_dinas_id}', [BiayaDinasController::class, 'getBiayaDinasByPerjalananDinasId']);
+});
 //Mitra
 Route::middleware('auth:sanctum')->prefix('user')->group(function () {
     Route::get('/mitra', [MitraController::class, 'getMitra']);
+    Route::get('regencies/getByName', [RegencyController::class, 'getByName']);
+    Route::get('/regencies/search', [RegencyController::class, 'search']);
 });
 // Absensi
 Route::middleware('auth:sanctum')->prefix('user')->group(function () {
-    Route::post('absensi/{user_id}', [AbsenController::class,'store']);
-    Route::get('/absensi/{user_id}', [AbsenController::class,'getAbsensiByUserId']);
-
+    Route::post('absensi/{user_id}', [AbsenController::class, 'store']);
+    Route::get('/absensi/{user_id}', [AbsenController::class, 'getAbsensiByUserId']);
+    Route::get('/regencies/getByFirstName', [RegencyController::class, 'getByFirstName']);
+    Route::get('/regencies/searchByName', [RegencyController::class, 'searchByName']);
 });
-//Karyawan
-Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
-    // Route::get('/karyawan', [KaryawanController::class, 'index'])->name('admin.karyawan.index');
-    // Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('admin.karyawan.create');
-    // Route::post('/karyawan/store', [KaryawanController::class, 'store'])->name('admin.karyawan.store');
-    // Route::get('/karyawan/show', [KaryawanController::class, 'show'])->name('admin.karyawan.show');
-    // Route::get('/karyawan/{id}', [KaryawanController::class, 'edit'])->name('admin.karyawan.edit');
-    // Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('admin.karyawan.update');
-    // Route::get('/karyawan/ajax', [KaryawanController::class, 'ajax'])->name('admin.karyawan.ajax');
-    // Route::get('/getGajiPosisiById/{id}', [KaryawanController::class, 'getGajiPosisiById'])->name('getGajiPosisiById');
-    // Route::get('/get-nip-by-name/{name}', [KaryawanController::class, 'getNIPByName'])->name('getNIPByName');
-    // Route::get('/get-nip-by-id/{id}', [KaryawanController::class, 'getNIPById'])->name('getNIPById');
-    // Route::get('/karyawan/status-filter', [KaryawanController::class, 'StatusFilter'])->name('karyawan.status.filter');
-    // Route::get('/karyawan/status-filter', [KaryawanController::class, 'StatusFilter'])->name('karyawan.status.filter');
-});
-

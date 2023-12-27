@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Regency;
 use App\Models\Role;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -21,32 +22,28 @@ class UserController extends Controller
 
         // Fetch all users
         $users = User::all();
-        // Filter User
-        // $filter = $request->input('filter');
-        // if ($filter === 'Aktif') {
-        //     $users = User::where('status', 'Aktif')->get();
-        // } elseif ($filter === 'Tidak Aktif') {
-        //     $users = User::where('status', 'Tidak Aktif')->get();
-        // } else {
-        //     $users = User::all();
-        // }
+        $status = $request->input('status');
+
+        if ($status === 'Aktif') {
+            $users = User::where('status', 'Aktif')->get();
+        } elseif ($status === 'Tidak Aktif') {
+            $users = User::where('status', 'Tidak Aktif')->get();
+        } else {
+            $users = User::all();
+        }
 
         $status = $request->input('status'); // Get the 'status' parameter from the request
 
         $user = User::with('role', 'position', 'gaji'); // Eager load relationships 'user' and 'kategori'
-    
-        // Filter user based on 'status' parameter
-        if ($status === 'Aktif' || $status === 'Tidak Aktif') {
-            $user->where('status', $status);
-        }
-    
-        $user = $user->get();
+
+        // $user = $user->get();
         // Pass the user data to the view
         return view('admin.user.index', compact('users', 'status', 'user'));
     }
 
     public function create()
     {
+
         $position = Position::all();
         $cities = Regency::orderBy('name', 'asc')->get();
         $users = User::all();
@@ -73,11 +70,47 @@ class UserController extends Controller
             'gaji_posisi' => 'required|string', // Validation for gaji_posisi
             'tanggal_mulai' => 'required|date', // Validation for tanggal_mulai
             'tanggal_selesai' => 'required|date|after:tanggal_mulai', // Validation for tanggal_selesai
+            'foto_profil' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        // ... Existing validation and error handling logic
+        // Handle the profile image upload
+        if ($request->hasFile('foto_profil')) {
+            $profileImage = $request->file('foto_profil');
+            $dateNow = now()->format('dmY');
+            $profileImagePath = $profileImage->storeAs('public/uploads/foto_profil', 'foto_profil_' . $dateNow . '.' . $profileImage->getClientOriginalExtension());
 
-        // Create a new user instance
+            if ($profileImagePath) {
+                $user = new User([
+                    // Assign other user details
+                    'name' => $validatedData['name'],
+                    'email' => $validatedData['email'],
+                    'nip' => $validatedData['nip'],
+                    'alamat' => $validatedData['alamat'],
+                    'no_hp' => $validatedData['no_hp'],
+                    'tanggal_lahir' => $validatedData['tanggal_lahir'],
+                    'password' => bcrypt($validatedData['password']),
+                    'agama' => $validatedData['agama'],
+                    'jenis_kelamin' => $validatedData['jenis_kelamin'],
+                    'kota' => $validatedData['kota'],
+                    'id_positions' => $validatedData['id_positions'],
+                    'role_id' => $validatedData['role_id'],
+                    'gaji_posisi' => $validatedData['gaji_posisi'],
+                    'tanggal_mulai' => $validatedData['tanggal_mulai'],
+                    'tanggal_selesai' => $validatedData['tanggal_selesai'],
+                    'foto_profil' => $profileImagePath, // Assign the profile_image
+                ]);
+
+                // Save the user to the database
+                $user->save();
+
+                // Optionally, you can redirect somewhere after creating the user
+                return redirect()->route('admin.user.index')->with('success', 'User created successfully');
+            } else {
+                return redirect()->back()->withErrors(['error' => 'Failed to upload Foto Profil'])->withInput();
+            }
+        }
+
+        // If no profile image was uploaded, create the user without it
         $user = new User([
             // Assign other user details
             'name' => $validatedData['name'],
@@ -92,9 +125,9 @@ class UserController extends Controller
             'kota' => $validatedData['kota'],
             'id_positions' => $validatedData['id_positions'],
             'role_id' => $validatedData['role_id'],
-            'gaji_posisi' => $validatedData['gaji_posisi'], // Assign the gaji_posisi
-            'tanggal_mulai' => $validatedData['tanggal_mulai'], // Assign the tanggal_mulai
-            'tanggal_selesai' => $validatedData['tanggal_selesai'], // Assign the tanggal_selesai
+            'gaji_posisi' => $validatedData['gaji_posisi'],
+            'tanggal_mulai' => $validatedData['tanggal_mulai'],
+            'tanggal_selesai' => $validatedData['tanggal_selesai'],
         ]);
 
         // Save the user to the database
@@ -104,14 +137,20 @@ class UserController extends Controller
         return redirect()->route('admin.user.index')->with('success', 'User created successfully');
     }
 
-
-
-    public function getGajiPosisiById($id)
+    public function getGajiPosisiById(Request $request)
     {
-        // Find the position by ID
-        $position = Position::find($id);
-        // Retrieve the gaji posisi value for the position
-        $gajiPosisi = $position->gaji_posisi;
+        $idPositions = $request->input('id_positions');
+
+        if (!empty($idPositions)) {
+            $position = Position::find($idPositions);
+
+            if ($position) {
+                $gajiPosisi = $position->gaji_posisi;
+                return response()->json(['gaji_posisi' => $gajiPosisi]);
+            }
+        }
+
+        return response()->json(['error' => 'Gaji posisi tidak ditemukan'], 404);
     }
 
     public function getRole($id)

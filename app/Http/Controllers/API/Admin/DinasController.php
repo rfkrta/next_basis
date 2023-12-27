@@ -44,32 +44,49 @@ class DinasController extends Controller
         ]);
     }
 
-public function getDinasByUserId($user_id)
-{
-    try {
-        $data = Dinas::join('regencies', 'regencies.id', '=', 'dinas.kota_keberangkatan')
-            ->join('mitras', 'mitras.id', '=', 'dinas.id_mitras')
-            ->select('dinas.*', 'regencies.name as nama_kota', 'mitras.nama_mitra')
-            ->where('id_anggota1', $user_id)
-            ->orWhere('id_anggota2', $user_id)
-            ->orWhere('id_anggota3', $user_id)
-            ->orWhere('id_anggota4', $user_id)
-            ->get();
+    public function getDinasByUserId($user_id)
+    {
+        try {
+            $data = Dinas::join('regencies', 'regencies.id', '=', 'dinas.kota_keberangkatan')
+                ->join('mitras', 'mitras.id', '=', 'dinas.id_mitras')
+                ->select('dinas.*', 'regencies.name as nama_kota', 'mitras.nama_mitra')
+                ->where('id_anggota1', $user_id)
+                ->orWhere('id_anggota2', $user_id)
+                ->orWhere('id_anggota3', $user_id)
+                ->orWhere('id_anggota4', $user_id)
+                ->get();
 
-        if ($data->isEmpty()) {
-            return response()->json(['message' => 'No Dinas found for the given User ID'], 404);
+            if ($data->isEmpty()) {
+                return response()->json(['message' => 'No Dinas found for the given User ID'], 404);
+            }
+
+            return response()->json([
+                'data' => $data
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json(['message' => 'Failed to fetch Dinas'], 500);
         }
-
-        return response()->json([
-            'data' => $data
-        ]);
-    } catch (\Exception $exception) {
-        return response()->json(['message' => 'Failed to fetch Dinas'], 500);
     }
-}
+    // public function getDinasById($dinas_id)
+    // {
+    //     try {
+    //         $data = Dinas::join('regencies', 'regencies.id', '=', 'dinas.kota_keberangkatan')
+    //             ->join('mitras', 'mitras.id', '=', 'dinas.id_mitras')
+    //             ->select('dinas.*', 'regencies.name as nama_kota', 'mitras.nama_mitra')
+    //             ->where('dinas.id', $dinas_id)
+    //             ->first();
 
+    //         if (!$data) {
+    //             return response()->json(['message' => 'No Dinas found for the given Dinas ID'], 404);
+    //         }
 
-
+    //         return response()->json([
+    //             'data' => $data
+    //         ]);
+    //     } catch (\Exception $exception) {
+    //         return response()->json(['message' => 'Failed to fetch Dinas'], 500);
+    //     }
+    // }
 
     public function show($id)
     {
@@ -81,51 +98,52 @@ public function getDinasByUserId($user_id)
     }
 
 
-public function store(DinasRequest $request, $user_id)
-{
-    $validator = Validator::make($request->all(), [
-        // Aturan validasi lainnya di sini
-        'berita_acara' => 'nullable|mimes:pdf|max:2048',
-        'bukti_surat' => 'nullable|mimes:pdf|max:2048',
-    ]);
+    public function store(DinasRequest $request, $user_id)
+    {
+        $validator = Validator::make($request->all(), [
+            // Other validation rules here
+            'berita_acara' => 'nullable|file|max:2048',
+            'bukti_surat' => 'nullable|file|max:2048',
+        ]);
 
-    if ($validator->fails()) {
-        return response()->json(['errors' => $validator->errors()], 422);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $data = $request->all();
+
+        // Handle file uploads for Berita Acara
+        if ($request->hasFile('berita_acara')) {
+            $beritaAcara = $request->file('berita_acara');
+            $timestamp = now()->timestamp;
+            $beritaAcaraPath = $beritaAcara->storeAs('public/uploads/berita_acara', 'berita_acara_' . $timestamp . '.' . $beritaAcara->getClientOriginalExtension());
+
+            if ($beritaAcaraPath) {
+                $data['berita_acara'] = $beritaAcaraPath;
+            } else {
+                return response()->json(['errors' => ['berita_acara' => 'Failed to upload Berita Acara file']], 422);
+            }
+        }
+
+        // Handle file uploads for Surat
+        if ($request->hasFile('bukti_surat')) {
+            $buktiSurat = $request->file('bukti_surat');
+            $timestamp = now()->timestamp;
+            $buktiSuratPath = $buktiSurat->storeAs('public/uploads/bukti_surat', 'bukti_surat_' . $timestamp . '.' . $buktiSurat->getClientOriginalExtension());
+
+            if ($buktiSuratPath) {
+                $data['bukti_surat'] = $buktiSuratPath;
+            } else {
+                return response()->json(['errors' => ['bukti_surat' => 'Failed to upload Surat file']], 422);
+            }
+        }
+
+        $newDinas = Dinas::create($data);
+
+        // Additional data retrieval and response if needed
+
+        return response()->json(['message' => 'Dinas created successfully', 'data' => $newDinas]);
     }
-
-    // Ambil data dari request
-    $data = $request->all();
-
-    // Simpan file berita acara dan bukti surat ke penyimpanan yang ditentukan
-    if ($request->hasFile('berita_acara')) {
-        $beritaAcaraPath = $request->file('berita_acara')->store('berita_acara', 'public');
-        $data['berita_acara'] = $beritaAcaraPath;
-    }
-
-    if ($request->hasFile('bukti_surat')) {
-        $buktiSuratPath = $request->file('bukti_surat')->store('bukti_surat', 'public');
-        $data['bukti_surat'] = $buktiSuratPath;
-    }
-
-    // Simpan data baru ke dalam basis data
-    $newDinas = Dinas::create($data);
-
-    // Ambil nama kota dari Regency Model berdasarkan ID kota_keberangkatan
-    $namaKota = Regency::where('id', $newDinas->kota_keberangkatan)->value('name');
-
-    // Tambahkan nama kota ke dalam data yang akan direspon
-    $newDinas['nama_kota'] = $namaKota;
-
-    // Ambil nama mitra berdasarkan id_mitras
-    $mitra = Mitra::find($newDinas->id_mitras);
-
-    if ($mitra) {
-        $newDinas['nama_mitra'] = $mitra->nama_mitra;
-        // Tambahkan informasi mitra lainnya jika diperlukan
-    }
-
-    return response()->json(['message' => 'Dinas created successfully', 'data' => $newDinas]);
-}
 
 
     public function edit($id)

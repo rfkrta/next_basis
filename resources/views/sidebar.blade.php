@@ -9,28 +9,24 @@
             <i class="fa fa-file-text"></i> <a>Cuti</a>
         </li>
         <li style="cursor: pointer;" onclick="window.location='{{ route('admin.perjalanandinas.index') }}';">
-            <i class="fa fa-plane"></i> <a >Perjalanan Dinas</a>
+            <i class="fa fa-plane"></i> <a>Perjalanan Dinas</a>
         </li>
         <li style="cursor: pointer;" onclick="window.location='{{ route('admin.absensi.index') }}';">
-            <i class="fa fa-users"></i> <a >Absensi</a>
+            <i class="fa fa-users"></i> <a>Absensi</a>
         </li>
         <li style="cursor: pointer;" onclick="window.location='{{ route('admin.mitra.index') }}';">
             <i class="fa fa-building"></i> <a>Mitra Perusahaan</a>
         </li>
         <li style="cursor: pointer;" onclick="window.location='{{ route('admin.dataperusahaan.inventaris.index') }}';">
             <i class="fa fa-folder-open"></i>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
             <a href="#">Data Perusahaan</a>
             <span class="span4"><i class="fa fa-angle-right"></i></span>
-=======
+
             <a>Inventaris</a>
             <!-- <span class="span4"><i class="fa fa-angle-right"></i></span> -->
->>>>>>> Stashed changes
-=======
-            <a>Inventaris</a>
-            <!-- <span class="span4"><i class="fa fa-angle-right"></i></span> -->
->>>>>>> Stashed changes
+
+
         </li>
         <li style="cursor: pointer;" onclick="window.location='{{ route('admin.dataperusahaan.router.index') }}';">
             <i class="fa fa-rss-square"></i>
@@ -51,7 +47,7 @@
         <div class="out">
             <img src="{{ asset('img/avatar.svg') }}" alt="">
             <div class="admin1">
-            <a href="#">{{ auth()->user()->name }}</a>
+                <a href="#">{{ auth()->user()->name }}</a>
                 <h6>Admin</h6>
             </div>
             <div class="admin2">

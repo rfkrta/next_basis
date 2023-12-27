@@ -18,7 +18,7 @@
     @endif
 
     <div class="cong-box4">
-        <form action="{{ route('admin.user.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('admin.user.store') }}" method="post" enctype="multipart/form-data" id="ubah">
             @csrf
             <div class="content">
                 <div class="tgl">
@@ -89,17 +89,17 @@
                     </div>
                 </div>
                 <div class="tgl">
+                    <!-- Posisi -->
                     <div class="tgl1">
                         <h5>Posisi</h5>
                         <select name="id_positions" id="id_positions" required class="date">
-                            <option value="">
-                                Pilih Posisi Karyawan
-                            </option>
+                            <option value="">Pilih Posisi Karyawan</option>
                             @foreach ($position as $position)
                             <option value="{{ $position->id }}">{{ $position->nama_posisi }}</option>
                             @endforeach
                         </select>
                     </div>
+                    <!-- Gaji -->
                     <div class="tgl1">
                         <h5>Gaji</h5>
                         <input type="text" name="gaji_posisi" id="gaji_posisi" class="date gaji_posisi" readonly>
@@ -125,6 +125,11 @@
                             @endforeach
                         </select>
                     </div>
+                    <!-- Profile Image -->
+                        <div class="tgl1">
+                            <h5>Foto Profil</h5>
+                            <input type="file" name="foto_profil" id="foto_profil" class="date">
+                        </div>
                 </div>
                 <div class="button">
                     <button type="submit" class="btnc btn-primary btn-block">
@@ -132,9 +137,8 @@
                     </button>
                 </div>
             </div>
+        </form>
     </div>
-    </form>
-</div>
 </div>
 @endsection
 
@@ -142,6 +146,7 @@
 <!-- <script type="text/javascript" src="{{ url('admin/js/jquery-1.10.2.js') }}"></script> -->
 <!-- <script type="text/javascript" src="{{ url('admin/js/jquery-3.7.1.min.js') }}"></script> -->
 <script type="text/javascript" src="{{ url('admin/js/jquery-3.6.0.min.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
     $(function() {
         $.ajaxSetup({
@@ -153,20 +158,32 @@
             $('#id_positions').on('change', function() {
                 var selectedValue = $(this).val();
 
-                $.ajax({
-                    url: "{{ route('getGajiPosisiById', ':id') }}".replace(':id', selectedValue),
-                    type: 'GET',
-                    success: function(data) {
-                        // Format the received salary as IDR before setting it in the input field
-                        var formattedSalary = 'Rp.' + new Intl.NumberFormat('id-ID').format(data.gaji_posisi);
+                if (selectedValue !== '') {
+                    $.ajax({
+                        url: '/getGajiPosisiById?id_positions=' + selectedValue,
+                        type: 'GET',
+                        success: function(data) {
+                            var formattedSalary = 'Rp.' + new Intl.NumberFormat('id-ID').format(data.gaji_posisi);
+                            $('#gaji_posisi').val(formattedSalary);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
+                } else {
+                    $('#gaji_posisi').val('');
+                }
+            });
+            // Event listener for form submission
+            $('#ubah').on('submit', function() {
+                var currentVal = $('#gaji_posisi').val();
+                var originalVal = parseInt(currentVal.replace(/[^\d]/g, ''));
 
-                        // Update the gaji_posisi field value here with the formatted salary
-                        $('#gaji_posisi').val(formattedSalary);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(error);
-                    }
-                });
+                // Update the input field with the original value (as integer)
+                $('#gaji_posisi').val(originalVal);
+
+                // Return true to continue form submission
+                return true;
             });
         });
 

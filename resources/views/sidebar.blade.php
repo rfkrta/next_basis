@@ -12,21 +12,15 @@
             <i class="fa fa-plane"></i> <a>Perjalanan Dinas</a>
         </li>
         <li style="cursor: pointer;" onclick="window.location='{{ route('admin.absensi.index') }}';">
-            <i class="fa fa-users"></i> <a>Absensi</a>
+            <i class="fa fa-users"></i> <a >Absensi</a>
         </li>
         <li style="cursor: pointer;" onclick="window.location='{{ route('admin.mitra.index') }}';">
             <i class="fa fa-building"></i> <a>Mitra Perusahaan</a>
         </li>
         <li style="cursor: pointer;" onclick="window.location='{{ route('admin.dataperusahaan.inventaris.index') }}';">
             <i class="fa fa-folder-open"></i>
-
-            <a href="#">Data Perusahaan</a>
-            <span class="span4"><i class="fa fa-angle-right"></i></span>
-
             <a>Inventaris</a>
             <!-- <span class="span4"><i class="fa fa-angle-right"></i></span> -->
-
-
         </li>
         <li style="cursor: pointer;" onclick="window.location='{{ route('admin.dataperusahaan.router.index') }}';">
             <i class="fa fa-rss-square"></i>
@@ -47,8 +41,8 @@
         <div class="out">
             <img src="{{ asset('img/avatar.svg') }}" alt="">
             <div class="admin1">
-                <a href="#">{{ auth()->user()->name }}</a>
-                <h6>Admin</h6>
+            <a href="#">{{ auth()->user()->name }}</a>
+                <h6>{{ auth()->user()->role->name }}</h6>
             </div>
             <div class="admin2">
                 <a href="{{ route('logout') }}" class="btn-danger">

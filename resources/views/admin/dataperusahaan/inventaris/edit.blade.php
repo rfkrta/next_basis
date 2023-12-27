@@ -17,49 +17,52 @@
             </div>
         @endif
 
-        <div class="cong-box2">
+        <div class="cong-box">
             <form action="{{ route('admin.dataperusahaan.inventaris.update', $item->id) }}" method="post" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="content">
-                    <h5>Kode Inventaris</h5>
-                    <div class="form-group">
-                        <input type="text" name="Kode" id="Kode" class="form-control" value="{{ $item->Kode }}" readonly>
+                    <div class="form-1">
+                        <label for="Kode">Kode Inventaris</label>
+                        <input type="text" name="Kode" id="Kode" value="{{ $item->Kode }}" readonly>
                     </div>
-                    <div class="tglx1">
-                        <div class="tgl1">
-                            <h5>Nama Inventaris</h5>
-                            <input type="text" name="Nama_Barang" id="Nama_Barang" class="date" placeholder="Tuliskan Nama Inventaris, di sini" value="{{ $item->Nama_Barang }}" required>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="Nama_Barang">Nama Inventaris</label>
+                            <input type="text" name="Nama_Barang" id="Nama_Barang" placeholder="Tuliskan Nama Inventaris, di sini" value="{{ $item->Nama_Barang }}" required>
                         </div>
-                        <div class="tgl1">
-                            <h5>Kategori Inventaris</h5>
-                            <div class="form-group1">
-                                <select name="Kategori" id="Kategori" required class="form-control1" required>
-                                    <option value="{{ $item->Kategori }}">
-                                        {{ $item->Kategori }}
-                                    </option>
-                                @foreach ($kategoriInventaris as $kategori)
-                                    <option value="{{ $kategori->nama_inv }}">{{ $kategori->nama_inv }}</option>
-                                @endforeach
-                                </select>
-                            </div>
+                        <div class="form-1">
+                            <label for="Kategori">Kategori Inventaris</label>
+                            <select name="Kategori" id="Kategori" required>
+                                <option value="{{ $item->Kategori }}">
+                                    {{ $item->kategoriInventaris->nama_inv }}
+                                </option>
+                            @foreach ($kategoriInventaris as $kategori)
+                                <option value="{{ $kategori->nama_inv }}">{{ $kategori->nama_inv }}</option>
+                            @endforeach
+                            </select>
                         </div>
                     </div>
-                    <div class="tglx1">
-                        <div class="tgl1">
-                            <h5>Jumlah</h5>
-                            <input type="number" name="Jumlah" id="Jumlah" class="date" placeholder="Tuliskan Jumlah Inventaris, di sini" value="{{ $item->Jumlah }}" required>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="Jumlah">Jumlah</label>
+                            <input type="number" name="Jumlah" id="Jumlah" placeholder="Tuliskan Jumlah Inventaris, di sini" value="{{ $item->Jumlah }}" required>
                         </div>
-                        <div class="tgl1">
-                            <h5>Tanggal Diperoleh</h5>
-                            <input type="date" name="Tanggal_Diperoleh" id="Tanggal_Diperoleh" class="date" placeholder="Pilih Tanggal Perolehan Inventaris, di sini" value="{{ $item->Tanggal_Diperoleh }}" required>
+                        <div class="form-1">
+                            <label for="Tanggal_Diperoleh">Tanggal Diperoleh</label>
+                            <input type="date" name="Tanggal_Diperoleh" id="Tanggal_Diperoleh" placeholder="Pilih Tanggal Perolehan Inventaris, di sini" value="{{ $item->Tanggal_Diperoleh }}" required>
                         </div>
                     </div>
                     <div class="button">
-                        <button type="submit" class="btny1 btn-primary btn-block">
+                        <button type="submit" class="button-cong">
                             Ubah Inventaris
                         </button>
                     </div>
+                    <!-- <div class="button">
+                        <button type="submit" class="btny1 btn-primary btn-block">
+                            Ubah Inventaris
+                        </button>
+                    </div> -->
                 </div>
             </form>
         </div>

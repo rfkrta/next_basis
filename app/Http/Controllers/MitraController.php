@@ -35,17 +35,23 @@ class MitraController extends Controller
 
         $status = $request->input('status'); // Get the 'status' parameter from the request
 
-        $mitra = Mitra::with('regency', 'province', 'district', 'village'); // Eager load relationships 'user' and 'kategori'
+        $mitrar = Mitra::with('regency', 'province', 'district', 'village'); // Eager load relationships 'user' and 'kategori'
     
         // Filter mitra based on 'status' parameter
         if ($status === 'Aktif' || $status === 'Tidak Aktif') {
-            $mitra->where('status', $status);
+            $mitrar->where('status', $status);
         }
     
-        $mitra = $mitra->get();
+        $mitra = $mitrar->paginate(10);
+
+        $search = strtolower($request->input('search', ''));
+
+        // Gunakan query builder atau model sesuai dengan kebutuhan Anda
+        $mitras = Mitra::whereRaw('LOWER(nama_mitra) LIKE ?', ["%$search%"])->paginate(10);
+        
 
         // Logika untuk menampilkan halaman dashboard
-        return view('admin.mitra.index', compact('items', 'mitra', 'status'));
+        return view('admin.mitra.index', compact('items', 'mitra', 'status', 'search', 'mitras'));
     }
 
     /**
@@ -170,6 +176,27 @@ class MitraController extends Controller
         $item->update($data);
 
         return redirect()->route('admin.mitra.index');
+    }
+
+    public function searchByName(Request $request)
+    {
+        $status = $request->input('status'); // Get the 'status' parameter from the request
+
+        $mitrar = Mitra::with('regency', 'province', 'district', 'village'); // Eager load relationships 'user' and 'kategori'
+    
+        // Filter mitra based on 'status' parameter
+        if ($status === 'Aktif' || $status === 'Tidak Aktif') {
+            $mitrar->where('status', $status);
+        }
+    
+        $mitrar = $mitrar->paginate(10);
+        $search = strtolower($request->input('search', ''));
+
+        // Gunakan query builder atau model sesuai dengan kebutuhan Anda
+        $mitra = Mitra::whereRaw('LOWER(nama_mitra) LIKE ?', ["%$search%"])->paginate(10);
+
+        return view('admin.mitra.index', compact('mitra', 'search', 'status'))
+                ->with('noData', $mitra->isEmpty());
     }
 
     /**

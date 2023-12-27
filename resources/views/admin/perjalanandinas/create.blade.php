@@ -20,40 +20,98 @@
     </div>
     @endif
 
-    <div class="cong-box4">
-        <form action="{{ route('admin.perjalanandinas.store') }}" method="post" enctype="multipart/form-data">
-            @csrf
-            <div class="content">
-                <h5>Perusahaan</h5>
-                <div class="form-group">
-                    <select name="id_mitras" id="id_mitras" required class="form-control">
-                        <option value="">
-                            Pilih Perusahaan
-                        </option>
+        <div class="cong-box">
+            <form action="{{ route('admin.perjalanandinas.store') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="content">
+                    <div class="form-1x">
+                        <label for="id_mitras">Perusahaan</label>
+                        <select name="id_mitras" id="id_mitras" required>
+                            <option value="">
+                                Pilih Perusahaan
+                            </option>
                         @foreach ($mitra as $mitra)
                         <option value="{{ $mitra->id }}">{{ $mitra->nama_mitra }}</option>
                         @endforeach
-                    </select>
-                </div>
-                <div class="tglx1">
-                    <div class="tgl1">
-                        <h5>Kota Keberangkatan</h5>
-                        <div class="form-group1">
-                            <select name="kota_keberangkatan" id="kota_keberangkatan" required class="form-control1">
+                        </select>
+                    </div>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="kota_keberangkatan">Kota Keberangkatan</label>
+                            <select name="kota_keberangkatan" id="kota_keberangkatan" required>
                                 <option>
                                     Pilih Kabupaten / Kota...
                                 </option>
-                                @foreach ($regency as $kota)
+                            @foreach ($regency as $kota)
                                 <option value="{{ $kota->id }}">{{ $kota->name }}</option>
-                                @endforeach
+                            @endforeach
                             </select>
                         </div>
-                        <!-- <input type="text" name="kota" id="kota" class="date" placeholder="Tuliskan kota keberangkatan, di sini" value="{{ old('kota') }}"> -->
+                        <div class="form-1">
+                            <label for="komisi_dinas">Komisi</label>
+                            <input type="number" name="komisi_dinas" id="komisi_dinas" readonly>
+                        </div>
                     </div>
-                    <div class="tgl1">
-                        <h5>Komisi</h5>
-                        <input type="number" name="komisi_dinas" id="komisi_dinas" class="date" placeholder="" readonly>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="tanggal_mulai">Tanggal Mulai</label>
+                            <input type="date" name="tanggal_mulai" id="tanggal_mulai" value="{{ old('tanggal_mulai') }}">
+                        </div>
+                        <div class="form-1">
+                            <label for="tanggal_selesai">Tanggal Selesai</label>
+                            <input type="date" name="tanggal_selesai" id="tanggal_selesai" value="{{ old('tanggal_selesai') }}">
+                        </div>
                     </div>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="id_anggota1">Anggota 1</label>
+                            <select name="id_anggota1" id="id_anggota1" required>
+                                <option value="">
+                                    Pilih anggota 1
+                                </option>
+                            @foreach ($user as $users)
+                                <option value="{{ $users->id }}">{{ $users->name }}</option>
+                            @endforeach
+                            </select>
+                        </div>
+                        <div class="form-1">
+                            <label for="id_anggota2">Anggota 2</label>
+                            <select name="id_anggota2" id="id_anggota2" required>
+                                <option value="">
+                                    Pilih anggota 2
+                                </option>
+                            @foreach ($user as $users)
+                                <option value="{{ $users->id }}">{{ $users->name }}</option>
+                            @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="button1">
+                        <button type="button" id="tambahAnggotaBtn" onclick="openTambahAnggota()" class="button-cong1">
+                            Tambah Anggota
+                        </button>
+                        @include('admin.perjalanandinas.tambah-anggota')
+                    </div>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="nama_PIC_perusahaan">PIC Perusahaan</label>
+                            <input type="text" name="nama_PIC_perusahaan" id="nama_PIC_perusahaan" readonly>
+                        </div>
+                        <div class="form-1">
+                            <label for="jabatan_PIC">Jabatan PIC</label>
+                            <input type="text" name="jabatan_PIC" id="jabatan_PIC" readonly>
+                        </div>
+                    </div>
+                    <div class="button">
+                        <button type="submit" class="button-cong" onclick="openConfirmationAddModal()">
+                            Ajukan Dinas
+                        </button>
+                    </div>
+                    <!-- <div class="button">
+                        <button type="submit" class="btny1 btn-primary btn-block" onclick="openConfirmationAddModal()">
+                            Ajukan Dinas
+                        </button>
+                    </div> -->
                 </div>
                 <div class="tgl">
                     <div class="tgl1">

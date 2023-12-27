@@ -8,7 +8,10 @@
         <div class="view">
             <div class="search">
                 <i class="fa fa-search"></i>
-                <input type="text" name="" class="input1" placeholder="Search">
+                <form id="searchForm" action="{{ route('searchByNameRouter') }}" method="GET">
+                    <input type="text" class="input1" name="search" id="searchInput" placeholder="Cari berdasarkan nama" value="{{ $search }}">
+                </form>
+                <!-- <input type="text" name="" class="input1" placeholder="Search"> -->
             </div>
             <div class="plus">
                 <i class="fa fa-plus"></i>
@@ -18,44 +21,56 @@
                 </button>
             </div>
         </div>
-
-        <div class="cong-box">
-            <div>
-                <table  class="box" cellspacing="0">
-                    <thead>
+        <div id="content">
+        <!-- Content area goes here -->
+            <table class="table" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Kode</th>
+                        <th>MAC Address</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($router as $item)
                         <tr>
-                            <th>No</th>
-                            <th>MAC Address</th>
-                            <th>Action</th>
+                            <td>{{ $item->kode_router }}</td>
+                            <td>{{ $item->nama_router }}</td>
+                            <td>
+                                <!-- <div class="btn-group"> -->
+                                    <a class="btn btn-danger btn-edit" data-id="{{ $item->id }}">
+                                        <i class="btn3 fa fa-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-danger btn-delete" data-id="{{ $item->id }}">
+                                        <i class="btn2 fa fa-trash"></i>
+                                    </a>
+                                <!-- </div> -->
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($item as $item)
-                            <tr>
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->nama_router }}</td>
-                                <td>
-                                    <!-- <div class="btn-group"> -->
-                                        <a class="btn btn-danger btn-edit" data-id="{{ $item->id }}">
-                                            <i class="btn3 fa fa-pencil"></i>
-                                        </a>
-                                        <a class="btn btn-danger btn-delete" data-id="{{ $item->id }}">
-                                            <i class="btn2 fa fa-trash"></i>
-                                        </a>
-                                    <!-- </div> -->
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="3" class="text-center">
-                                    <img src="{{ asset('img/1.png') }}" alt="none">
-                                    <p>Tidak ada data Router</p>
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+                    @empty
+                    @if($router->isEmpty())
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            <img src="{{ asset('img/1.png') }}" alt="none">
+                            <p>Tidak ada data Router</p>
+                        </td>
+                    </tr>
+                    @elseif($noData)
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            <img src="{{ asset('img/1.png') }}" alt="none">
+                            <p>Tidak ada data Router</p>
+                        </td>
+                    </tr>
+                    @endif
+                    @endforelse
+                </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <ul class="pagination">
+                {{ $router->links() }}
+            </ul>
         </div>
     </div>
     <!-- Modal Tambah -->
@@ -65,6 +80,8 @@
             <div class="linex"></div>
             <form id="formTambahRouter">
                 @csrf
+                <label for="kode_router">Kode Router :</label>
+                <input type="text" id="kode_router" name="kode_router" value="{{ $kode_router }}" readonly>
                 <label for="nama_router">Nama Router :</label>
                 <input type="text" id="nama_router" name="nama_router" placeholder="Masukkan Router" required>
                 <div class="btn-groupx">
@@ -80,7 +97,7 @@
         <div class="modal-content1">
             <h2>Edit Router</h2>
             <!-- Menampilkan ID dan Nama Router -->
-            <p>ID Router: <span id="displayRouterId"></span></p>
+            <p>Kode Router: <span id="displayRouterId"></span></p>
             <p>Nama Router: <span id="displayNamaRouter"></span></p>
             <div class="linex"></div>
             <form id="formEditRouter" action="{{ route('update-router', ['id' => '__router_id__']) }}" method="post">
@@ -207,7 +224,7 @@
                     $('#editRouterId').val(data.id);
 
                     // Menetapkan nilai ID dan Nama Router pada elemen span di modal
-                    $('#displayRouterId').text(data.id);
+                    $('#displayRouterId').text(data.kode_router);
                     $('#displayNamaRouter').text(data.nama_router);
 
                     // Mengubah action pada form untuk menyertakan ID router yang sedang diedit
@@ -229,6 +246,14 @@
             // Menutup modal edit
             $('#editRouterModal').hide();
         });
+
+        // Menangani klik di luar modal untuk menutup modal
+        window.onclick = function (event) {
+            var modal = document.getElementById('tambahRouterModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
 
         // Menangani klik di luar modal untuk menutup modal
         window.onclick = function (event) {
@@ -257,6 +282,11 @@
                     },
                 });
             }
+        });
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            // Mengirim permintaan pencarian saat input berubah
+            document.getElementById('searchForm').submit();
         });
     });
 </script>

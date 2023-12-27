@@ -96,7 +96,7 @@ class Dinas extends Model
                 $komisi = $this->komisi_dinas;
                 $biayaPerAnggota = $this->komisi_dinas;
                 // Logika penghitungan komisi sesuai kebutuhan
-
+                
                 // $totalBiaya = $this->komisi_dinas; 
                 // $persentaseKomisi = 0.1; 
                 // $komisi = $totalBiaya * $persentaseKomisi;
@@ -206,12 +206,13 @@ class Dinas extends Model
     //     ]);
     // }
 
+
     public function hitungJumlahAnggota()
     {
         return (int)($this->id_anggota1 ? 1 : 0) +
-            (int)($this->id_anggota2 ? 1 : 0) +
-            (int)($this->id_anggota3 ? 1 : 0) +
-            (int)($this->id_anggota4 ? 1 : 0);
+               (int)($this->id_anggota2 ? 1 : 0) +
+               (int)($this->id_anggota3 ? 1 : 0) +
+               (int)($this->id_anggota4 ? 1 : 0);
     }
 
     protected function mitraSudahDikunjungi($mitraTujuan)

@@ -61,16 +61,21 @@ class PerjalanandinasController extends Controller
 
         $status = $request->input('status'); // Get the 'status' parameter from the request
 
-        $dinas = Dinas::with('mitra', 'user', 'user1', 'user2', 'user3', 'regency', 'biayaDinas', 'komisiDinas'); // Eager load relationships 'user' and 'kategori'
-
+        $dinas = Dinas::with('mitra', 'user', 'user1', 'user2', 'user3','regency', 'biayaDinas', 'komisiDinas'); // Eager load relationships 'user' and 'kategori'
+    
         // Filter Dinas based on 'status' parameter
         if ($status === 'Selesai' || $status === 'Berjalan' || $status === 'Tertunda') {
             $dinas->where('status', $status);
         }
+    
+        $dinas = $dinas->paginate(10);
 
-        $dinas = $dinas->get();
+        $search = strtolower($request->input('search', ''));
 
-        return view('admin.perjalanandinas.index', compact('regency', 'user', 'mitra', 'dinas_mitra', 'dinas_user', 'dinas_regency', 'dinas', 'status'));
+        // Gunakan query builder atau model sesuai dengan kebutuhan Anda
+        $dinass = Dinas::whereRaw('LOWER(id_mitras) LIKE ?', ["%$search%"])->paginate(10);
+
+        return view('admin.perjalanandinas.index', compact('regency', 'user', 'mitra', 'dinas_mitra', 'dinas_user', 'dinas_regency', 'dinas', 'status', 'dinass', 'search'));
     }
 
     /**
@@ -308,6 +313,28 @@ class PerjalanandinasController extends Controller
         $item->update($data);
 
         return redirect()->route('admin.perjalanandinas.index');
+    }
+
+    public function searchByName(Request $request)
+    {
+        $status = $request->input('status'); // Get the 'status' parameter from the request
+
+        $dinass = Dinas::with('mitra', 'user', 'user1', 'user2', 'user3','regency', 'biayaDinas', 'komisiDinas'); // Eager load relationships 'user' and 'kategori'
+    
+        // Filter Dinas based on 'status' parameter
+        if ($status === 'Selesai' || $status === 'Berjalan' || $status === 'Tertunda') {
+            $dinass->where('status', $status);
+        }
+    
+        $dinasss = $dinass->paginate(10);
+
+        $search = strtolower($request->input('search', ''));
+
+        // Gunakan query builder atau model sesuai dengan kebutuhan Anda
+        $dinas = Dinas::whereRaw('LOWER(id_mitras) LIKE ?', ["%$search%"])->paginate(10);
+
+        return view('admin.perjalanandinas.index', compact('dinas', 'search', 'status'))
+                ->with('noData', $dinas->isEmpty());
     }
 
     /**

@@ -17,22 +17,69 @@
     </div>
     @endif
 
-    <div class="cong-box4">
-        <form action="{{ route('admin.perjalanandinas.store') }}" method="post" enctype="multipart/form-data">
-            @csrf
-            <div class="content">
-                <div class="nama">
-                    <h5>Nama Perusahaan</h5>
-                    <input type="text" name="id_mitras" id="id_mitras" class="input2" value="{{ $item->mitra->nama_mitra }}" readonly>
-                </div>
-                <div class="tglx1">
-                    <div class="tgl1">
-                        <h5>Kota Keberangkatan</h5>
-                        <input type="text" name="kota_keberangkatan" id="kota_keberangkatan" class="date" value="{{ $item->regency->name }}" readonly>
+        <div class="cong-box">
+            <form action="{{ route('admin.perjalanandinas.store') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="content">
+                    <div class="form-1">
+                        <label for="id_mitras">Perusahaan</label>
+                        <input type="text" name="id_mitras" id="id_mitras" value="{{ $item->mitra->nama_mitra }}" readonly>
                     </div>
-                    <div class="tgl1">
-                        <h5>Komisi</h5>
-                        <input type="number" name="komisi_dinas" id="komisi_dinas" class="date" value="{{ $item->komisi_dinas }}" readonly>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="kota_keberangkatan">Kota Keberangkatan</label>
+                            <input type="text" name="kota_keberangkatan" id="kota_keberangkatan" value="{{ $item->regency->name }}" readonly>
+                        </div>
+                        <div class="form-1">
+                            <label for="komisi_dinas">Komisi</label>
+                            <input type="number" name="komisi_dinas" id="komisi_dinas" value="{{ $item->komisi_dinas }}" readonly>
+                        </div>
+                    </div>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="tanggal_mulai">Tanggal Mulai</label>
+                            <input type="date" name="tanggal_mulai" id="tanggal_mulai" value="{{ $item->tanggal_mulai }}" readonly>
+                        </div>
+                        <div class="form-1">
+                            <label for="tanggal_selesai">Tanggal Selesai</label>
+                            <input type="date" name="tanggal_selesai" id="tanggal_selesai" value="{{ $item->tanggal_selesai }}" readonly>
+                        </div>
+                    </div>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="id_anggota1">Anggota 1</label>
+                            <input type="text" name="id_anggota1" id="id_anggota1" value="{{ $item->user->name }}" readonly>
+                        </div>
+                        <div class="form-1">
+                            <label for="id_anggota2">Anggota 2</label>
+                            <input type="text" name="id_anggota2" id="id_anggota2" value="{{ $item->user1->name }}" readonly>
+                        </div>
+                    </div>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="id_anggota3">Anggota 3</label>
+                            <input type="text" name="id_anggota3" id="id_anggota3" value="{{ $item->user2->name ?: 'Belum diisi' }}" readonly>
+                            @if ($item->user2->wasRecentlyCreated)
+                                <p>Anggota 3 belum diisi.</p>
+                            @endif
+                        </div>
+                        <div class="form-1">
+                            <label for="id_anggota4">Anggota 4</label>
+                            <input type="text" name="id_anggota4" id="id_anggota4" value="{{ $item->user3->name ?: 'Belum diisi' }}" readonly>
+                            @if ($item->user3->wasRecentlyCreated)
+                                <p>Anggota 4 belum diisi.</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="form1">
+                        <div class="form-1">
+                            <label for="nama_PIC_perusahaan">PIC Perusahaan</label>
+                            <input type="text" name="nama_PIC_perusahaan" id="nama_PIC_perusahaan" value="{{ $item->nama_PIC_perusahaan }}" readonly>
+                        </div>
+                        <div class="form-1">
+                            <label for="jabatan_PIC">Jabatan PIC</label>
+                            <input type="text" name="jabatan_PIC" id="jabatan_PIC" value="{{ $item->jabatan_PIC }}" readonly>
+                        </div>
                     </div>
                 </div>
                 <div class="tgl">
@@ -99,59 +146,37 @@
             </div>
         </form>
 
-        <!-- <h5>Biaya Estimasi</h5> -->
-        <table class="box" cellspacing="0">
-            <thead>
-                <tr>
-                    <th class="lebarTabel">No</th>
-                    <th>Biaya Hotel</th>
-                    <th>Biaya Transportasi</th>
-                    <th>Biaya Konsumsi</th>
-                    <th>Biaya Lainnya</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ $item->biayaDinas->id ?: 'Belum diisi' }}</td>
-                    @if ($item->biayaDinas->wasRecentlyCreated)
-                    <p>ID belum ada.</p>
+            <!-- <h5>Biaya Estimasi</h5> -->
+            <table class="box" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="lebarTabel">No</th>
+                        <th>Biaya Hotel</th>
+                        <th>Biaya Transportasi</th>
+                        <th>Biaya Konsumsi</th>
+                        <th>Biaya Lainnya</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if ($item->biayaDinas)
+                        <tr>
+                            <td>
+                                {{ $item->biayaDinas->id }}
+                            </td>
+                            <td>{{ $item->biayaDinas->biaya_hotel }}</td>
+                            <td>{{ $item->biayaDinas->biaya_transportasi }}</td>
+                            <td>{{ $item->biayaDinas->biaya_konsumsi }}</td>
+                            <td>{{ $item->biayaDinas->biaya_lain }}</td>
+                        </tr>
+                    @else
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                <p>Biaya Dinas belum diisi.</p>
+                            </td>
+                        </tr>
                     @endif
-                    <td>{{ $item->biayaDinas->biaya_hotel ?: 'Belum diisi' }}</td>
-                    @if ($item->biayaDinas->wasRecentlyCreated)
-                    <p>Biaya Hotel belum diisi.</p>
-                    @endif
-                    <td>{{ $item->biayaDinas->biaya_transportasi ?: 'Belum diisi' }}</td>
-                    @if ($item->biayaDinas->wasRecentlyCreated)
-                    <p>Biaya Transportasi belum diisi.</p>
-                    @endif
-                    <td>{{ $item->biayaDinas->biaya_konsumsi ?: 'Belum diisi' }}</td>
-                    @if ($item->biayaDinas->wasRecentlyCreated)
-                    <p>Biaya Konsumsi belum diisi.</p>
-                    @endif
-                    <td>{{ $item->biayaDinas->biaya_lain ?: 'Belum diisi' }}</td>
-                    @if ($item->biayaDinas->wasRecentlyCreated)
-                    <p>Biaya Lainnya belum diisi.</p>
-                    @endif
-                </tr>
-                @if ($item->biayaDinas)
-                <tr>
-                    <td>
-                        {{ $item->biayaDinas->id }}
-                    </td>
-                    <td>{{ $item->biayaDinas->biaya_hotel }}</td>
-                    <td>{{ $item->biayaDinas->biaya_transportasi }}</td>
-                    <td>{{ $item->biayaDinas->biaya_konsumsi }}</td>
-                    <td>{{ $item->biayaDinas->biaya_lain }}</td>
-                </tr>
-                @else
-                <tr>
-                    <td colspan="5" class="text-center">
-                        <p>Biaya Dinas belum diisi.</p>
-                    </td>
-                </tr>
-                @endif
-            </tbody>
-        </table>
+                </tbody>
+            </table>
 
     </div>
 </div>

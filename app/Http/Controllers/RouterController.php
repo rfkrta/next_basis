@@ -10,11 +10,30 @@ use App\Http\Controllers\Controller;
 
 class RouterController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $item = Router::all();
+        // Ambil kode barang untuk ditampilkan pada form create
+        $latestCode = Router::latest('id')->value('kode_router');
+
+        // Jika sudah ada, ambil angka, tambahkan 1, dan format ulang sebagai kode barang baru
+        if ($latestCode) {
+            $nextNumber = intval(substr($latestCode, -3)) + 1;
+            $newCode = 'RTR-' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        } else {
+            // Jika belum ada, gunakan INV-001 sebagai kode barang awal
+            $newCode = 'RTR-001';
+        }
+
+        $items = Router::all();
+
+        $router = Router::paginate(10);
+
+        $search = strtolower($request->input('search', ''));
+
+        // Gunakan query builder atau model sesuai dengan kebutuhan Anda
+        $routers = Router::whereRaw('LOWER(nama_router) LIKE ?', ["%$search%"])->paginate(10);
         // Logika untuk menampilkan halaman dashboard
-        return view('admin.dataperusahaan.router.index', compact('item'));
+        return view('admin.dataperusahaan.router.index', ['kode_router' => $newCode], compact('search', 'routers', 'items', 'router'));
     }
 
     // public function store(Request $request)
@@ -97,5 +116,28 @@ class RouterController extends Controller
 
         // Redirect ke halaman yang sesuai, atau kirim respons JSON jika digunakan secara AJAX
         return redirect()->back()->with('success', 'Router berhasil dihapus.');
+    }
+
+    public function searchByName(Request $request)
+    {
+        // Ambil kode barang untuk ditampilkan pada form create
+        $latestCode = Router::latest('id')->value('kode_router');
+
+        // Jika sudah ada, ambil angka, tambahkan 1, dan format ulang sebagai kode barang baru
+        if ($latestCode) {
+            $nextNumber = intval(substr($latestCode, -3)) + 1;
+            $newCode = 'RTR-' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        } else {
+            // Jika belum ada, gunakan INV-001 sebagai kode barang awal
+            $newCode = 'RTR-001';
+        }
+
+        $search = strtolower($request->input('search', ''));
+
+        // Gunakan query builder atau model sesuai dengan kebutuhan Anda
+        $router = Router::whereRaw('LOWER(nama_router) LIKE ?', ["%$search%"])->paginate(10);
+
+        return view('admin.dataperusahaan.router.index',['kode_router' => $newCode], compact('router', 'search'))
+                ->with('noData', $router->isEmpty());
     }
 }

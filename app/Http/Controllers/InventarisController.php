@@ -29,13 +29,19 @@ class InventarisController extends Controller
         $inventarisWith = Inventaris::with('kategoriInventaris');
         $kategori = $request->input('Kategori'); // Get the 'status' parameter from the request
         // Filter Cutis based on 'status' parameter
-        if ($kategori === 'Gedung' || $kategori === 'Kendaraan') {
+        if ($kategori === 1 || $kategori === 2) {
             $inventarisWith->where('Kategori', $kategori);
         }
     
-        $inventarisWith = $inventarisWith->get(); // Retrieve filtered cutis
+        $inventarisWith = $inventarisWith->paginate(10);
+
+        $search = strtolower($request->input('search', ''));
+
+        // Gunakan query builder atau model sesuai dengan kebutuhan Anda
+        $inventarisWithh = Inventaris::whereRaw('LOWER(Nama_Barang) LIKE ?', ["%$search%"])->paginate(10);
+
         // Kirim data inventaris ke tampilan Blade
-        return view('admin.dataperusahaan.inventaris.index', compact('inventaris', 'inventarisBaru', 'kategoriInventaris', 'inventarisWith', 'kategori'));
+        return view('admin.dataperusahaan.inventaris.index', compact('inventaris', 'inventarisBaru', 'kategoriInventaris', 'inventarisWith', 'kategori', 'inventarisWithh', 'search'));
     }
 
     /**
@@ -108,5 +114,24 @@ class InventarisController extends Controller
         $item->update($data);
 
         return redirect()->route('admin.dataperusahaan.inventaris.index');
+    }
+
+    public function searchByName(Request $request)
+    {
+        $inventarisWithh = Inventaris::with('kategoriInventaris');
+        $kategori = $request->input('Kategori'); // Get the 'status' parameter from the request
+        // Filter Cutis based on 'status' parameter
+        if ($kategori === 'Gedung' || $kategori === 'Kendaraan') {
+            $inventarisWith->where('Kategori', $kategori);
+        }
+    
+        $inventarisWithh = $inventarisWithh->paginate(10);
+        $search = strtolower($request->input('search', ''));
+
+        // Gunakan query builder atau model sesuai dengan kebutuhan Anda
+        $inventarisWith = Inventaris::whereRaw('LOWER(Nama_Barang) LIKE ?', ["%$search%"])->paginate(10);
+
+        return view('admin.dataperusahaan.inventaris.index', compact('inventarisWith', 'search', 'kategori'))
+                ->with('noData', $inventarisWith->isEmpty());
     }
 }

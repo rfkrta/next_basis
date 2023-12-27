@@ -36,6 +36,7 @@ Route::middleware('laravel10')->group(function () {
     Route::put('/admin/pengajuancuti/{id}/updateToDitolak', [PengajuancutiController::class, 'updateToDitolak'])->name('admin.pengajuancuti.updateToDitolak');
     Route::get('/admin/pengajuancuti/create', [PengajuancutiController::class, 'create'])->name('admin.pengajuancuti.create');
     Route::post('/admin/pengajuancuti/store', [PengajuancutiController::class, 'store'])->name('admin.pengajuancuti.store');
+    Route::get('/search/cuti', [PengajuancutiController::class, 'searchByName'])->name('searchByNameCuti');
 
 
 
@@ -55,10 +56,9 @@ Route::middleware('laravel10')->group(function () {
     Route::get('/getKaryawanOptions', [PerjalanandinasController::class, 'getKaryawanOptions'])->name('getKaryawanOptions');
     Route::put('/admin/perjalanandinas/{id}/biaya', [PerjalanandinasController::class, 'updateBiaya'])->name('admin.perjalanandinas.updateBiaya');
     Route::put('/admin/perjalanandinas/{id}/updateToDiterima', [PerjalanandinasController::class, 'updateToDiterima'])->name('admin.perjalanandinas.updateToDiterima');
-    Route::put('/admin/perjalanandinas/{id}/updateToDitolak', [PerjalanandinasController::class, 'updateToDitolak'])->name('admin.perjalanandinas.updateToDitolak');  
+    Route::put('/admin/perjalanandinas/{id}/updateToDitolak', [PerjalanandinasController::class, 'updateToDitolak'])->name('admin.perjalanandinas.updateToDitolak');
+    Route::get('/search/dinas', [PerjalanandinasController::class, 'searchByName'])->name('searchByNameDinas');  
 
-
-    Route::get('/getGajiPosisiById', [UserController::class, 'getGajiPosisiById']);
     // absensi
     Route::get('/admin/absensi', [AbsensiController::class, 'index'])->name('admin.absensi.index');
     Route::get('/admin/absensi/create', [AbsensiController::class, 'create', 'user'])->name('admin.absensi.create');
@@ -71,6 +71,19 @@ Route::middleware('laravel10')->group(function () {
     Route::get('/admin/absensi/filter', [AbsensiController::class, 'filterabsensi'])->name('admin.absensi.filter');
     Route::get('/get-nip-by-name/{name}', [AbsensiController::class, 'getNIPByName'])->name('getNIPByName');
 
+    // Karyawan
+    Route::get('/admin/karyawan', [KaryawanController::class, 'index'])->name('admin.karyawan.index');
+    Route::get('/admin/karyawan/create', [KaryawanController::class, 'create', 'user'])->name('admin.karyawan.create');
+    Route::post('/admin/karyawan/store', [KaryawanController::class, 'store', 'user'])->name('admin.karyawan.store');
+    Route::get('/admin/karyawan/show/{id}', [KaryawanController::class, 'show'])->name('admin.karyawan.show');
+    Route::get('/admin/karyawan/edit/{id}', [KaryawanController::class, 'edit'])->name('admin.karyawan.edit');
+    Route::put('/admin/karyawan/{id}', [KaryawanController::class, 'update'])->name('admin.karyawan.update');
+    Route::get('/admin/karyawan/ajax', [KaryawanController::class, 'ajax'])->name('admin.karyawan.ajax');
+    Route::get('/getGajiPosisiById/{id}', [KaryawanController::class, 'getGajiPosisiById'])->name('getGajiPosisiById');
+    Route::get('/admin/karyawan/filter', [KaryawanController::class, 'filterKaryawan'])->name('admin.karyawan.filter');
+    Route::get('/get-nip-by-name/{name}', [KaryawanController::class, 'getNIPByName'])->name('getNIPByName');
+    Route::get('/search/karyawan', [KaryawanController::class, 'searchByName'])->name('searchByNameKaryawan');
+
     // Mitra
     Route::get('/admin/mitra', [MitraController::class, 'index'])->name('admin.mitra.index');
     Route::get('/admin/mitra/create', [MitraController::class, 'create'])->name('admin.mitra.create');
@@ -81,6 +94,7 @@ Route::middleware('laravel10')->group(function () {
     Route::get('/admin/mitra/{id}', [MitraController::class, 'edit'])->name('admin.mitra.edit');
     Route::get('/admin/mitra/detail/{id}', [MitraController::class, 'show'])->name('admin.mitra.show');
     Route::put('/admin/mitra/{id}', [MitraController::class, 'update'])->name('admin.mitra.update');
+    Route::get('/search/mitra', [MitraController::class, 'searchByName'])->name('searchByNameMitra');
 
     // Inventaris
     Route::get('/admin/dataperusahaan/inventaris', [InventarisController::class, 'index'])->name('admin.dataperusahaan.inventaris.index');
@@ -89,6 +103,7 @@ Route::middleware('laravel10')->group(function () {
     Route::get('/admin/dataperusahaan/inventaris/{id}/detail', [InventarisController::class, 'show'])->name('admin.dataperusahaan.inventaris.show');
     Route::get('/admin/dataperusahaan/inventaris/{id}/edit', [InventarisController::class, 'edit'])->name('admin.dataperusahaan.inventaris.edit');
     Route::put('/admin/dataperusahaan/inventaris/{id}/update', [InventarisController::class, 'update'])->name('admin.dataperusahaan.inventaris.update');
+    Route::get('/search/inventaris', [InventarisController::class, 'searchByName'])->name('searchByNameInventaris');
 
     // Router
     Route::get('/admin/dataperusahaan/router', [RouterController::class, 'index'])->name('admin.dataperusahaan.router.index');
@@ -97,6 +112,7 @@ Route::middleware('laravel10')->group(function () {
     Route::get('/get-router/{id}', [RouterController::class, 'getRouter']);
     Route::put('/update-router/{id}', [RouterController::class, 'update'])->name('update-router');
     Route::delete('/delete-router/{id}', [RouterController::class, 'destroy'])->name('delete-router');
+    Route::get('/search/router', [RouterController::class, 'searchByName'])->name('searchByNameRouter');
 
     // User
     Route::get('/admin/user/', [UserController::class, 'index'])->name('admin.user.index');
@@ -108,4 +124,5 @@ Route::middleware('laravel10')->group(function () {
     Route::get('/admin/user/detail/{id}', [UserController::class, 'show'])->name('admin.user.show');
     // Route::post('/admin/user/{id}/hitung-gaji', [GajiController::class, 'hitungGaji'])->name('user.hitungGaji');
     Route::post('/admin/user/{id}/hitung-gaji', [UserController::class, 'hitungGaji'])->name('admin.user.hitungGaji');
+    Route::get('/search/user', [UserController::class, 'searchByName'])->name('searchByNameUser');
 });

@@ -17,67 +17,67 @@
     </div>
     @endif
 
-    <div class="cong-box4">
-        <form action="{{ route('admin.user.store') }}" method="post" enctype="multipart/form-data" id="ubah">
+    <div class="cong-box">
+        <form action="{{ route('admin.user.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="content">
-                <div class="tgl">
-                    <div class="tgl1">
-                        <h5>Nama</h5>
-                        <input type="text" name="name" id="name" class="date" placeholder="Tuliskan nama, di sini" value="">
+                <div class="form1">
+                    <div class="form-1">
+                        <label for="name">Nama</label>
+                        <input type="text" name="name" id="name" placeholder="Tuliskan nama, di sini" value="{{ old('name') }}">
                     </div>
-                    <div class="tgl1">
-                        <h5>Email</h5>
-                        <input type="email" name="email" id="email" class="date" placeholder="Tuliskan Email, di sini" value="">
-                    </div>
-                </div>
-                <div class="tgl">
-                    <div class="tgl1">
-                        <h5>Password</h5>
-                        <input type="password" name="password" id="password" class="date" placeholder="Tuliskan password, di sini" value="">
-                    </div>
-                    <div class="tgl1">
-                        <h5>NIP</h5>
-                        <input type="nip" name="nip" id="nip" class="date" placeholder="Tuliskan NIP, di sini" value="{{ old('nip') }}">
+                    <div class="form-1">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" placeholder="Tuliskan Email, di sini" value="{{ old('email') }}">
                     </div>
                 </div>
-                <div class="tgl">
-                    <div class="tgl1">
-                        <h5>Kota</h5>
-                        <select name="kota" id="kota" required class="date">
+                <div class="form1">
+                    <div class="form-1">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" placeholder="Tuliskan password, di sini" value="{{ old('password') }}">
+                    </div>
+                    <div class="form-1">
+                        <label for="nip">NIP</label>
+                        <input type="nip" name="nip" id="nip" placeholder="Tuliskan NIP, di sini" value="{{ old('nip') }}">
+                    </div>
+                </div>
+                <div class="form1">
+                    <div class="form-1">
+                        <label for="kota">Kota</label>
+                        <select name="kota" id="kota" required>
                             <option>Pilih Kota...</option>
                             @foreach ($cities as $kota) <!-- Ganti $kotas sesuai dengan variabel yang berisi data kota -->
                             <option value="{{ $kota->name }}" id="option-{{ $kota->id }}">{{ $kota->name }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="tgl1">
-                        <h5>Alamat</h5>
-                        <input type="text" name="alamat" id="alamat " class="date" placeholder="Tuliskan alamat, di sini" value="{{ old('alamat') }}">
+                    <div class="form-1">
+                        <label for="alamat">Alamat</label>
+                        <input type="text" name="alamat" id="alamat" placeholder="Tuliskan alamat, di sini" value="{{ old('alamat') }}">
                     </div>
                 </div>
-                <div class="tgl">
-                    <div class="tgl1">
-                        <h5>No Telepon</h5>
-                        <input type="text" name="no_hp" id="no_hp" class="date" placeholder="Tuliskan no telp, di sini" value="{{ old('no_hp') }}">
+                <div class="form1">
+                    <div class="form-1">
+                        <label for="no_hp">No Telepon</label>
+                        <input type="text" name="no_hp" id="no_hp" placeholder="Tuliskan no telp, di sini" value="{{ old('no_hp') }}">
                     </div>
-                    <div class="tgl1">
-                        <h5>Tanggal Lahir</h5>
-                        <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="date" placeholder="Tuliskan no telp, di sini" value="{{ old('tanggal_lahir') }}">
+                    <div class="form-1">
+                        <label for="tanggal_lahir">Tanggal Lahir</label>
+                        <input type="date" name="tanggal_lahir" id="tanggal_lahir" placeholder="Tuliskan no telp, di sini" value="{{ old('tanggal_lahir') }}">
                     </div>
                 </div>
-                <div class="tgl">
-                    <div class="tgl1">
-                        <h5>Jenis Kelamin</h5>
-                        <select name="jenis_kelamin" id="jenis_kelamin" class="date">
+                <div class="form1">
+                    <div class="form-1">
+                        <label for="jenis_kelamin">Jenis Kelamin</label>
+                        <select name="jenis_kelamin" id="jenis_kelamin">
                             <option value="">Pilih Jenis Kelamin</option>
                             <option value="Pria">Pria</option>
                             <option value="Wanita">Wanita</option>
                         </select>
                     </div>
-                    <div class="tgl1">
-                        <h5>Agama</h5>
-                        <select name="agama" id="agama" class="date">
+                    <div class="form-1">
+                        <label for="agama">Agama</label>
+                        <select name="agama" id="agama">
                             <option value="">Pilih Agama</option>
                             <option value="Islam">Islam</option>
                             <option value="Kristen">Kristen</option>
@@ -88,37 +88,37 @@
                         </select>
                     </div>
                 </div>
-                <div class="tgl">
-                    <!-- Posisi -->
-                    <div class="tgl1">
-                        <h5>Posisi</h5>
-                        <select name="id_positions" id="id_positions" required class="date">
-                            <option value="">Pilih Posisi Karyawan</option>
+                <div class="form1">
+                    <div class="form-1">
+                        <label for="id_positions">Posisi</label>
+                        <select name="id_positions" id="id_positions" required>
+                            <option value="">
+                                Pilih Posisi Karyawan
+                            </option>
                             @foreach ($position as $position)
                             <option value="{{ $position->id }}">{{ $position->nama_posisi }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <!-- Gaji -->
-                    <div class="tgl1">
-                        <h5>Gaji</h5>
-                        <input type="text" name="gaji_posisi" id="gaji_posisi" class="date gaji_posisi" readonly>
+                    <div class="form-1">
+                        <label for="gaji_posisi">Gaji</label>
+                        <input type="text" name="gaji_posisi" id="gaji_posisi" readonly>
                     </div>
                 </div>
-                <div class="tgl">
-                    <div class="tgl1">
-                        <h5>Tanggal Mulai Kontrak Kerja</h5>
-                        <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="date" value="{{ old('tanggal_mulai') }}">
+                <div class="form1">
+                    <div class="form-1">
+                        <label for="tanggal_mulai">Tanggal Mulai Kontrak Kerja</label>
+                        <input type="date" name="tanggal_mulai" id="tanggal_mulai" value="{{ old('tanggal_mulai') }}">
                     </div>
-                    <div class="tgl1">
-                        <h5>Tanggal Selesai Kontrak Kerja</h5>
-                        <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="date" value="{{ old('tanggal_selesai') }}">
+                    <div class="form-1">
+                        <label for="tanggal_selesai">Tanggal Selesai Kontrak Kerja</label>
+                        <input type="date" name="tanggal_selesai" id="tanggal_selesai" value="{{ old('tanggal_selesai') }}">
                     </div>
                 </div>
-                <div class="tgl">
-                    <div class="tgl1">
-                        <h5>Role</h5>
-                        <select name="role_id" class="date">
+                <div class="form1">
+                    <div class="form-1">
+                        <label for="role_id">Role</label>
+                        <select name="role_id" id="role_id">
                             <option value="">Select Role</option>
                             @foreach($roles as $role)
                             <option value="{{ $role->id }}">{{ $role->name }}</option>
@@ -132,13 +132,19 @@
                         </div>
                 </div>
                 <div class="button">
-                    <button type="submit" class="btnc btn-primary btn-block">
+                    <button type="submit" class="button-cong">
                         Tambah Karyawan
                     </button>
                 </div>
+                <!-- <div class="button">
+                    <button type="submit" class="btnc btn-primary btn-block">
+                        Tambah Karyawan
+                    </button>
+                </div> -->
             </div>
         </form>
     </div>
+</div>
 </div>
 @endsection
 
@@ -293,35 +299,3 @@
 </script>
 
 @endpush
-<!-- <div class="form-group">
-                        <h5>NIP</h5>
-                        <input type="nip" class="form-control" name="nip" required>
-                    </div>
-                    <div class="form-group">
-                        <h5>Kota</h5>
-                        <input type="kota" class="form-control" name="kota" required>
-                    </div>
-                    <div class="form-group">
-                        <h5>Tanggal Lahir</h5>
-                        <input type="tgllahir" class="form-control" name="tgllahir" required>
-                    </div>
-                    <div class="form-group">
-                        <h5>No Telepon</h5>
-                        <input type="notelp" class="form-control" name="notelp" required>
-                    </div>
-                    <div class="form-group">
-                        <h5>Alamat</h5>
-                        <input type="alamat" class="form-control" name="alamat" required>
-                    </div>
-                    <div class="form-group">
-                        <h5>Jenis Kelamin</h5>
-                        <input type="jk" class="form-control" name="jk" required>
-                    </div>
-                    <div class="form-group">
-                        <h5>Status</h5>
-                        <input type="status" class="form-control" name="status" required>
-                    </div>
-                    <div class="form-group">
-                        <h5>Profile Photo</h5>
-                        <input type="file" class="form-control-file" name="profile_photo">
-                    </div> -->
